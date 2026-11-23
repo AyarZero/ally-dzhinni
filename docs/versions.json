@@ -1,0 +1,859 @@
+{
+  "current": "0.1",
+  "birthday": "2026-11-23",
+  "license": "MIT",
+  "releases": [
+    {
+      "version": "v0.1",
+      "date": "2026-11-23",
+      "status": "released",
+      "ru": {
+        "title": "AllY · Джинни v0.1 — первый публичный релиз",
+        "summary": "Первое рабочее десктопное ядро для Windows 10/11: единое окно переписки, локальная память на диске, сфера состояния, контроль квот и 3-шаговый мастер подключения нейросетей.",
+        "added": [
+          "Подключения и режим «Авто»: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, агрегатор API (OpenRouter) и обнаружение Qoder CLI с входом из окна.",
+          "Стартовый экран в теме «Графит» по умолчанию: слева «Переписка» с чистой сферой состояния, лентой шагов и плавной вертикальной границей; справа «Ресурсы» / «Помощники» (сверху) и «Ноутбук» (снизу) с изменяемой высотой.",
+          "Виджет «Ресурсы» и вкладка «Помощники»: 5-часовые/недельные квоты, контроль контекстного окна (порог 350k) и баланс без платных фоновых опросов.",
+          "Нативный анимированный установщик и сплеш-экран AllY.exe + встроенная кнопка-книга «Справка и свод версий» (и автономное окно AllY-Guide.exe).",
+          "3-шаговый мастер старта с широким «Режимом чтения», 5 тем оформления, перетаскивание виджетов и иконок, широкая панель обратной связи с прикреплением файлов (.txt/.md, фото, видео).",
+          "Документация на 16 языках, PDF-версия и интерактивный свод версий docs/index.html."
+        ],
+        "knownLimits": [
+          "Требуются заранее установленные Node.js 24+, Python 3 и Git.",
+          "Голосовой режим и «Дневник» («Честный разговор») временно скрыты в клиентской сборке v0.1 на время доработки.",
+          "Qoder пока определяется мастером подключений, а роль ведущей модели выйдет в ближайшем обновлении."
+        ],
+        "nextFocus": "Правки v0.1 по первым отзывам, серверный приём вложений к отзывам и мгновенное закрытие моста при выходе."
+      },
+      "en": {
+        "title": "AllY · Genie v0.1 — initial public release",
+        "summary": "First working Windows 10/11 desktop core uniting multiple AI models in one window with local Markdown memory, status orb, quota visibility, and 3-step onboarding.",
+        "added": [
+          "Connections & Auto routing: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, OpenRouter-compatible API gateway, and Qoder CLI discovery + login.",
+          "Graphite default workspace: Chat on the left with a clean status orb, live activity rail and smooth parallax splitter; resizable Resources / Helpers (top-right) and Laptop hardware monitor (bottom-right).",
+          "Resources & Helpers widgets: 5h/weekly subscription quotas, 350k context threshold tracking, and balance checks with zero paid background polling.",
+          "Native animated AllY.exe setup & splash window + built-in Book Guide button inside the app (and standalone AllY-Guide.exe).",
+          "3-step connection wizard with full-width Reading Mode, 5 themes, drag-and-drop layout/header customization, and wide feedback drawer with file attachments (.txt/.md, images, video).",
+          "16-language documentation, printable PDF, and interactive version archive docs/index.html."
+        ],
+        "knownLimits": [
+          "Requires pre-installed Node.js 24+, Python 3, and Git.",
+          "Local voice input/output and the Diary tab ('Honest Conversation') remain hidden in v0.1 client builds while multi-engine support is finalized.",
+          "Qoder CLI is detected in onboarding; lead chat selection is slated for a subsequent update."
+        ],
+        "nextFocus": "Early user feedback fixes, full backend media attachment rollout, and instant bridge shutdown on window close."
+      },
+      "zh-CN": {
+        "title": "AllY · 精灵 v0.1 — 首个公开发布版",
+        "summary": "面向 Windows 10/11 的首个可用桌面核心：单一窗口整合多模型对话、磁盘本地 Markdown 记忆、状态光球、额度监控与 3 步快速接入向导。",
+        "added": [
+          "连接与自动路由：支持 Claude Code CLI、Codex CLI、Antigravity CLI、DeepSeek Harness、兼容 OpenRouter 的 API 网关以及 Qoder CLI 自动检测与窗内登录。",
+          "默认「石墨」工作区：左侧为对话区与纯净状态光球、实时步骤流和平滑视差分隔条；右侧上方为「资源」/「助手」、下方为「笔记本硬件监控」，高度均可自由调整。",
+          "「资源」与「助手」组件：展示 5 小时/每周订阅额度、350k 上下文阈值与余额查询，全程零付费后台轮询。",
+          "原生动画安装与启动器 AllY.exe + 窗内书本图标「指南与版本记录」（另附独立窗口 AllY-Guide.exe）。",
+          "3 步快速上手向导与宽屏「阅读模式」、5 套主题、拖拽自定义布局与顶栏图标、加宽反馈抽屉（支持 .txt/.md、图片与视频附件）。",
+          "16 种语言文档、可打印 PDF 与交互式版本档案馆 docs/index.html。"
+        ],
+        "knownLimits": [
+          "需预先安装 Node.js 24+、Python 3 和 Git。",
+          "本地语音输入/输出与「日记」（「坦诚对话」）在 v0.1 客户端构建中暂时隐藏，待多引擎适配完成后开放。",
+          "Qoder CLI 已可在向导中检测，主对话模型支持将在后续更新中推出。"
+        ],
+        "nextFocus": "基于首批用户反馈快速修复 v0.1、上线完整服务端附件接收以及关闭窗口时立即停止本地桥接服务。"
+      },
+      "uk": {
+        "title": "AllY · Джинні v0.1 — перший публічний реліз",
+        "summary": "Перше робоче десктопне ядро для Windows 10/11: єдине вікно листування, локальна пам’ять на диску, сфера стану, контроль квот і 3-кроковий майстер підключення нейромереж.",
+        "added": [
+          "Підключення та режим «Авто»: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, агрегатор API (OpenRouter) та виявлення Qoder CLI зі входом із вікна.",
+          "Стартовий екран у темі «Графіт» за замовчуванням: ліворуч «Переписка» з чистою сферою стану, стрічкою кроків і плавною вертикальною межею; праворуч «Ресурси» / «Помічники» (зверху) та «Ноутбук» (знизу) зі змінною висотою.",
+          "Віджет «Ресурси» і вкладка «Помічники»: 5-годинні й тижневі квоти, контроль контекстного вікна (поріг 350k) та баланс без платних фонових запитів.",
+          "Нативний анімований інсталятор і сплеш-екран AllY.exe + вбудована кнопка-книга «Довідка та звід версій» (і автономне вікно AllY-Guide.exe).",
+          "3-кроковий майстер старту з широким «Режимом читання», 5 тем оформлення, перетягування віджетів та іконок, широка панель зворотного зв’язку з прикріпленням файлів (.txt/.md, фото, відео).",
+          "Документація 16 мовами, PDF-версія та інтерактивний звід версій docs/index.html."
+        ],
+        "knownLimits": [
+          "Потрібні заздалегідь встановлені Node.js 24+, Python 3 і Git.",
+          "Голосовий режим та «Щоденник» («Чесна розмова») тимчасово приховані в клієнтській збірці v0.1 на час доопрацювання.",
+          "Qoder поки визначається майстром підключень, а роль провідної моделі з’явиться в найближчому оновленні."
+        ],
+        "nextFocus": "Виправлення v0.1 за першими відгуками, серверне приймання вкладень до відгуків і миттєве закриття мосту при виході."
+      },
+      "vi": {
+        "title": "AllY · Djinni v0.1 — bản phát hành công khai đầu tiên",
+        "summary": "Nhân ứng dụng desktop Windows 10/11 đầu tiên hợp nhất nhiều mô hình AI trong một cửa sổ với bộ nhớ Markdown cục bộ, quả cầu trạng thái, theo dõi hạn mức và trình hướng dẫn kết nối 3 bước.",
+        "added": [
+          "Kết nối & định tuyến Tự động: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, cổng API tương thích OpenRouter và phát hiện/đăng nhập Qoder CLI ngay trong cửa sổ.",
+          "Màn hình mặc định chủ đề Than chì: khung trò chuyện bên trái với quả cầu trạng thái sạch, dòng tiến trình và thanh chia mượt; bên phải là Tài nguyên / Trợ lý (trên) và Theo dõi máy tính (dưới) tùy chỉnh kích thước.",
+          "Tiện ích Tài nguyên & Trợ lý: hạn mức 5 giờ/tuần, ngưỡng ngữ cảnh 350k và kiểm tra số dư không gọi API nền tốn phí.",
+          "Trình cài đặt & màn hình khởi động hoạt họa gốc AllY.exe + nút biểu tượng sách Hướng dẫn tích hợp trong ứng dụng (cùng cửa sổ độc lập AllY-Guide.exe).",
+          "Trình hướng dẫn 3 bước với Chế độ đọc toàn chiều rộng, 5 chủ đề, kéo thả bố cục/biểu tượng và ngăn phản hồi rộng hỗ trợ đính kèm tệp (.txt/.md, ảnh, video).",
+          "Tài liệu 16 ngôn ngữ, bản PDF in ấn và kho lưu trữ phiên bản tương tác docs/index.html."
+        ],
+        "knownLimits": [
+          "Cần cài sẵn Node.js 24+, Python 3 và Git.",
+          "Chế độ giọng nói cục bộ và thẻ Nhật ký tạm ẩn trong bản khách v0.1 trong khi hoàn thiện hỗ trợ đa động cơ.",
+          "Qoder CLI được phát hiện trong trình thiết lập; vai trò mô hình dẫn chính sẽ ra mắt ở bản cập nhật kế tiếp."
+        ],
+        "nextFocus": "Sửa lỗi v0.1 theo phản hồi sớm, hoàn tất nhận tệp đính kèm trên máy chủ và tắt cầu nối ngay khi đóng cửa sổ."
+      },
+      "hi": {
+        "title": "AllY · जिन्नी v0.1 — पहला सार्वजनिक रिलीज़",
+        "summary": "Windows 10/11 के लिए पहला कार्यशील डेस्कटॉप कोर, जो एक ही विंडो में कई AI मॉडल, डिस्क पर स्थानीय Markdown मेमोरी, स्टेटस ऑर्ब, कोटा निगरानी और 3-चरणीय कनेक्शन विज़ार्ड को जोड़ता है।",
+        "added": [
+          "कनेक्शन और ऑटो रूटिंग: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, OpenRouter-संगत API गेटवे और विंडो से Qoder CLI पहचान व लॉगिन।",
+          "डिफ़ॉल्ट ग्रेफ़ाइट कार्यक्षेत्र: बाईं ओर स्वच्छ स्टेटस ऑर्ब, लाइव गतिविधि पट्टी और स्मूद स्प्लिटर के साथ चैट; दाईं ओर ऊपर संसाधन/सहायक और नीचे लैपटॉप मॉनिटर (ऊँचाई समायोज्य)।",
+          "संसाधन और सहायक विजेट: 5-घंटे/साप्ताहिक सदस्यता कोटा, 350k संदर्भ सीमा ट्रैकिंग और बिना सशुल्क बैकग्राउंड पोलिंग के बैलेंस जांच।",
+          "नेटिव एनिमेटेड इंस्टॉलर और स्प्लैश AllY.exe + ऐप के भीतर बुक आइकन «गाइड और संस्करण» (तथा स्वतंत्र विंडो AllY-Guide.exe)।",
+          "फुल-विड्थ रीडिंग मोड के साथ 3-चरणीय स्टार्ट विज़ार्ड, 5 थीम, ड्रैग-एंड-ड्रॉप लेआउट और फ़ाइल अटैचमेंट (.txt/.md, चित्र, वीडियो) वाला चौड़ा फ़ीडबैक पैनल।",
+          "16 भाषाओं में दस्तावेज़, प्रिंट योग्य PDF और इंटरैक्टिव संस्करण संग्रह docs/index.html।"
+        ],
+        "knownLimits": [
+          "पहले से स्थापित Node.js 24+, Python 3 और Git आवश्यक हैं।",
+          "स्थानीय वॉइस मोड और डायरी टैब को बहु-इंजन समर्थन पूरा होने तक v0.1 क्लाइंट बिल्ड में छिपा रखा गया है।",
+          "Qoder CLI की पहचान विज़ार्ड में होती है; मुख्य चैट मॉडल का समर्थन आगामी अपडेट में आएगा।"
+        ],
+        "nextFocus": "प्रारंभिक उपयोगकर्ता प्रतिक्रिया के आधार पर v0.1 सुधार, सर्वर पर पूर्ण मीडिया अटैचमेंट और विंडो बंद होते ही ब्रिज का त्वरित बंद होना।"
+      },
+      "ja": {
+        "title": "AllY · ジンニー v0.1 — 初回パブリックリリース",
+        "summary": "複数のAIモデルを1つのウィンドウに統合するWindows 10/11向け初回デスクトップコア。ローカルMarkdownメモリ、ステータスオーブ、利用枠の可視化、3ステップ接続ウィザードを搭載。",
+        "added": [
+          "接続とオートルーティング：Claude Code CLI、Codex CLI、Antigravity CLI、DeepSeek Harness、OpenRouter互換APIゲートウェイ、Qoder CLIの検出とウィンドウ内ログインに対応。",
+          "デフォルト「グラファイト」ワークスペース：左にクリーンなステータスオーブ・ライブ手順レール・滑らかな境界線付きのチャット、右上にリソース/ヘルパー、右下にノートPCハードウェア監視（高さ調整可）。",
+          "リソース＆ヘルパーウィジェット：5時間/週間サブスク枠、350kコンテキスト閾値、有料バックグラウンド通信なしの残高確認。",
+          "ネイティブアニメーション付きインストーラー＆スプラッシュ AllY.exe ＋ アプリ内蔵ブックボタン「ガイドと更新履歴」（単体ウィンドウ AllY-Guide.exe も同梱）。",
+          "ワイド「リーディングモード」付き3ステップ導入ウィザード、5テーマ、ドラッグ＆ドロップ配置、ファイル添付（.txt/.md・画像・動画）対応のワイドフィードバックパネル。",
+          "16言語ドキュメント、印刷用PDF、インタラクティブ更新履歴 docs/index.html。"
+        ],
+        "knownLimits": [
+          "Node.js 24+、Python 3、Git の事前インストールが必要です。",
+          "ローカル音声入出力と「日記」タブはマルチエンジン対応の仕上げ中のため v0.1 クライアントビルドでは一時非表示です。",
+          "Qoder CLI はウィザードで検出されますが、主導モデルとしての選択は次回以降のアップデートで対応予定です。"
+        ],
+        "nextFocus": "初期フィードバックに基づく v0.1 修正、フィードバック添付ファイルのサーバー受信完了、ウィンドウ終了時のブリッジ即時停止。"
+      },
+      "de": {
+        "title": "AllY · Dschinni v0.1 — Erste öffentliche Version",
+        "summary": "Erster produktiver Windows-10/11-Desktop-Kern, der mehrere KI-Modelle in einem Fenster mit lokalem Markdown-Speicher, Status-Orb, Kontingent-Übersicht und 3-Schritt-Einrichtung vereint.",
+        "added": [
+          "Verbindungen & Auto-Routing: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, OpenRouter-kompatibles API-Gateway sowie Qoder-CLI-Erkennung und Login im Fenster.",
+          "Standard-Workspace im Design «Graphit»: links der Chat mit sauberem Status-Orb, Live-Aktivitätsspur und flüssiger Trennlinie; rechts oben Ressourcen/Helfer und rechts unten Laptop-Hardwaremonitor (höhenverstellbar).",
+          "Ressourcen- & Helfer-Widgets: 5-Stunden-/Wochenkontingente, 350k-Kontextschwelle und Guthabenanzeige ganz ohne kostenpflichtiges Hintergrund-Polling.",
+          "Nativer animierter Installer & Splash-Screen AllY.exe + integrierter Buch-Button «Handbuch & Versionen» (sowie eigenständiges Fenster AllY-Guide.exe).",
+          "3-Schritt-Assistent mit breitem «Lesemodus», 5 Designs, Drag-and-Drop-Anpassung für Widgets/Icons und breites Feedback-Panel mit Dateianhängen (.txt/.md, Bilder, Video).",
+          "Dokumentation in 16 Sprachen, druckfertiges PDF und interaktives Versionsarchiv docs/index.html."
+        ],
+        "knownLimits": [
+          "Erfordert vorinstalliertes Node.js 24+, Python 3 und Git.",
+          "Lokale Spracheingabe/-ausgabe und der Tab «Tagebuch» bleiben im v0.1-Client-Build verborgen, bis die Multi-Engine-Unterstützung abgeschlossen ist.",
+          "Qoder CLI wird beim Einrichten erkannt; die Auswahl als Hauptmodell folgt im nächsten Update."
+        ],
+        "nextFocus": "Schnelle v0.1-Korrekturen anhand erster Rückmeldungen, vollständiger Server-Empfang von Feedback-Anhängen und sofortiges Beenden der Bridge beim Schließen."
+      },
+      "fr": {
+        "title": "AllY · Джинни v0.1 — Première version publique",
+        "summary": "Premier noyau de bureau Windows 10/11 réunissant plusieurs modèles d’IA dans une même fenêtre avec mémoire Markdown locale, orbe d’état, suivi des quotas et assistant de connexion en 3 étapes.",
+        "added": [
+          "Connexions et routage Auto : Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, passerelle API compatible OpenRouter ainsi que détection et connexion Qoder CLI dans la fenêtre.",
+          "Espace par défaut en thème Graphite : discussion à gauche avec orbe d’état épuré, fil d’étapes et séparateur fluide ; Ressources / Assistants en haut à droite et moniteur matériel en bas à droite (hauteur ajustable).",
+          "Widgets Ressources et Assistants : quotas 5 h / hebdomadaires, seuil de contexte 350k et suivi du solde sans requêtes payantes en arrière-plan.",
+          "Installateur et écran de démarrage animés natifs AllY.exe + bouton livre intégré « Guide et versions » (et fenêtre autonome AllY-Guide.exe).",
+          "Assistant en 3 étapes avec Mode lecture pleine largeur, 5 thèmes, disposition et icônes par glisser-déposer, et panneau de retour élargi avec pièces jointes (.txt/.md, images, vidéo).",
+          "Documentation en 16 langues, PDF imprimable et archive interactive des versions docs/index.html."
+        ],
+        "knownLimits": [
+          "Nécessite Node.js 24+, Python 3 et Git préinstallés.",
+          "La voix locale et l’onglet Journal restent masqués dans la build client v0.1 pendant la finalisation du support multi-moteur.",
+          "Qoder CLI est détecté par l’assistant ; sa sélection comme modèle principal arrivera dans une mise à jour prochaine."
+        ],
+        "nextFocus": "Correctifs v0.1 selon les premiers retours, réception serveur complète des pièces jointes et arrêt immédiat du pont à la fermeture."
+      },
+      "he": {
+        "title": "AllY · ג'יני v0.1 — השקה ציבורית ראשונה",
+        "summary": "ליבת שולחן עבודה ראשונה ל-Windows 10/11 המאחדת מספר מודלי בינה מלאכותית בחלון אחד עם זיכרון Markdown מקומי, כדור מצב, מעקב מכסות ואשף חיבור בן 3 שלבים.",
+        "added": [
+          "חיבורים וניתוב אוטומטי: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, שער API תואם OpenRouter וזיהוי/התחברות ל-Qoder CLI מתוך החלון.",
+          "מסך פתיחה בערכת «גרפיט» כברירת מחדל: צ'אט בצד אחד עם כדור מצב נקי, סרגל צעדים ומפריד חלק; משאבים/עוזרים וניטור חומרת המחשב עם שינוי גובה.",
+          "ווידג'טים של משאבים ועוזרים: מכסות 5 שעות ושבועיות, מעקב סף הקשר 350k ובדיקת יתרה ללא קריאות רקע בתשלום.",
+          "מתקין ומסך פתיחה מונפשים AllY.exe + כפתור ספר מובנה «מדריך והיסטוריית גרסאות» (וחלון עצמאי AllY-Guide.exe).",
+          "אשף התחלה בן 3 שלבים עם «מצב קריאה» רחב, 5 ערכות עיצוב, גרירה ושחרור של ווידג'טים ומגירת משוב רחבה עם צירוף קבצים (.txt/.md, תמונות, וידאו).",
+          "תיעוד ב-16 שפות, קובץ PDF להדפסה וארכיון גרסאות אינטראקטיבי docs/index.html."
+        ],
+        "knownLimits": [
+          "נדרשים Node.js 24+, Python 3 ו-Git מותקנים מראש.",
+          "קלט/פלט קולי מקומי ולשונית «יומן» מוסתרים זמנית בגרסת הלקוח v0.1 בזמן השלמת התמיכה הרב-מנועית.",
+          "Qoder CLI מזוהה באשף ההגדרה; בחירה בו כמודל ראשי תצא בעדכון הקרוב."
+        ],
+        "nextFocus": "תיקוני v0.1 לפי משוב ראשוני, קליטת קבצים מצורפים מלאה בשרת וסגירה מיידית של הגשר עם סגירת החלון."
+      },
+      "ar": {
+        "title": "AllY · جيني v0.1 — الإصدار العام الأول",
+        "summary": "أول نواة سطح مكتب عاملة لنظام Windows 10/11 توحد عدة نماذج ذكاء اصطناعي في نافذة واحدة مع ذاكرة Markdown محلية، وكرة حالة، ومتابعة للحصص، ومعالج ربط من 3 خطوات.",
+        "added": [
+          "الاتصالات والتوجيه التلقائي: Claude Code CLI وCodex CLI وAntigravity CLI وDeepSeek Harness وبوابة API متوافقة مع OpenRouter واكتشاف Qoder CLI وتسجيل الدخول من النافذة.",
+          "مساحة العمل الافتراضية بسمة «غرافيت»: المحادثة مع كرة حالة نظيفة وشريط خطوات مباشر وفاصل سلس، بالإضافة إلى «الموارد / المساعدون» و«مراقبة العتاد» بارتفاع قابل للتعديل.",
+          "أدوات الموارد والمساعدين: حصص الاشتراك لكل 5 ساعات وأسبوعياً، وتتبع حد السياق 350k، وفحص الرصيد دون استعلامات خلفية مدفوعة.",
+          "مثبّت وشاشة بدء متحركة أصلية AllY.exe + زر الكتاب المدمج «الدليل وسجل الإصدارات» (مع النافذة المستقلة AllY-Guide.exe).",
+          "معالج بدء من 3 خطوات مع «وضع القراءة» الواسع، و5 سمات، وتخصيص التخطيط بالسحب والإفلات، ولوحة ملاحظات واسعة تدعم إرفاق الملفات (.txt/.md وصور وفيديو).",
+          "توثيق بـ 16 لغة، ونسخة PDF للطباعة، وأرشيف إصدارات تفاعلي docs/index.html."
+        ],
+        "knownLimits": [
+          "يتطلب تثبيت Node.js 24+ وPython 3 وGit مسبقاً.",
+          "الوضع الصوتي المحلي وتبويب «اليوميات» مخفيان مؤقتاً في إصدار العميل v0.1 لحين إكمال دعم المحركات المتعددة.",
+          "يتم اكتشاف Qoder CLI في معالج الإعداد؛ وستصل إمكانية اختياره كنموذج رئيسي في تحديث لاحق."
+        ],
+        "nextFocus": "إصلاحات v0.1 بناءً على أولى الملاحظات، واستقبال المرفقات بالكامل على الخادم، وإغلاق الجسر فوراً عند إغلاق النافذة."
+      },
+      "es": {
+        "title": "AllY · Genie v0.1 — Primer lanzamiento público",
+        "summary": "Primer núcleo de escritorio funcional para Windows 10/11 que reúne varios modelos de IA en una sola ventana con memoria local en Markdown, orbe de estado, control de cuotas y asistente de 3 pasos.",
+        "added": [
+          "Conexiones y modo Auto: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, pasarela API compatible con OpenRouter y detección/inicio de sesión de Qoder CLI desde la ventana.",
+          "Espacio inicial en tema Grafito por defecto: chat a la izquierda con orbe limpio, panel de pasos en vivo y divisor suave; Recursos / Asistentes arriba a la derecha y monitor de hardware abajo (altura ajustable).",
+          "Widgets de Recursos y Asistentes: cuotas de 5 h/semanales, seguimiento de umbral de contexto de 350k y consulta de saldo sin llamadas pagas en segundo plano.",
+          "Instalador y pantalla de inicio nativos con animación AllY.exe + botón de libro integrado «Guía y versiones» (además de la ventana independiente AllY-Guide.exe).",
+          "Asistente de inicio de 3 pasos con Modo lectura de ancho completo, 5 temas, personalización por arrastrar y soltar y panel amplio de comentarios con adjuntos (.txt/.md, imágenes, video).",
+          "Documentación en 16 idiomas, PDF imprimible y archivo interactivo de versiones docs/index.html."
+        ],
+        "knownLimits": [
+          "Requiere tener instalados previamente Node.js 24+, Python 3 y Git.",
+          "El modo de voz local y la pestaña Diario permanecen ocultos en la compilación cliente v0.1 mientras se completa el soporte multimotor.",
+          "Qoder CLI se detecta en el asistente; su selección como modelo principal llegará en una actualización próxima."
+        ],
+        "nextFocus": "Correcciones rápidas de v0.1 según los primeros reportes, recepción completa de adjuntos en el servidor y cierre instantáneo del puente al salir."
+      },
+      "pt-BR": {
+        "title": "AllY · Genie v0.1 — Primeiro lançamento público",
+        "summary": "Primeiro núcleo desktop funcional para Windows 10/11 unindo vários modelos de IA em uma só janela com memória local em Markdown, orbe de status, controle de cotas e assistente de conexão em 3 etapas.",
+        "added": [
+          "Conexões e roteamento Auto: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, gateway de API compatível com OpenRouter e detecção/login do Qoder CLI pela janela.",
+          "Tela inicial no tema Grafite por padrão: chat à esquerda com orbe limpo, trilha de etapas e divisória suave; Recursos / Assistentes no topo direito e monitor de hardware abaixo (altura ajustável).",
+          "Widgets de Recursos e Assistentes: cotas de 5 h/semanais, limite de contexto de 350k e consulta de saldo sem chamadas pagas em segundo plano.",
+          "Instalador e tela inicial animados nativos AllY.exe + botão de livro integrado «Guia e versões» (além da janela independente AllY-Guide.exe).",
+          "Assistente de 3 etapas com Modo leitura largo, 5 temas, arrastar e soltar para widgets/ícones e painel amplo de feedback com anexos (.txt/.md, imagens, vídeo).",
+          "Documentação em 16 idiomas, PDF para impressão e arquivo interativo de versões docs/index.html."
+        ],
+        "knownLimits": [
+          "Requer Node.js 24+, Python 3 e Git instalados previamente.",
+          "Voz local e a aba Diário ficam ocultas na compilação cliente v0.1 enquanto o suporte multimotor é finalizado.",
+          "O Qoder CLI é detectado no assistente; a seleção como modelo principal chegará em uma atualização próxima."
+        ],
+        "nextFocus": "Correções da v0.1 com base nos primeiros relatos, recebimento completo de anexos no servidor e encerramento imediato da ponte ao fechar."
+      },
+      "ko": {
+        "title": "AllY · 지니 v0.1 — 첫 공개 릴리스",
+        "summary": "Windows 10/11용 첫 실사용 데스크톱 코어로, 로컬 Markdown 메모리, 상태 오브, 할당량 모니터링, 3단계 연결 마법사를 한 창에서 여러 AI 모델과 결합합니다.",
+        "added": [
+          "연결 및 자동 라우팅: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, OpenRouter 호환 API 게이트웨이 및 창 내 Qoder CLI 감지/로그인 지원.",
+          "기본 「그래파이트」 작업 공간: 왼쪽에는 깔끔한 상태 오브·실시간 진행 레일·부드러운 분할선이 있는 채팅, 오른쪽 위에는 리소스/보조 모델, 아래에는 높이 조절 가능한 하드웨어 모니터.",
+          "리소스 및 보조 모델 위젯: 5시간/주간 구독 한도, 350k 컨텍스트 임계값 추적, 유료 백그라운드 폴링 없는 잔액 확인.",
+          "네이티브 애니메이션 설치/스플래시 AllY.exe + 앱 내 책 아이콘 「가이드 및 버전 기록」(독립 창 AllY-Guide.exe 포함).",
+          "전체 너비 「읽기 모드」가 포함된 3단계 시작 마법사, 5개 테마, 드래그 앤 드롭 레이아웃 편집, 파일 첨부(.txt/.md, 이미지, 동영상) 지원 와이드 피드백 패널.",
+          "16개 언어 문서, 인쇄용 PDF 및 대화형 버전 아카이브 docs/index.html."
+        ],
+        "knownLimits": [
+          "Node.js 24+, Python 3, Git이 미리 설치되어 있어야 합니다.",
+          "로컬 음성 입출력과 「다이어리」 탭은 멀티 엔진 지원 마무리 전까지 v0.1 클라이언트 빌드에서 숨겨져 있습니다.",
+          "Qoder CLI는 마법사에서 감지되며, 메인 채팅 모델 선택은 다음 업데이트에서 제공될 예정입니다."
+        ],
+        "nextFocus": "초기 피드백 기반 v0.1 수정, 서버 측 미디어 첨부 처리 완료, 창 종료 시 브리지 즉시 종료."
+      },
+      "tr": {
+        "title": "AllY · Genie v0.1 — İlk genel sürüm",
+        "summary": "Windows 10/11 için birden fazla yapay zekâ modelini yerel Markdown belleği, durum küresi, kota takibi ve 3 adımlı kurulum sihirbazıyla tek pencerede birleştiren ilk masaüstü çekirdeği.",
+        "added": [
+          "Bağlantılar ve Otomatik yönlendirme: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, OpenRouter uyumlu API ağ geçidi ve pencereden Qoder CLI algılama/giriş.",
+          "Varsayılan Grafit çalışma alanı: solda sade durum küresi, canlı adım şeridi ve akıcı ayırıcıyla sohbet; sağ üstte Kaynaklar / Yardımcılar ve altta yüksekliği ayarlanabilir donanım monitörü.",
+          "Kaynaklar ve Yardımcılar araçları: 5 saatlik/haftalık abonelik kotaları, 350k bağlam eşiği takibi ve ücretli arka plan sorgusu olmadan bakiye kontrolü.",
+          "Yerel animasyonlu kurulum ve açılış ekranı AllY.exe + uygulama içi kitap simgesi «Rehber ve sürümler» (ayrıca bağımsız AllY-Guide.exe penceresi).",
+          "Tam genişlik «Okuma modu» ile 3 adımlı başlangıç sihirbazı, 5 tema, sürükle-bırak düzen özelleştirme ve dosya ekli (.txt/.md, görsel, video) geniş geri bildirim paneli.",
+          "16 dilde dokümantasyon, yazdırılabilir PDF ve etkileşimli sürüm arşivi docs/index.html."
+        ],
+        "knownLimits": [
+          "Önceden kurulu Node.js 24+, Python 3 ve Git gerektirir.",
+          "Yerel ses modu ve Günlük sekmesi çoklu motor desteği tamamlanana kadar v0.1 istemci derlemesinde gizlidir.",
+          "Qoder CLI sihirbazda algılanır; ana sohbet modeli seçimi sonraki güncellemede eklenecektir."
+        ],
+        "nextFocus": "İlk geri bildirimlere göre v0.1 düzeltmeleri, sunucu tarafı medya eki alımı ve pencere kapanınca köprünün anında durması."
+      },
+      "id": {
+        "title": "AllY · Jin v0.1 — Rilis publik pertama",
+        "summary": "Inti desktop Windows 10/11 pertama yang menyatukan berbagai model AI dalam satu jendela dengan memori Markdown lokal, bola status, pemantauan kuota, dan panduan koneksi 3 langkah.",
+        "added": [
+          "Koneksi & perutean Otomatis: Claude Code CLI, Codex CLI, Antigravity CLI, DeepSeek Harness, gateway API kompatibel OpenRouter, serta deteksi dan login Qoder CLI dari jendela.",
+          "Ruang kerja bawaan tema Grafit: obrolan di kiri dengan bola status bersih, alur langkah langsung, dan pemisah halus; Sumber Daya / Asisten di kanan atas dan monitor perangkat keras di kanan bawah (tinggi dapat diubah).",
+          "Widget Sumber Daya & Asisten: kuota langganan 5 jam/mingguan, batas konteks 350k, dan cek saldo tanpa panggilan latar berbayar.",
+          "Pemasang & layar pembuka beranimasi asli AllY.exe + tombol buku bawaan «Panduan & versi» di dalam aplikasi (serta jendela mandiri AllY-Guide.exe).",
+          "Panduan awal 3 langkah dengan Mode Baca lebar penuh, 5 tema, tata letak seret-dan-lepas, dan panel umpan balik lebar dengan lampiran berkas (.txt/.md, gambar, video).",
+          "Dokumentasi dalam 16 bahasa, PDF siap cetak, dan arsip versi interaktif docs/index.html."
+        ],
+        "knownLimits": [
+          "Memerlukan Node.js 24+, Python 3, dan Git yang sudah terpasang.",
+          "Mode suara lokal dan tab Buku Harian sementara disembunyikan pada build klien v0.1 selagi dukungan multi-mesin dirampungkan.",
+          "Qoder CLI terdeteksi di panduan awal; pemilihan sebagai model utama hadir pada pembaruan berikutnya."
+        ],
+        "nextFocus": "Perbaikan v0.1 dari masukan awal, penerimaan lampiran media penuh di server, dan penutupan jembatan seketika saat jendela ditutup."
+      }
+    },
+    {
+      "version": "v0.1.x",
+      "date": "2026-11 / 2026-12",
+      "status": "planned",
+      "ru": {
+        "title": "Ближайшие исправления и полировка (1–2 недели)",
+        "summary": "Обновления сразу после выхода v0.1 по отчётам пользователей и завершение серверной части обратной связи.",
+        "added": [
+          "Полный серверный приём фото и видео вложений к отчётам обратной связи.",
+          "Мгновенное завершение фонового моста сразу после закрытия окна без ожидания 9-минутного простоя.",
+          "Исправления вёрстки и установки по первым обращениям."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Подготовка модуля «Задачи и Проекты»."
+      },
+      "en": {
+        "title": "Immediate fixes & polish (1–2 weeks)",
+        "summary": "Fast follow-up patch round driven by real v0.1 user feedback.",
+        "added": [
+          "Full server-side media attachment handling in the feedback receiver.",
+          "Immediate background bridge shutdown on window close instead of waiting for idle timeout.",
+          "UI and installer polish from initial reports."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Preparing the Tasks & Projects module."
+      },
+      "zh-CN": {
+        "title": "近期修复与打磨（1–2 周）",
+        "summary": "基于真实 v0.1 用户反馈的快速补丁周期，并完善反馈服务端能力。",
+        "added": [
+          "反馈接收端完整支持图片与视频附件。",
+          "关闭窗口后立即终止后台桥接进程，无需等待 9 分钟空闲超时。",
+          "根据首批反馈持续打磨界面排版与安装体验。"
+        ],
+        "knownLimits": [],
+        "nextFocus": "筹备「任务与项目」模块。"
+      },
+      "uk": {
+        "title": "Найближчі виправлення та полірування (1–2 тижні)",
+        "summary": "Оновлення одразу після виходу v0.1 за звітами користувачів і завершення серверної частини зворотного зв’язку.",
+        "added": [
+          "Повне серверне приймання фото- та відеовкладень до звернень зворотного зв’язку.",
+          "Миттєве завершення фонового мосту одразу після закриття вікна без очікування 9-хвилинного простою.",
+          "Виправлення верстки та встановлення за першими зверненнями."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Підготовка модуля «Завдання та Проєкти»."
+      },
+      "vi": {
+        "title": "Sửa lỗi và hoàn thiện nhanh (1–2 tuần)",
+        "summary": "Đợt vá lỗi nhanh ngay sau v0.1 dựa trên phản hồi thực tế của người dùng.",
+        "added": [
+          "Hoàn tất xử lý tệp ảnh và video đính kèm ở phía máy chủ phản hồi.",
+          "Tắt ngay tiến trình cầu nối nền khi đóng cửa sổ thay vì chờ hết thời gian nhàn rỗi.",
+          "Tinh chỉnh giao diện và trình cài đặt từ các báo cáo đầu tiên."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Chuẩn bị mô-đun Nhiệm vụ & Dự án."
+      },
+      "hi": {
+        "title": "तत्काल सुधार और पॉलिश (1–2 सप्ताह)",
+        "summary": "v0.1 के वास्तविक उपयोगकर्ता फ़ीडबैक पर आधारित तेज़ फ़ॉलो-अप पैच दौर।",
+        "added": [
+          "फ़ीडबैक सर्वर में फ़ोटो और वीडियो अटैचमेंट का पूर्ण समर्थन।",
+          "विंडो बंद करते ही बैकग्राउंड ब्रिज का तुरंत बंद होना (आइडल टाइमआउट की प्रतीक्षा नहीं)।",
+          "प्रारंभिक रिपोर्टों के आधार पर UI और इंस्टॉलर में सुधार।"
+        ],
+        "knownLimits": [],
+        "nextFocus": "«कार्य और प्रोजेक्ट» मॉड्यूल की तैयारी।"
+      },
+      "ja": {
+        "title": "直近の修正とブラッシュアップ（1〜2週間）",
+        "summary": "v0.1 の初期ユーザーフィードバックを反映した迅速なパッチ更新。",
+        "added": [
+          "フィードバック受信サーバーでの画像・動画添付の完全対応。",
+          "ウィンドウ終了時にアイドル待機せずバックグラウンドブリッジを即時停止。",
+          "初期報告に基づくUIおよびインストーラーの改善。"
+        ],
+        "knownLimits": [],
+        "nextFocus": "「タスクとプロジェクト」モジュールの準備。"
+      },
+      "de": {
+        "title": "Sofortige Korrekturen & Feinschliff (1–2 Wochen)",
+        "summary": "Schnelle Nachbesserungen direkt nach v0.1 anhand echter Rückmeldungen.",
+        "added": [
+          "Vollständige serverseitige Annahme von Foto- und Videoanhängen im Feedback-Empfänger.",
+          "Sofortiges Beenden der Hintergrund-Bridge beim Schließen des Fensters ohne Leerlauf-Wartezeit.",
+          "UI- und Installer-Feinschliff aus ersten Meldungen."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Vorbereitung des Moduls «Aufgaben & Projekte»."
+      },
+      "fr": {
+        "title": "Correctifs rapides et finitions (1–2 semaines)",
+        "summary": "Première série de correctifs guidée par les retours réels sur la v0.1.",
+        "added": [
+          "Gestion serveur complète des pièces jointes photo et vidéo pour les retours.",
+          "Arrêt immédiat du pont en arrière-plan dès la fermeture de la fenêtre sans délai d’inactivité.",
+          "Ajustements d’interface et d’installation issus des premiers signalements."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Préparation du module « Tâches et Projets »."
+      },
+      "he": {
+        "title": "תיקונים מיידיים וליטוש (1–2 שבועות)",
+        "summary": "סבב תיקונים מהיר מיד לאחר v0.1 על בסיס משוב משתמשים אמיתי.",
+        "added": [
+          "טיפול מלא בצד השרת בקובצי תמונה ווידאו המצורפים למשוב.",
+          "כיבוי מיידי של הגשר ברקע עם סגירת החלון ללא המתנה לזמן סרק.",
+          "ליטוש ממשק ומתקין לפי הדיווחים הראשונים."
+        ],
+        "knownLimits": [],
+        "nextFocus": "הכנת מודול «משימות ופרויקטים»."
+      },
+      "ar": {
+        "title": "إصلاحات فورية وتحسينات (1–2 أسبوع)",
+        "summary": "جولة تحديثات سريعة بعد v0.1 استناداً إلى ملاحظات المستخدمين الفعلية.",
+        "added": [
+          "معالجة كاملة على الخادم لمرفقات الصور والفيديو في نظام الملاحظات.",
+          "إغلاق فوري للجسر الخلفي عند إغلاق النافذة بدلاً من انتظار مهلة الخمول.",
+          "تحسينات للواجهة والمثبّت بناءً على البلاغات الأولى."
+        ],
+        "knownLimits": [],
+        "nextFocus": "تجهيز وحدة «المهام والمشاريع»."
+      },
+      "es": {
+        "title": "Correcciones inmediatas y pulido (1–2 semanas)",
+        "summary": "Ronda rápida de parches tras v0.1 guiada por comentarios reales de usuarios.",
+        "added": [
+          "Recepción completa en servidor de adjuntos de fotos y videos en comentarios.",
+          "Cierre inmediato del puente en segundo plano al cerrar la ventana sin esperar inactividad.",
+          "Ajustes de interfaz e instalador a partir de los primeros reportes."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Preparación del módulo «Tareas y Proyectos»."
+      },
+      "pt-BR": {
+        "title": "Correções imediatas e polimento (1–2 semanas)",
+        "summary": "Rodada rápida de correções logo após a v0.1 orientada pelo feedback real.",
+        "added": [
+          "Recebimento completo no servidor de anexos de foto e vídeo no feedback.",
+          "Encerramento imediato da ponte em segundo plano ao fechar a janela sem esperar tempo ocioso.",
+          "Polimento de interface e instalador a partir dos primeiros relatos."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Preparação do módulo «Tarefas e Projetos»."
+      },
+      "ko": {
+        "title": "즉시 수정 및 다듬기 (1–2주)",
+        "summary": "실제 v0.1 사용자 피드백을 바탕으로 진행하는 빠른 패치 라운드.",
+        "added": [
+          "피드백 수신 서버의 사진·동영상 첨부 파일 완전 처리.",
+          "창을 닫을 때 유휴 대기 없이 백그라운드 브리지 즉시 종료.",
+          "초기 리포트를 반영한 UI 및 설치 프로그램 개선."
+        ],
+        "knownLimits": [],
+        "nextFocus": "「작업 및 프로젝트」 모듈 준비."
+      },
+      "tr": {
+        "title": "Hızlı düzeltmeler ve ince ayarlar (1–2 hafta)",
+        "summary": "Gerçek v0.1 kullanıcı geri bildirimlerine dayanan hızlı yama turu.",
+        "added": [
+          "Geri bildirim alıcısında fotoğraf ve video eklerinin sunucu tarafında tam işlenmesi.",
+          "Pencere kapandığında boşta kalma süresini beklemeden arka plan köprüsünün anında kapanması.",
+          "İlk bildirimlerden gelen arayüz ve kurulum iyileştirmeleri."
+        ],
+        "knownLimits": [],
+        "nextFocus": "«Görevler ve Projeler» modülünün hazırlanması."
+      },
+      "id": {
+        "title": "Perbaikan segera & penyempurnaan (1–2 minggu)",
+        "summary": "Putaran tambalan cepat pasca v0.1 berdasarkan masukan nyata pengguna.",
+        "added": [
+          "Penanganan penuh lampiran foto dan video di sisi server penerima umpan balik.",
+          "Penghentian segera jembatan latar saat jendela ditutup tanpa menunggu batas waktu diam.",
+          "Penyempurnaan antarmuka dan pemasang dari laporan awal."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Persiapan modul «Tugas & Proyek»."
+      }
+    },
+    {
+      "version": "v0.2",
+      "date": "2026-12 / 2027-01",
+      "status": "planned",
+      "ru": {
+        "title": "Задачи, Проекты, мультиязычный Дневник и локальный голос",
+        "summary": "Вторая крупная веха: трекер задач внутри окна, отвязка Дневника от одного CLI и возвращение оффлайн-диктовки.",
+        "added": [
+          "Встроенный локальный трекер «Задачи и Проекты» (фокус дня, доска, календарь, карточки).",
+          "Работа вкладки «Дневник» на любом выбранном движке (Codex, Antigravity, DeepSeek, OpenRouter).",
+          "Возвращение локального голосового режима (GigaAM без отправки аудио в облака) и упрощённая установка без ручной настройки софта."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Раздел «Обучение», граф знаний и мобильный клиент."
+      },
+      "en": {
+        "title": "Tasks, Projects, multi-engine Diary & local voice",
+        "summary": "Second major milestone expanding daily workflow, engine independence, and offline voice.",
+        "added": [
+          "Built-in local Tasks & Projects tracker (daily focus, board, calendar, cards).",
+          "Multi-engine support for the Diary tab across Codex, Antigravity, DeepSeek, and OpenRouter.",
+          "Offline local voice dictation (GigaAM) and simplified setup without manual Node/Git prerequisites."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Learning hub, knowledge graph, and mobile companion."
+      },
+      "zh-CN": {
+        "title": "任务与项目、多引擎「日记」与本地语音",
+        "summary": "第二个重要里程碑：内置任务追踪、日记解耦单一 CLI 并恢复离线语音听写。",
+        "added": [
+          "内置本地「任务与项目」追踪器（今日聚焦、看板、日历、卡片）。",
+          "「日记」标签全面支持 Codex、Antigravity、DeepSeek 与 OpenRouter 等任意引擎。",
+          "恢复离线本地语音听写（GigaAM，音频不上传云端）并简化安装流程，免手动配置 Node/Git。"
+        ],
+        "knownLimits": [],
+        "nextFocus": "「学习」板块、知识图谱与移动端伴侣。"
+      },
+      "uk": {
+        "title": "Завдання, Проєкти, мультирушійний «Щоденник» і локальний голос",
+        "summary": "Друга велика віха: трекер завдань у вікні, відв’язка Щоденника від одного CLI та повернення офлайн-диктування.",
+        "added": [
+          "Вбудований локальний трекер «Завдання та Проєкти» (фокус дня, дошка, календар, картки).",
+          "Робота вкладки «Щоденник» на будь-якому обраному рушії (Codex, Antigravity, DeepSeek, OpenRouter).",
+          "Повернення локального голосового режиму (GigaAM без надсилання аудіо в хмару) і спрощене встановлення без ручного налаштування софту."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Розділ «Навчання», граф знань і мобільний клієнт."
+      },
+      "vi": {
+        "title": "Nhiệm vụ, Dự án, Nhật ký đa động cơ & giọng nói cục bộ",
+        "summary": "Cột mốc lớn thứ hai mở rộng quy trình hằng ngày, độc lập động cơ và giọng nói ngoại tuyến.",
+        "added": [
+          "Trình theo dõi Nhiệm vụ & Dự án cục bộ tích hợp (tiêu điểm ngày, bảng, lịch, thẻ).",
+          "Hỗ trợ đa động cơ cho thẻ Nhật ký trên Codex, Antigravity, DeepSeek và OpenRouter.",
+          "Khôi phục đọc chính tả giọng nói ngoại tuyến (GigaAM) và cài đặt đơn giản không cần tự cài Node/Git."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Trung tâm Học tập, đồ thị tri thức và ứng dụng di động."
+      },
+      "hi": {
+        "title": "कार्य, प्रोजेक्ट, बहु-इंजन डायरी और स्थानीय वॉइस",
+        "summary": "दूसरा बड़ा पड़ाव: इन-विंडो टास्क ट्रैकर, किसी भी इंजन पर डायरी और ऑफ़लाइन वॉइस डिक्टेशन की वापसी।",
+        "added": [
+          "अंतर्निहित स्थानीय «कार्य और प्रोजेक्ट» ट्रैकर (दैनिक फ़ोकस, बोर्ड, कैलेंडर, कार्ड)।",
+          "Codex, Antigravity, DeepSeek और OpenRouter पर डायरी टैब का बहु-इंजन समर्थन।",
+          "ऑफ़लाइन स्थानीय वॉइस डिक्टेशन (GigaAM) और बिना मैन्युअल Node/Git सेटअप के सरल इंस्टॉलेशन।"
+        ],
+        "knownLimits": [],
+        "nextFocus": "लर्निंग हब, नॉलेज ग्राफ़ और मोबाइल साथी।"
+      },
+      "ja": {
+        "title": "タスク・プロジェクト、マルチエンジン日記、ローカル音声",
+        "summary": "日常ワークフローを拡張し、単一CLI依存からの脱却とオフライン音声入力を実現する第2の大型マイルストーン。",
+        "added": [
+          "内蔵ローカル「タスクとプロジェクト」トラッカー（今日のフォーカス、ボード、カレンダー、カード）。",
+          "Codex、Antigravity、DeepSeek、OpenRouter の各エンジンで動作する「日記」タブ。",
+          "オフラインローカル音声入力（GigaAM）の復活と Node/Git 手動導入不要の簡易セットアップ。"
+        ],
+        "knownLimits": [],
+        "nextFocus": "ラーニングハブ、ナレッジグラフ、モバイル連携。"
+      },
+      "de": {
+        "title": "Aufgaben, Projekte, Multi-Engine-Tagebuch & lokale Sprache",
+        "summary": "Zweiter großer Meilenstein für den Arbeitsalltag: integrierter Aufgaben-Tracker, Engine-Unabhängigkeit und Offline-Sprache.",
+        "added": [
+          "Integrierter lokaler Tracker «Aufgaben & Projekte» (Tagesfokus, Board, Kalender, Karten).",
+          "Multi-Engine-Unterstützung für das Tagebuch mit Codex, Antigravity, DeepSeek und OpenRouter.",
+          "Lokales Offline-Diktat (GigaAM ohne Cloud-Upload) und vereinfachte Installation ohne manuelles Node/Git-Setup."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Lernbereich, Wissensgraph und mobiler Begleiter."
+      },
+      "fr": {
+        "title": "Tâches, Projets, Journal multi-moteur et voix locale",
+        "summary": "Deuxième étape majeure : suivi des tâches intégré, indépendance moteur du Journal et retour de la dictée hors ligne.",
+        "added": [
+          "Suivi local intégré « Tâches et Projets » (focus du jour, tableau, calendrier, cartes).",
+          "Support multi-moteur de l’onglet Journal avec Codex, Antigravity, DeepSeek et OpenRouter.",
+          "Dictée vocale locale hors ligne (GigaAM) et installation simplifiée sans prérequis manuels Node/Git."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Espace Apprentissage, graphe de connaissances et compagnon mobile."
+      },
+      "he": {
+        "title": "משימות, פרויקטים, יומן רב-מנועי וקול מקומי",
+        "summary": "אבן דרך מרכזית שנייה המרחיבה את שגרת העבודה, עצמאות מנועים והכתבה קולית לא מקוונת.",
+        "added": [
+          "מעקב «משימות ופרויקטים» מקומי מובנה (מיקוד יומי, לוח, יומן וכרטיסים).",
+          "תמיכה רב-מנועית ללשונית היומן ב-Codex, Antigravity, DeepSeek ו-OpenRouter.",
+          "הכתבה קולית מקומית לא מקוונת (GigaAM) והתקנה פשוטה ללא צורך בהתקנת Node/Git ידנית."
+        ],
+        "knownLimits": [],
+        "nextFocus": "מרכז למידה, גרף ידע ואפליקציה מלווה לנייד."
+      },
+      "ar": {
+        "title": "المهام والمشاريع، واليوميات متعددة المحركات، والصوت المحلي",
+        "summary": "المحطة الكبرى الثانية لتوسيع سير العمل اليومي، واستقلالية المحركات، والإملاء الصوتي دون اتصال.",
+        "added": [
+          "متعقب محلي مدمج «المهام والمشاريع» (تركيز اليوم، لوحة، تقويم، بطاقات).",
+          "دعم متعدد المحركات لتبويب اليوميات عبر Codex وAntigravity وDeepSeek وOpenRouter.",
+          "إملاء صوتي محلي دون اتصال (GigaAM) وتثبيت مبسّط دون إعداد يدوي لـ Node/Git."
+        ],
+        "knownLimits": [],
+        "nextFocus": "مركز التعلّم، ومخطط المعرفة، وتطبيق الهاتف المرافق."
+      },
+      "es": {
+        "title": "Tareas, Proyectos, Diario multimotor y voz local",
+        "summary": "Segundo gran hito para el flujo diario: gestor de tareas integrado, independencia de motor y dictado sin conexión.",
+        "added": [
+          "Gestor local integrado «Tareas y Proyectos» (enfoque del día, tablero, calendario, tarjetas).",
+          "Soporte multimotor para la pestaña Diario en Codex, Antigravity, DeepSeek y OpenRouter.",
+          "Dictado por voz local sin conexión (GigaAM) e instalación simplificada sin requisitos manuales de Node/Git."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Sección Aprendizaje, grafo de conocimiento y cliente móvil."
+      },
+      "pt-BR": {
+        "title": "Tarefas, Projetos, Diário multimotor e voz local",
+        "summary": "Segundo grande marco ampliando o fluxo diário, a independência de motor e o ditado offline.",
+        "added": [
+          "Rastreador local integrado «Tarefas e Projetos» (foco do dia, quadro, calendário, cartões).",
+          "Suporte multimotor para a aba Diário em Codex, Antigravity, DeepSeek e OpenRouter.",
+          "Ditado de voz local offline (GigaAM) e instalação simplificada sem pré-requisitos manuais de Node/Git."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Central de Aprendizado, grafo de conhecimento e app móvel."
+      },
+      "ko": {
+        "title": "작업·프로젝트, 멀티 엔진 다이어리 및 로컬 음성",
+        "summary": "일상 워크플로 확장, 단일 CLI 의존성 해소, 오프라인 음성 입력을 위한 두 번째 주요 마일스톤.",
+        "added": [
+          "내장 로컬 「작업 및 프로젝트」 트래커(오늘의 집중, 보드, 캘린더, 카드).",
+          "Codex, Antigravity, DeepSeek, OpenRouter 전반을 지원하는 멀티 엔진 다이어리 탭.",
+          "오프라인 로컬 음성 받아쓰기(GigaAM) 복귀 및 수동 Node/Git 설치 없는 간편 설정."
+        ],
+        "knownLimits": [],
+        "nextFocus": "학습 허브, 지식 그래프 및 모바일 컴패니언."
+      },
+      "tr": {
+        "title": "Görevler, Projeler, çoklu motor Günlük ve yerel ses",
+        "summary": "Günlük iş akışını, motor bağımsızlığını ve çevrimdışı sesi genişleten ikinci büyük kilometre taşı.",
+        "added": [
+          "Yerleşik yerel «Görevler ve Projeler» takipçisi (günlük odak, pano, takvim, kartlar).",
+          "Codex, Antigravity, DeepSeek ve OpenRouter genelinde Günlük sekmesi için çoklu motor desteği.",
+          "Çevrimdışı yerel sesli dikte (GigaAM) ve manuel Node/Git kurulumu gerektirmeyen kolay kurulum."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Öğrenme merkezi, bilgi grafiği ve mobil yardımcı."
+      },
+      "id": {
+        "title": "Tugas, Proyek, Buku Harian multi-mesin & suara lokal",
+        "summary": "Tonggak besar kedua yang memperluas alur kerja harian, kemandirian mesin, dan dikte suara luring.",
+        "added": [
+          "Pelacak lokal bawaan «Tugas & Proyek» (fokus harian, papan, kalender, kartu).",
+          "Dukungan multi-mesin untuk tab Buku Harian di Codex, Antigravity, DeepSeek, dan OpenRouter.",
+          "Dikte suara lokal luring (GigaAM) dan pemasangan sederhana tanpa prasyarat Node/Git manual."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Pusat Pembelajaran, graf pengetahuan, dan pendamping seluler."
+      }
+    },
+    {
+      "version": "v0.3 — v1.0",
+      "date": "2027-02 — 2027-08+",
+      "status": "planned",
+      "ru": {
+        "title": "Обучение, граф знаний, Android-клиент и кроссплатформа",
+        "summary": "Долгосрочная дорожная карта до стабильного релиза v1.0 (сроки ориентировочные и уточняются по обратной связи).",
+        "added": [
+          "Февраль — март 2027: раздел «Обучение» с бесплатным вводным курсом, конструктор виджетов и модули ревизии/контента.",
+          "Апрель — май 2027: интерактивный граф знаний рабочего пространства, «Здоровье проекта» и Qoder как помощник чтения кода.",
+          "Июнь — июль 2027: бета Android-клиента с прямым защищённым каналом к домашнему ПК + сборка под macOS и Linux.",
+          "Август 2027+: стабильный v1.0, каталог открытых навыков и синхронизация между устройствами."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Стабильная экосистема AllY."
+      },
+      "en": {
+        "title": "Learning hub, knowledge graph, Android & cross-platform",
+        "summary": "Longer-horizon roadmap leading to stable v1.0 (dates adjust with real community feedback).",
+        "added": [
+          "Feb — Mar 2027: In-window Learning section with free intro course, custom widget builder, and review/content modules.",
+          "Apr — May 2027: Interactive workspace knowledge graph, Project Health diagnostics, and Qoder code-reading assistant.",
+          "Jun — Jul 2027: Android companion beta connecting over encrypted channel + macOS and Linux desktop ports.",
+          "Aug 2027+: Stable v1.0 release, shared community skills catalog, and multi-device workspace sync."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Stable cross-platform AllY ecosystem."
+      },
+      "zh-CN": {
+        "title": "学习板块、知识图谱、Android 客户端与跨平台",
+        "summary": "通往稳定版 v1.0 的中长期路线图（时间节点为预估，将随社区反馈动态调整）。",
+        "added": [
+          "2027 年 2–3 月：窗内「学习」板块与免费入门课程、自定义组件构建器及评审/内容模块。",
+          "2027 年 4–5 月：工作区交互式知识图谱、「项目健康」诊断与 Qoder 代码阅读助手。",
+          "2027 年 6–7 月：通过加密通道直连家用电脑的 Android 伴侣测试版，以及 macOS 与 Linux 桌面版。",
+          "2027 年 8 月+：稳定版 v1.0、开源技能目录与多设备工作区同步。"
+        ],
+        "knownLimits": [],
+        "nextFocus": "稳定的跨平台 AllY 生态。"
+      },
+      "uk": {
+        "title": "Навчання, граф знань, Android-клієнт і кросплатформа",
+        "summary": "Довгострокова дорожня карта до стабільного релізу v1.0 (терміни орієнтовні й уточнюються за зворотним зв’язком).",
+        "added": [
+          "Лютий — березень 2027: розділ «Навчання» з безкоштовним вступним курсом, конструктор віджетів і модулі ревізії/контенту.",
+          "Квітень — травень 2027: інтерактивний граф знань робочого простору, «Здоров’я проєкту» і Qoder як помічник читання коду.",
+          "Червень — липень 2027: бета Android-клієнта з прямим захищеним каналом до домашнього ПК + збірки для macOS і Linux.",
+          "Серпень 2027+: стабільний v1.0, каталог відкритих навичок і синхронізація між пристроями."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Стабільна кросплатформна екосистема AllY."
+      },
+      "vi": {
+        "title": "Học tập, đồ thị tri thức, ứng dụng Android & đa nền tảng",
+        "summary": "Lộ trình dài hạn tiến tới bản ổn định v1.0 (mốc thời gian điều chỉnh theo phản hồi thực tế của cộng đồng).",
+        "added": [
+          "Tháng 2–3/2027: mục Học tập tích hợp với khóa nhập môn miễn phí, trình tạo tiện ích và mô-đun kiểm duyệt/nội dung.",
+          "Tháng 4–5/2027: đồ thị tri thức tương tác của không gian làm việc, chẩn đoán Sức khỏe dự án và trợ lý đọc mã Qoder.",
+          "Tháng 6–7/2027: bản beta Android kết nối qua kênh mã hóa trực tiếp tới PC + bản macOS và Linux.",
+          "Tháng 8/2027+: bản ổn định v1.0, danh mục kỹ năng cộng đồng và đồng bộ nhiều thiết bị."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Hệ sinh thái AllY đa nền tảng ổn định."
+      },
+      "hi": {
+        "title": "लर्निंग हब, नॉलेज ग्राफ़, Android और क्रॉस-प्लेटफ़ॉर्म",
+        "summary": "स्थिर v1.0 तक का दीर्घकालिक रोडमैप (तिथियाँ समुदाय के फ़ीडबैक के अनुसार समायोजित होंगी)।",
+        "added": [
+          "फ़रवरी–मार्च 2027: मुफ़्त परिचयात्मक कोर्स के साथ इन-विंडो लर्निंग सेक्शन, कस्टम विजेट बिल्डर और रिव्यू/कंटेंट मॉड्यूल।",
+          "अप्रैल–मई 2027: इंटरैक्टिव वर्कस्पेस नॉलेज ग्राफ़, प्रोजेक्ट हेल्थ डायग्नोस्टिक्स और Qoder कोड-रीडिंग सहायक।",
+          "जून–जुलाई 2027: एन्क्रिप्टेड चैनल से जुड़ने वाला Android साथी बीटा + macOS और Linux डेस्कटॉप पोर्ट।",
+          "अगस्त 2027+: स्थिर v1.0 रिलीज़, साझा कम्युनिटी स्किल्स कैटलॉग और मल्टी-डिवाइस सिंक।"
+        ],
+        "knownLimits": [],
+        "nextFocus": "स्थिर क्रॉस-प्लेटफ़ॉर्म AllY इकोसिस्टम।"
+      },
+      "ja": {
+        "title": "学習ハブ、ナレッジグラフ、Android＆クロスプラットフォーム",
+        "summary": "安定版 v1.0 に向けた中長期ロードマップ（時期はコミュニティのフィードバックに応じて調整されます）。",
+        "added": [
+          "2027年2〜3月：無料入門コース付きウィンドウ内「学習」セクション、カスタムウィジェットビルダー、レビュー/コンテンツ機能。",
+          "2027年4〜5月：インタラクティブなワークスペース知識グラフ、「プロジェクト健全性」診断、Qoder コード読解アシスタント。",
+          "2027年6〜7月：暗号化チャネルで自宅PCと結ぶ Android コンパニオンベータ ＋ macOS・Linux 対応。",
+          "2027年8月以降：安定版 v1.0、共有スキルカタログ、マルチデバイス同期。"
+        ],
+        "knownLimits": [],
+        "nextFocus": "安定したクロスプラットフォーム AllY エコシステム。"
+      },
+      "de": {
+        "title": "Lernbereich, Wissensgraph, Android & Cross-Plattform",
+        "summary": "Langfristige Roadmap bis zur stabilen Version v1.0 (Termine richten sich nach dem Community-Feedback).",
+        "added": [
+          "Feb – Mär 2027: Integrierter Lernbereich mit kostenlosem Einführungskurs, Widget-Baukasten und Review-/Content-Modulen.",
+          "Apr – Mai 2027: Interaktiver Wissensgraph des Arbeitsbereichs, «Projektgesundheit»-Diagnose und Qoder-Code-Assistent.",
+          "Jun – Jul 2027: Android-Companion-Beta über verschlüsselten Kanal + Desktop-Versionen für macOS und Linux.",
+          "Aug 2027+: Stabiles v1.0-Release, offener Community-Skill-Katalog und geräteübergreifende Synchronisierung."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Stabiles plattformübergreifendes AllY-Ökosystem."
+      },
+      "fr": {
+        "title": "Apprentissage, graphe de connaissances, Android et multiplateforme",
+        "summary": "Feuille de route à plus long terme vers la v1.0 stable (les dates évoluent selon les retours de la communauté).",
+        "added": [
+          "Fév – Mar 2027 : section Apprentissage intégrée avec cours d’introduction gratuit, créateur de widgets et modules révision/contenu.",
+          "Avr – Mai 2027 : graphe de connaissances interactif, diagnostic Santé du projet et assistant de lecture de code Qoder.",
+          "Juin – Juil 2027 : bêta compagnon Android sur canal chiffré + versions macOS et Linux.",
+          "Août 2027+ : version stable v1.0, catalogue partagé de compétences et synchronisation multi-appareils."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Écosystème AllY multiplateforme stable."
+      },
+      "he": {
+        "title": "מרכז למידה, גרף ידע, Android וחוצה-פלטפורמות",
+        "summary": "מפת דרכים לטווח ארוך עד לגרסה היציבה v1.0 (התאריכים מתעדכנים לפי משוב הקהילה).",
+        "added": [
+          "פברואר–מרץ 2027: מדור למידה מובנה עם קורס מבוא חינמי, בונה ווידג'טים ומודולי ביקורת ותוכן.",
+          "אפריל–מאי 2027: גרף ידע אינטראקטיבי לסביבת העבודה, אבחון «בריאות הפרויקט» ועוזר קריאת הקוד Qoder.",
+          "יוני–יולי 2027: בטא של אפליקציית Android בערוץ מוצפן + גרסאות שולחן עבודה ל-macOS ול-Linux.",
+          "אוגוסט 2027+: גרסה יציבה v1.0, קטלוג מיומנויות קהילתי וסנכרון בין מכשירים."
+        ],
+        "knownLimits": [],
+        "nextFocus": "אקוסיסטם AllY יציב וחוצה-פלטפורמות."
+      },
+      "ar": {
+        "title": "مركز التعلّم، ومخطط المعرفة، وAndroid والأنظمة المتعددة",
+        "summary": "خارطة طريق طويلة المدى نحو الإصدار المستقر v1.0 (المواعيد تقديرية وتُحدَّث وفق ملاحظات المجتمع).",
+        "added": [
+          "فبراير–مارس 2027: قسم تعلّم مدمج بدورة تمهيدية مجانية، ومنشئ أدوات مخصصة، ووحدات المراجعة والمحتوى.",
+          "أبريل–مايو 2027: مخطط معرفة تفاعلي لمساحة العمل، وتشخيص «صحة المشروع»، ومساعد قراءة الشيفرة Qoder.",
+          "يونيو–يوليو 2027: نسخة تجريبية لتطبيق Android عبر قناة مشفرة + إصدارات سطح المكتب لنظامي macOS وLinux.",
+          "أغسطس 2027+: الإصدار المستقر v1.0، ودليل المهارات المفتوحة، والمزامنة بين الأجهزة."
+        ],
+        "knownLimits": [],
+        "nextFocus": "منظومة AllY مستقرة ومتعددة المنصات."
+      },
+      "es": {
+        "title": "Aprendizaje, grafo de conocimiento, Android y multiplataforma",
+        "summary": "Hoja de ruta a largo plazo hacia la versión estable v1.0 (las fechas se ajustan según la comunidad).",
+        "added": [
+          "Feb – Mar 2027: sección Aprendizaje con curso introductorio gratuito, creador de widgets y módulos de revisión/contenido.",
+          "Abr – May 2027: grafo de conocimiento interactivo, diagnóstico «Salud del proyecto» y asistente de lectura de código Qoder.",
+          "Jun – Jul 2027: beta de cliente Android por canal cifrado + compilaciones para macOS y Linux.",
+          "Ago 2027+: lanzamiento estable v1.0, catálogo abierto de habilidades y sincronización entre dispositivos."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Ecosistema AllY multiplataforma estable."
+      },
+      "pt-BR": {
+        "title": "Aprendizado, grafo de conhecimento, Android e multiplataforma",
+        "summary": "Roteiro de longo prazo até a versão estável v1.0 (prazos ajustados conforme o retorno da comunidade).",
+        "added": [
+          "Fev – Mar 2027: seção Aprendizado com curso introdutório gratuito, criador de widgets e módulos de revisão/conteúdo.",
+          "Abr – Mai 2027: grafo de conhecimento interativo, diagnóstico «Saúde do projeto» e assistente de leitura de código Qoder.",
+          "Jun – Jul 2027: beta do app Android por canal criptografado + versões desktop para macOS e Linux.",
+          "Ago 2027+: lançamento estável v1.0, catálogo comunitário de habilidades e sincronização entre dispositivos."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Ecossistema AllY multiplataforma estável."
+      },
+      "ko": {
+        "title": "학습 허브, 지식 그래프, Android 및 크로스 플랫폼",
+        "summary": "안정판 v1.0을 향한 중장기 로드맵(일정은 커뮤니티 피드백에 따라 조정됩니다).",
+        "added": [
+          "2027년 2–3월: 무료 입문 강좌가 포함된 창 내 학습 섹션, 사용자 지정 위젯 빌더, 리뷰/콘텐츠 모듈.",
+          "2027년 4–5월: 대화형 작업 공간 지식 그래프, 프로젝트 상태 진단, Qoder 코드 읽기 도우미.",
+          "2027년 6–7월: 암호화 채널로 홈 PC에 연결되는 Android 컴패니언 베타 + macOS 및 Linux 데스크톱 버전.",
+          "2027년 8월+: 안정판 v1.0 출시, 커뮤니티 스킬 카탈로그, 멀티 디바이스 작업 공간 동기화."
+        ],
+        "knownLimits": [],
+        "nextFocus": "안정적인 크로스 플랫폼 AllY 생태계."
+      },
+      "tr": {
+        "title": "Öğrenme merkezi, bilgi grafiği, Android ve çapraz platform",
+        "summary": "Kararlı v1.0 sürümüne uzanan uzun vadeli yol haritası (tarihler topluluk geri bildirimlerine göre güncellenir).",
+        "added": [
+          "Şub – Mar 2027: Ücretsiz giriş kursu içeren pencere içi Öğrenme bölümü, özel araç oluşturucu ve inceleme/içerik modülleri.",
+          "Nis – May 2027: Etkileşimli çalışma alanı bilgi grafiği, Proje Sağlığı tanılama ve Qoder kod okuma yardımcısı.",
+          "Haz – Tem 2027: Şifreli kanal üzerinden bağlanan Android yardımcı betası + macOS ve Linux masaüstü sürümleri.",
+          "Ağu 2027+: Kararlı v1.0 sürümü, paylaşılan topluluk beceri kataloğu ve çoklu cihaz eşitleme."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Kararlı çapraz platform AllY ekosistemi."
+      },
+      "id": {
+        "title": "Pusat Pembelajaran, graf pengetahuan, Android & lintas platform",
+        "summary": "Peta jalan jangka panjang menuju rilis stabil v1.0 (jadwal menyesuaikan masukan komunitas).",
+        "added": [
+          "Feb – Mar 2027: Bagian Pembelajaran di dalam jendela dengan kursus pengantar gratis, pembuat widget kustom, dan modul tinjauan/konten.",
+          "Apr – Mei 2027: Graf pengetahuan ruang kerja interaktif, diagnostik Kesehatan Proyek, dan asisten baca kode Qoder.",
+          "Jun – Jul 2027: Beta pendamping Android lewat saluran terenkripsi + versi desktop macOS dan Linux.",
+          "Agu 2027+: Rilis stabil v1.0, katalog keterampilan komunitas terbuka, dan sinkronisasi lintas perangkat."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Ekosistem AllY lintas platform yang stabil."
+      }
+    }
+  ]
+}

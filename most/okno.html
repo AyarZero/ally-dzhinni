@@ -1,0 +1,1250 @@
+<!doctype html>
+<html lang="ru" data-client="true" data-interface="user">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AllY</title>
+<link rel="icon" type="image/png" href="/znachok.png">
+<meta name="theme-color" content="#020c14">
+<script>(()=>{let theme='graphite';try{const saved=localStorage.getItem('dzhinni-desktop-theme');if(['teal','graphite','midnight','noir','light'].includes(saved))theme=saved}catch{}document.documentElement.dataset.theme=theme})()</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+#tLink,#dLink{display:none!important}
+:root{--bg:#01060c;--ink:#d9f3f7;--dim:#7fa3ad;--faint:#2a4650;--accent:#00e5ff;--line:rgba(0,229,255,.18);--green:#5affc8;--amber:#ffb547;--core:min(42vh,380px,80vw);color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:'Chakra Petch',system-ui,sans-serif}
+button,input{font:inherit;color:inherit}
+.mono,.sub{font-family:'JetBrains Mono',monospace}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(1100px 650px at 50% 35%,rgba(0,229,255,.06),transparent 70%),linear-gradient(rgba(0,229,255,.03) 1px,transparent 1px) 0 0/48px 48px,linear-gradient(90deg,rgba(0,229,255,.03) 1px,transparent 1px) 0 0/48px 48px}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.55) 100%),repeating-linear-gradient(0deg,rgba(0,229,255,.022) 0,rgba(0,229,255,.022) 1px,transparent 1px,transparent 3px)}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:20px;padding:12px 24px;border-bottom:1px solid var(--line);background:rgba(1,6,12,.85);backdrop-filter:blur(6px)}
+.brand b{display:block;font-size:18px;letter-spacing:.32em;color:var(--accent);text-shadow:0 0 16px rgba(0,229,255,.5)}
+.brand span{font-size:10px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+.st{margin-left:auto;display:flex;gap:16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:7px;background:var(--faint)}
+.dot.on{background:var(--green);box-shadow:0 0 10px var(--green)}
+/* карта = колонки с блоками; раскладку меняет режим настройки (перетаскивание, границы мышью) */
+main{position:relative;z-index:1;display:flex;gap:24px;padding:22px 24px 16px;height:calc(100vh - var(--hh,61px) - var(--fh,90px));overflow:hidden}
+.lcol{position:relative;display:flex;flex-direction:column;gap:14px;flex:1 1 0;min-width:240px}
+.w{position:relative;flex:1 1 0;min-height:64px;display:flex;flex-direction:column}
+/* ряд: несколько блоков рядом внутри одной колонки */
+.lrow{position:relative;display:flex;gap:14px;flex:1 1 0;min-height:64px}.lrow>.w,.lrow>.wph{min-width:120px}
+.w>.panel,.w>.stack{flex:1;min-height:0;overflow-x:hidden;overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--faint) transparent}
+.log{scrollbar-width:thin;scrollbar-color:var(--faint) transparent}
+.stack{display:flex;flex-direction:column;gap:14px}
+.w[data-w=core]{min-height:140px}
+.center{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center}
+#core{display:block;width:100%;flex:1 1 0;min-height:0;cursor:pointer}
+.phase{font-size:11px;letter-spacing:.34em;color:var(--accent);text-transform:uppercase;margin:4px 0 2px}
+.say{flex:1;min-height:0;font-size:17px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;text-align:left;padding:14px 18px;border-left:2px solid var(--accent);background:rgba(255,255,255,.025);overflow-y:auto}
+.say:empty::before{content:'Здесь печатается мой последний ответ.';color:var(--faint)}
+.chatw{display:flex;flex-direction:column;overflow:hidden!important;position:relative}
+.vniz{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:5;width:38px;height:38px;border-radius:50%;border:1px solid var(--accent);background:rgba(1,14,22,.92);color:var(--accent);font-size:18px;line-height:1;cursor:pointer;box-shadow:0 0 14px rgba(0,229,255,.3);display:flex;align-items:center;justify-content:center}
+.vniz[hidden]{display:none}.vniz:hover{background:rgba(0,229,255,.15)}
+.vniz b{position:absolute;top:-6px;right:-8px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:var(--accent);color:#001018;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.chatw .log{display:block;padding:8px 10px 20px}
+.chatw .log::after{content:'';display:block;clear:both}
+.chat-presence{display:flex;align-items:center;gap:12px;flex:none;min-width:0;padding:0 4px 6px;border-bottom:1px solid var(--line)}
+.core-float{width:80px;height:88px;flex:none;display:flex;flex-direction:column;align-items:center;position:relative;user-select:none}
+.core-float #core{width:80px;height:80px;flex:none;display:block;cursor:pointer}
+.core-float .phase{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;pointer-events:none;margin:0;padding:0}
+@media(max-width:600px){.core-float{width:64px;height:74px}.core-float #core{width:64px;height:64px}.chat-presence{gap:8px}}
+.chatw .m{display:block;font-size:15px;max-width:100%;margin:0 0 12px}
+
+.chatw .m.ty{margin-left:auto;width:fit-content;max-width:min(76%,640px);clear:none}
+.chatw .m.ya{max-width:100%;border-left:0;background:transparent;padding:4px 2px}
+.w.flash>.panel{animation:flash 1s}
+@keyframes flash{30%{border-color:var(--accent);box-shadow:0 0 24px rgba(0,229,255,.35)}}
+/* режим настройки */
+.wh,.rx,.ry,.rxw{display:none}
+body.edit .w{outline:1px dashed rgba(0,229,255,.55);outline-offset:3px;cursor:grab;user-select:none}
+body.edit .w>:not(.wh):not(.ry):not(.rxw){pointer-events:none}
+body.edit .wh{display:flex;position:absolute;inset:0 0 auto 0;z-index:3;height:30px;align-items:center;justify-content:space-between;gap:8px;padding:0 6px 0 12px;background:rgba(0,40,52,.94);border-bottom:1px solid var(--accent);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.wh button{all:unset;cursor:pointer;font-size:10px;letter-spacing:.14em;color:var(--dim);padding:3px 7px;border:1px solid var(--line)}
+.wh button:hover{color:#ff5a7a;border-color:#ff5a7a}
+body.edit .ry{display:block;position:absolute;z-index:4;left:0;right:0;bottom:-14px;height:14px;cursor:row-resize}
+body.edit .rx{display:block;position:absolute;z-index:4;top:0;bottom:0;right:-24px;width:24px;cursor:col-resize}
+body.edit .ry:hover,.ry.on{background:linear-gradient(transparent 6px,var(--accent) 6px,var(--accent) 8px,transparent 8px)}
+body.edit .rx:hover,.rx.on{background:linear-gradient(90deg,transparent 11px,var(--accent) 11px,var(--accent) 13px,transparent 13px)}
+.lcol>.w:last-child .ry,.lcol>.lrow:last-child>.w>.ry,.lcol>.lrow:last-child>.lst>.w:last-child>.ry,main>.lcol:last-child>.rx{display:none!important}
+/* стопка: несколько блоков друг под другом в одной ячейке ряда — так блок под рядом встаёт во всю его ширину */
+.lst{position:relative;display:flex;flex-direction:column;gap:14px;flex:1 1 0;min-width:120px}
+body.edit .lrow>.lst:not(:last-child)>.rxw{display:block;position:absolute;z-index:4;top:0;bottom:0;right:-14px;width:14px;cursor:col-resize}
+body.edit .lrow>.w:not(:last-child)>.rxw{display:block;position:absolute;z-index:4;top:0;bottom:0;right:-14px;width:14px;cursor:col-resize}
+.guide{display:none;position:fixed;z-index:60;pointer-events:none;background:#ff3df0;box-shadow:0 0 8px #ff3df0}.guide.on{display:block}
+.gtip{display:none;position:fixed;z-index:61;pointer-events:none;font-size:11px;padding:2px 7px;border-radius:4px;background:#ff3df0;color:#120014;white-space:nowrap}
+.gmatch{outline:2px dashed #ff3df0!important;outline-offset:-3px}
+body.edit .rxw:hover,.rxw.on{background:linear-gradient(90deg,transparent 6px,var(--accent) 6px,var(--accent) 8px,transparent 8px)}
+body.edit .wph.side{min-width:120px;background:rgba(0,229,255,.14)}
+body.edit .lcol.void{min-width:160px;outline:1px dashed var(--line);outline-offset:3px;background:rgba(0,229,255,.03)}
+body.edit .lcol.void::after{content:'Пустая колонка: перетащи сюда блок';margin:auto;padding:0 14px;text-align:center;font-size:12px;color:var(--dim)}
+body:not(.edit) .w[data-w=panels]:has(#panels:empty){display:none}
+.w.drag{position:fixed;z-index:50;pointer-events:none;opacity:.88;box-shadow:0 20px 60px rgba(0,0,0,.7)}
+.wph{flex:1 1 0;min-height:64px;border:1px dashed var(--accent);background:rgba(0,229,255,.07)}
+#edbar{position:relative;z-index:4;display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 24px 0;padding:8px 10px 8px 14px;border:1px solid var(--accent);background:rgba(1,14,22,.97);font-size:12px}
+#edbar .sub{flex:1;min-width:200px}
+body.edit main{height:calc(100vh - var(--hh,61px) - var(--fh,90px) - var(--eh,0px) - 12px)}
+#edbar>b{font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-size:11px}
+#tray{display:flex;gap:6px;flex-wrap:wrap}
+#edbar .hb.go{color:var(--green);border-color:var(--green)}
+.panel{position:relative;padding:14px 16px;background:linear-gradient(180deg,rgba(3,22,32,.85),rgba(1,10,16,.85));border:1px solid color-mix(in srgb,var(--pc,var(--accent)) 22%,transparent);animation:wipe .6s cubic-bezier(.6,0,.2,1) both}
+.panel::before{content:'';position:absolute;inset:-1px;pointer-events:none;background:linear-gradient(var(--pc,var(--accent)),var(--pc,var(--accent))) top left/12px 1px no-repeat,linear-gradient(var(--pc,var(--accent)),var(--pc,var(--accent))) top left/1px 12px no-repeat,linear-gradient(var(--pc,var(--accent)),var(--pc,var(--accent))) bottom right/12px 1px no-repeat,linear-gradient(var(--pc,var(--accent)),var(--pc,var(--accent))) bottom right/1px 12px no-repeat}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0);opacity:0}to{clip-path:inset(0 0 0 0);opacity:1}}
+.ph{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--pc,var(--accent))}
+.ph small{color:var(--dim);letter-spacing:.06em;font-family:'JetBrains Mono',monospace}
+.row{display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:14px}
+.row:last-child{border-bottom:0}
+.grow{flex:1;min-width:0}
+.sub{font-size:11px;color:var(--dim);overflow-wrap:anywhere}
+.prog{height:3px;background:var(--faint);margin-top:6px;position:relative;overflow:hidden}
+.prog i{position:absolute;inset:0 auto 0 0;background:var(--pc,var(--accent));box-shadow:0 0 8px var(--pc,var(--accent));transition:width .6s}
+.chip{font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:3px 7px;border:1px solid currentColor;color:var(--dim);white-space:nowrap}
+.yes,.no{all:unset;cursor:pointer;font-size:11px;letter-spacing:.14em;padding:6px 11px;border:1px solid}
+.yes{color:var(--green)}.no{color:var(--dim)}
+.fk{all:unset;cursor:pointer;flex:none;width:26px;height:26px;text-align:center;line-height:26px;font-size:13px;color:var(--dim);border:1px solid transparent;opacity:.55}
+.row:hover .fk{opacity:1}.fk:hover{color:var(--accent);border-color:var(--accent)}.fk[data-f=done]:hover{color:var(--green);border-color:var(--green)}
+.fin,.fst{box-sizing:border-box;width:100%;margin:2px 0;padding:5px 7px;background:rgba(0,20,28,.9);border:1px solid var(--accent);color:inherit;font:inherit}
+.empty{color:var(--faint);font-size:13px}
+pre.pv{margin:6px 0 0;max-height:110px;overflow:auto;font-size:11px;color:var(--dim);white-space:pre-wrap;font-family:'JetBrains Mono',monospace}
+.big{font-family:'JetBrains Mono',monospace;font-size:24px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kv div{border-left:1px solid var(--line);padding-left:10px}
+.kv label{display:block;font-size:10px;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+footer{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:12px 24px;border-top:1px solid var(--line);background:rgba(1,6,12,.92)}
+form{display:flex;gap:8px;margin:0;border:1px solid var(--line);padding:7px 6px 7px 14px;align-items:flex-end}
+html:not(.window-unfocused) form:has(#q:focus){border-color:var(--accent);box-shadow:0 0 18px rgba(0,229,255,.2)}
+form textarea{all:unset;flex:1;min-width:0;font-size:15px;line-height:1.5;padding:4px 0;max-height:9em;overflow-y:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+footer.big textarea{height:min(55vh,560px);max-height:none}
+.fb{all:unset;cursor:pointer;flex:none;height:32px;min-width:32px;display:grid;place-items:center;padding:0 10px;border:1px solid var(--line);color:var(--dim);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+.fb:hover{color:var(--ink);border-color:var(--accent)}
+.fb.send{border-color:var(--accent);color:var(--accent)}
+.fb.rec{color:#ff5a7a;border-color:#ff5a7a;box-shadow:0 0 14px rgba(255,90,122,.45);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 2px rgba(255,90,122,.2)}}
+.hint{margin:6px 0 0;font-size:11px;color:var(--faint)}.hint:empty{display:none}
+/* строка «Принято…» под полем держит место и пустой */
+#hint{min-height:1.4em}#hint:empty{display:block;visibility:hidden}
+#att{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+#att:empty{display:none}
+.at{position:relative;display:flex;align-items:center;gap:8px;max-width:260px;padding:5px 26px 5px 6px;border:1px solid var(--line);background:rgba(0,229,255,.05);font-size:12px}
+.at img{width:44px;height:44px;object-fit:cover;flex:none}
+.at .ic{width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);text-transform:uppercase}
+.at span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.at .sub{display:block}
+.at.up{opacity:.55}.at.err{border-color:#ff5a7a}
+.at button{all:unset;cursor:pointer;position:absolute;top:2px;right:6px;color:var(--dim);font-size:15px}
+.at button:hover{color:#ff5a7a}
+body.drag::before{outline:2px dashed var(--accent);outline-offset:-12px}
+.mf{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.mf img{max-width:180px;max-height:140px;border:1px solid var(--line);display:block}
+.mf a{color:var(--accent);font-size:12px;font-family:'JetBrains Mono',monospace;text-decoration:none;border:1px solid var(--line);padding:3px 7px}
+.hb{all:unset;cursor:pointer;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);padding:5px 9px;border:1px solid var(--line);position:relative}
+.hb:hover,.hb.on{color:var(--accent);border-color:var(--accent)}
+.fb.hb{position:relative;padding:0 10px;height:32px;display:grid;place-items:center;letter-spacing:.2em}
+.hb b{position:absolute;top:-6px;right:-6px;min-width:15px;height:15px;border-radius:8px;background:var(--accent);color:var(--bg);font-size:9px;letter-spacing:0;display:grid;place-items:center;padding:0 3px}
+#hist{position:fixed;top:0;right:0;bottom:0;z-index:40;width:min(480px,100vw);display:flex;flex-direction:column;background:rgba(2,12,20,.97);border-left:1px solid var(--line);transform:translateX(100%);transition:transform .35s cubic-bezier(.6,0,.2,1)}
+#hist.open{transform:none;box-shadow:-20px 0 60px rgba(0,0,0,.6)}
+#otz,#pod{position:fixed;top:0;right:0;bottom:0;z-index:41;width:min(480px,100vw);display:flex;flex-direction:column;background:rgba(2,12,20,.97);border-left:1px solid var(--line);transform:translateX(100%);transition:transform .35s cubic-bezier(.6,0,.2,1)}
+#otz.open,#pod.open{transform:none;box-shadow:-20px 0 60px rgba(0,0,0,.6)}
+#otz .ph,#pod .ph{padding:16px 18px 10px;margin:0;border-bottom:1px solid var(--line)}
+#otz .ob,#pod .ob{padding:14px 18px;overflow:auto;flex:1;line-height:1.5}#otz .ob p,#pod .ob p{margin:0 0 10px}#otz .ob h4,#pod .ob h4{margin:16px 0 6px;font-size:13px;opacity:.8}
+#otz .orow,#pod .orow{padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;white-space:pre-wrap;word-break:break-word}#otz .orow small,#pod .orow small{opacity:.6;margin-right:8px}
+#otz .obtn,#pod .obtn{display:flex;gap:8px;margin:10px 0}
+#pod .kop{cursor:pointer}#pod .kop:hover{background:rgba(255,255,255,.04)}#pod textarea{width:100%;min-height:90px;box-sizing:border-box;background:transparent;color:inherit;border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit}
+#hist .ph{padding:16px 18px 10px;margin:0;border-bottom:1px solid var(--line)}
+#hist .ph small{display:flex;gap:6px}
+.log{flex:1;min-height:0;overflow-y:auto;padding:14px 18px 36px;display:flex;flex-direction:column;gap:10px}
+.m{max-width:88%;padding:9px 12px;font-size:14px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.m small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-bottom:3px}
+.m.ty{align-self:flex-end;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.22)}
+.m.ya{align-self:flex-start;border-left:2px solid var(--accent);background:rgba(255,255,255,.02)}
+#hod:empty{display:none}
+#procs:not(:empty){margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.05)} /* процессы сверху, лента шагов под ними */
+.hl{display:flex;gap:10px;padding:3px 0;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.hl b{font-weight:400;color:var(--faint);flex:none}
+.hl span{overflow:hidden;text-overflow:ellipsis}
+.hl.now{color:var(--ink)}
+.hl.now::before{content:'';flex:none;width:7px;height:7px;margin-top:5px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber);animation:pulse 1.2s infinite}
+.hl.done{color:var(--green)}
+.meter{padding:6px 0}
+.meter .top{display:flex;justify-content:space-between;font-size:13px}
+.meter .top b{font-family:'JetBrains Mono',monospace;font-weight:500}
+.meter .prog{height:5px}
+.meter .prog u{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink);opacity:.7}
+[hidden]{display:none!important}
+.tabs{display:flex;gap:6px;margin-left:12px}
+.tab{all:unset;cursor:pointer;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);padding:7px 14px;border:1px solid transparent}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--accent);border-color:var(--line);background:rgba(0,229,255,.06)}
+#vWiki{position:relative;z-index:1;padding:8px 24px 160px}
+.wtop{position:sticky;top:61px;z-index:4;display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px 0;background:rgba(1,6,12,.92);backdrop-filter:blur(6px)}
+#wq{all:unset;flex:1 1 320px;min-width:0;font-size:15px;padding:9px 14px;border:1px solid var(--line)}
+#wq:focus{border-color:var(--accent);box-shadow:0 0 18px rgba(0,229,255,.2)}
+.chipf{all:unset;cursor:pointer;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:8px 11px;border:1px solid var(--line)}
+.chipf b{font-weight:400;color:var(--faint);margin-left:6px;font-family:'JetBrains Mono',monospace;letter-spacing:0}
+.chipf.on{color:var(--accent);border-color:var(--accent)}
+.wsec h2{display:flex;justify-content:space-between;align-items:baseline;margin:26px 0 6px;font-size:13px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--accent)}
+.wsec h2 small{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);letter-spacing:0}
+.wsec h3{margin:18px 0 8px;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.note{margin:0 0 6px;font-size:13px;color:var(--dim);max-width:900px;line-height:1.5}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{position:relative;display:flex;flex-direction:column;gap:6px;padding:14px 16px;background:linear-gradient(180deg,rgba(3,22,32,.85),rgba(1,10,16,.85));border:1px solid rgba(0,229,255,.14)}
+.card:hover{border-color:rgba(0,229,255,.35)}
+.card .t{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--accent);display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.card .t small{font-size:11px;color:var(--dim)}
+.card p{margin:0;font-size:13px;line-height:1.5}
+.card .k{color:var(--dim);font-size:12px}
+.card .ex{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);background:rgba(255,255,255,.03);padding:5px 7px;cursor:pointer;overflow-wrap:anywhere}
+.card .ex:hover{color:var(--ink)}
+.card .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+.wb{all:unset;cursor:pointer;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);padding:6px 10px;border:1px solid var(--line)}
+.wb:hover{color:var(--ink);border-color:var(--accent)}
+.wb.hot{color:var(--amber);border-color:rgba(255,181,71,.4)}
+.wb.ok{color:var(--green);border-color:var(--green)}
+.rod{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);border:1px solid rgba(255,255,255,.1);padding:2px 6px}
+.clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;cursor:pointer}
+.clamp.open{-webkit-line-clamp:unset}
+.pult{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.pb{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:14px 16px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(0,229,255,.07),rgba(0,229,255,.015))}
+.pb:hover{border-color:var(--accent);box-shadow:0 0 18px rgba(0,229,255,.18)}
+.pb i{font-style:normal;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.pb i.nz{color:var(--amber)}
+.pb b{font-size:16px;font-weight:500}
+.pb span{font-size:12px;color:var(--dim);line-height:1.45}
+.kk{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:8px}
+.kk>div{display:flex;gap:12px;padding:9px 12px;border:1px solid rgba(255,255,255,.06);font-size:13px;line-height:1.5}
+kbd{flex:none;align-self:flex-start;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);border:1px solid var(--line);padding:2px 7px;white-space:nowrap}
+/* что я о тебе знаю */
+#vZnayu{position:relative;z-index:1;padding:8px 24px 160px;max-width:1100px;margin:0 auto}
+.zr{margin:22px 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.zs{display:grid;grid-template-columns:1fr auto;gap:12px;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);font-size:14px;line-height:1.5}
+.zs small{color:var(--dim);font-size:12px;white-space:nowrap}
+.zs.nov{border-left:3px solid var(--accent);background:rgba(255,255,255,.03)}
+.zs.nov b{color:var(--accent);font-weight:600;font-size:11px;margin-right:6px;text-transform:uppercase;letter-spacing:.05em}
+/* история работы */
+#vIst{position:relative;z-index:1;padding:8px 24px 160px;max-width:1100px;margin:0 auto}
+/* дневник «Честный разговор»: тихая комната — без карты, только разговор */
+#vDnev{position:relative;z-index:1;padding:8px 24px 170px;max-width:760px;margin:0 auto}
+#vDnev .dtop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 0 10px;border-bottom:1px solid var(--line,rgba(255,255,255,.08))}
+#vDnev .dtop b{font-size:17px;font-weight:500}#vDnev .dtop small{color:var(--dim);flex:1;min-width:180px}
+#dLog{padding:18px 0}#dLog .dm{margin:0 0 18px;line-height:1.6;white-space:pre-wrap;font-size:16px}
+#dLog .dm.ch{margin-left:15%;color:var(--dim);font-size:15px;border-left:2px solid var(--line,rgba(255,255,255,.12));padding-left:12px}
+#dLog .dm small{display:block;font-size:10px;color:var(--dim);margin-bottom:3px;font-family:'JetBrains Mono',monospace}
+#dLog .dum{color:var(--dim);font-style:italic}
+#dLog .dpust{color:var(--dim);line-height:1.7;padding:24px 0}
+#dLog .dzap{margin:0 0 22px;padding:12px 14px;border:1px solid var(--line,rgba(255,255,255,.12));border-left:3px solid var(--accent);border-radius:8px}
+#dLog .dzap>small{display:block;color:var(--dim);margin:2px 0 8px}
+#dLog .dzs{display:flex;gap:8px;align-items:center;padding:6px 0;border-top:1px solid rgba(255,255,255,.05);line-height:1.5}
+#dLog .dzs span{flex:1}#dLog .dzs span small{display:block;color:var(--dim);font-size:11px}
+/* здоровье репо */
+#vZdor{position:relative;z-index:1;padding:8px 24px 160px;max-width:1100px;margin:0 auto}
+.zsv{display:flex;gap:14px;align-items:center;margin:14px 0 10px;font-size:20px}
+.zsv i{width:14px;height:14px;border-radius:50%;flex:none}
+.zsv small{font-size:12px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+.zslom{border-left:3px solid #ff5a6e;padding:8px 12px;margin:0 0 14px;background:rgba(255,90,110,.06);font-size:14px;line-height:1.6}
+.zsek{margin:22px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.zr{border-bottom:1px solid rgba(255,255,255,.05);padding:8px 0}
+.zr summary{display:grid;grid-template-columns:14px minmax(140px,280px) 1fr;gap:12px;align-items:baseline;cursor:pointer;list-style:none}
+.zr summary::-webkit-details-marker{display:none}
+.zr summary i{width:9px;height:9px;border-radius:50%;align-self:center}
+.zr summary span{font-size:14px;color:var(--dim)}
+.zr summary div{font-size:14px;overflow-wrap:anywhere}
+.zr pre{margin:6px 0 0 26px;font:12px/1.55 'JetBrains Mono',monospace;color:var(--dim);white-space:pre-wrap;overflow-wrap:anywhere}
+.z-ok{background:var(--green)}.z-warn{background:var(--amber)}.z-bad{background:#ff5a6e}.z-info{background:var(--faint)}
+@media (max-width:640px){#vZdor{padding:8px 16px 160px}.zr summary{grid-template-columns:14px 1fr}.zr summary div{grid-column:2}}
+.idni{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.ichk{display:flex;gap:6px;align-items:center;font-size:12px;color:var(--dim);cursor:pointer}
+.isum{margin:16px 0 6px;font-size:12px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+.it,.ig summary{display:grid;grid-template-columns:56px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.it>b,.ig summary>b{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:12px;color:var(--faint);padding-top:3px}
+.it>div{min-width:0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px;line-height:1.55}
+.it i{display:block;font-style:normal;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
+.it.ty i{color:var(--accent)}
+.it.ya>div{color:#c4dde2;border-left:2px solid var(--accent);padding-left:12px}
+.it.resh>div{border:1px solid rgba(255,181,71,.4);background:rgba(255,181,71,.06);padding:8px 12px}.it.resh i{color:var(--amber)}
+.ig summary{cursor:pointer;list-style:none;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);padding:6px 0}
+.ig summary::-webkit-details-marker{display:none}
+.ig summary span::before{content:'▸ '}.ig[open] summary span::before{content:'▾ '}
+.ig summary:hover{color:var(--ink)}
+.igl{margin:0 0 8px 68px;padding-left:12px;border-left:1px solid var(--faint)}
+.nohod .ig{display:none}
+.lnk{all:unset;cursor:pointer;color:var(--accent);letter-spacing:.06em}
+/* чтец файла поверх окна */
+a.put{color:var(--accent);text-decoration:underline dotted;cursor:pointer}
+a.put-f{color:var(--green);text-decoration:underline dotted}
+.fajl{display:inline-block;max-width:min(100%,420px);margin:6px 0;padding:8px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.03);white-space:normal}
+.fajl img{display:block;max-width:100%;max-height:320px;border-radius:4px;cursor:zoom-in;margin-bottom:6px}
+.fajl audio{display:block;width:100%;margin-bottom:6px}
+.fajlNiz{font-size:13px;color:var(--dim)}.fajlNiz a{color:var(--accent);margin-left:6px}
+/* команда из ответа — как в терминале, с кнопкой копирования */
+.kod{display:flex;align-items:flex-start;gap:10px;margin:6px 0;background:#000;border:1px solid var(--line);border-left:2px solid #5affc8;padding:8px 10px;white-space:normal}
+.kod pre{margin:0;flex:1;font-family:'JetBrains Mono',Consolas,monospace;font-size:12.5px;color:#5affc8;white-space:pre-wrap;overflow-wrap:anywhere;user-select:all}
+.kod .kop{flex:none;font-size:11px;padding:2px 6px;border:1px solid var(--line)}
+.m code{font-family:'JetBrains Mono',Consolas,monospace;font-size:.92em;background:rgba(255,255,255,.07);padding:0 4px}
+#chtec{position:fixed;inset:0;z-index:200;background:rgba(0,2,5,.9);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px}
+#chtec[hidden]{display:none}
+.chtec-okno{background:var(--bg);border:1px solid var(--line);width:min(920px,100%);max-height:100%;display:flex;flex-direction:column}
+.chtec-sh{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;opacity:.85;overflow-wrap:anywhere}
+.chtec-sh .lnk{font-size:18px}
+#chtecTelo{overflow:auto;padding:6px 22px 22px;font-size:15px;line-height:1.6}
+#chtecTelo h2,#chtecTelo h3,#chtecTelo h4,#chtecTelo h5{color:var(--accent);margin:18px 0 6px}
+#chtecTelo p{margin:6px 0}#chtecTelo ul{margin:6px 0;padding-left:22px}
+#chtecTelo table{border-collapse:collapse;margin:10px 0;font-size:13px;width:100%}
+#chtecTelo td{border:1px solid var(--line);padding:5px 8px;vertical-align:top}
+#chtecTelo tr:first-child td{font-weight:600}
+#chtecTelo blockquote{border-left:2px solid var(--accent);margin:8px 0;padding:2px 12px;opacity:.9}
+#chtecTelo code{background:rgba(255,255,255,.06);padding:0 4px}
+.lnk:hover{text-decoration:underline}
+/* острова: объёмная карта на весь экран между шапкой и полем ввода, поверх — стеклянные панели */
+#vOstr{position:fixed;left:0;right:0;top:60px;bottom:90px;z-index:1;overflow:hidden;background:radial-gradient(ellipse 70% 60% at 50% 55%,rgba(0,229,255,.07),transparent 70%),var(--bg)}
+#oCv{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+#oCv.tyanu{cursor:grabbing}
+.oHud{position:absolute;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);letter-spacing:.12em;pointer-events:none}
+.oHud.tl{left:24px;top:18px;display:flex;flex-direction:column;gap:4px}
+.oHud.tl b{font-family:'Chakra Petch',sans-serif;font-size:13px;font-weight:600;letter-spacing:.42em;color:var(--accent)}
+.oHud.tl i{font-style:normal;letter-spacing:.04em;color:var(--faint);margin-top:4px}
+.oUg{position:absolute;width:22px;height:22px;border:1px solid var(--accent);opacity:.45;pointer-events:none}
+.oUg.a{left:10px;top:10px;border-right:0;border-bottom:0}.oUg.b{right:10px;top:10px;border-left:0;border-bottom:0}
+.oUg.c{left:10px;bottom:10px;border-right:0;border-top:0}.oUg.d{right:10px;bottom:10px;border-left:0;border-top:0}
+.oPan{position:absolute;right:24px;top:18px;bottom:18px;width:min(340px,38vw);display:flex;flex-direction:column;gap:10px;pointer-events:none}
+.oBlk{pointer-events:auto;border:1px solid var(--line);background:rgba(2,14,22,.62);backdrop-filter:blur(10px);padding:12px 14px;position:relative}
+.oBlk::before{content:"";position:absolute;left:-1px;top:-1px;width:14px;height:1px;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.oBlk>small{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.24em;color:var(--dim);margin-bottom:8px}
+.oNow{font-size:16px;line-height:1.35}
+.oNow b{color:var(--accent);font-weight:600}.oNow .ag{color:var(--green)}
+.oNow{display:flex;flex-direction:column;gap:9px;font-size:13px;max-height:34vh;overflow:auto}
+.akt{display:grid;grid-template-columns:14px minmax(0,1fr);gap:8px;align-items:start}
+.akt>i{width:9px;height:9px;margin-top:4px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+.akt.pm>i{border-radius:0;transform:rotate(45deg);background:#ffb84d;box-shadow:0 0 8px #ffb84d}.akt.pm b{color:#ffb84d}
+.akt.fn>i{border-radius:2px;background:var(--green);box-shadow:0 0 8px var(--green)}.akt.fn b{color:var(--green)}
+.akt small{display:block;margin-top:2px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--dim);overflow-wrap:anywhere}
+.akt u{display:block;height:2px;margin-top:5px;background:linear-gradient(90deg,var(--green) var(--p),rgba(90,255,200,.12) var(--p))}
+.akt.gotov{opacity:.5}
+.oNow i{display:block;font-style:normal;margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);overflow-wrap:anywhere}
+#oFeed{display:flex;flex-direction:column;gap:5px;max-height:30vh;overflow:auto}
+#oFeed div{display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;font-size:12px;line-height:1.3;color:var(--ink)}
+#oFeed div b{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:10px;color:var(--faint);padding-top:2px}
+#oFeed{overflow-x:hidden}
+#oFeed div u{text-decoration:none;display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);border:1px solid var(--line);padding:0 5px;margin-left:5px;max-width:100%}
+#oFeed div.ag u{color:var(--green);border-color:rgba(90,255,200,.3)}
+.oSay{font-size:13px;line-height:1.5;max-height:26vh;overflow:auto;white-space:pre-wrap;color:var(--ink)}
+.oTip{position:absolute;max-width:280px;pointer-events:none;border:1px solid var(--accent);background:rgba(1,10,18,.9);padding:8px 10px;font-size:12px;line-height:1.4;color:var(--ink);box-shadow:0 0 18px rgba(0,229,255,.25)}
+.oTip b{display:block;font-family:'JetBrains Mono',monospace;color:var(--accent);font-weight:500;margin-bottom:3px}
+.oTip small{display:block;margin-top:5px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim)}
+@media (max-width:900px){.oPan{left:12px;right:12px;top:auto;bottom:12px;width:auto;max-height:45%}.oPan .oBlk:nth-child(2){display:none}.oHud.tl i{display:none}}
+/* узкое окно: колонки встают друг под другом, границы не тянутся */
+@media (max-width:1100px){main{flex-direction:column;height:auto;overflow:visible;padding-bottom:140px}.lcol{min-width:0;flex:none!important}.lrow{flex-direction:column;flex:none!important}.lst{flex:none!important}.rxw{display:none!important}
+  .w{flex:none!important}.w>.panel,.w>.stack{max-height:60vh}.w[data-w=core]{height:min(46vh,360px)}.w[data-w=chat]{height:65vh}.w[data-w=chat]>.panel{max-height:none}.rx,.ry{display:none!important}}
+@media (max-width:720px){main{padding:16px 16px 130px}header{padding:10px 16px}.st .hide{display:none}footer{padding:10px 16px}}
+.codex-menu{position:relative}.codex-menu[hidden]{display:none}.codex-menu summary{display:block;cursor:pointer;list-style:none}.codex-menu summary::-webkit-details-marker{display:none}
+.codex-bar{position:absolute;z-index:6;right:0;top:calc(100% + 10px);width:min(480px,calc(100vw - 32px));padding:14px;border:1px solid var(--line);border-radius:8px;background:#010e16;box-shadow:0 12px 36px #0009;font-size:12px;letter-spacing:normal;text-transform:none}
+.codex-bar .controls b{flex-basis:100%}
+.codex-bar[hidden]{display:none}.codex-bar .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.codex-bar pre{white-space:pre-wrap;user-select:text;max-height:180px;overflow:auto}.codex-bar a{color:var(--accent)}
+.phone-dialog{box-sizing:border-box;width:min(420px,calc(100vw - 32px));max-height:90vh;overflow:auto;padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--surface);color:var(--ink);box-shadow:0 24px 100px #0009}
+.phone-dialog::backdrop{background:#0009;backdrop-filter:blur(4px)}
+.phone-dialog h2{font-size:20px;margin:0}.phone-dialog p{font-size:14px;line-height:1.5;color:var(--dim)}
+.phone-dialog .phone-head{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.phone-dialog button{font:inherit;cursor:pointer;border-radius:10px;padding:10px 14px;background:var(--surface);color:var(--ink);border:1px solid var(--line);min-height:44px}
+.phone-dialog .phone-close{font-size:24px;padding:0;width:44px;background:transparent;border:0}
+.phone-dialog .phone-qr{display:block;box-sizing:border-box;width:min(100%,280px);height:auto;aspect-ratio:1;margin:20px auto;padding:12px;background:white;border-radius:12px}
+.phone-dialog [hidden]{display:none!important}.phone-dialog a{color:var(--accent)}
+.phone-dialog textarea{box-sizing:border-box;width:100%;min-height:80px;margin:12px 0;background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:8px;font:12px monospace;overflow-wrap:anywhere}
+.phone-dialog details{margin-top:20px;font-size:13px}.phone-dialog summary{cursor:pointer;color:var(--dim)}
+
+.at.ref{max-width:min(520px,calc(100vw - 60px));flex-wrap:wrap}
+.at.ref span{min-width:140px;flex:1}.at .sub{overflow:hidden;text-overflow:ellipsis}
+.at button[data-ref]{position:static;padding:6px 8px;border:1px solid var(--line);font:inherit;color:var(--accent);flex:none}
+#refPath{background:var(--surface);color:var(--ink);border:1px solid var(--line);padding:10px;font:inherit}
+.file-tile.local-file{width:164px;min-height:100px;height:auto;cursor:default}.local-file small{display:block;font-size:10px;line-height:1.4;color:var(--dim)}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><b>AllY</b><span id="providerName">работает на Claude · боевой режим</span></div>
+  <nav class="tabs"><button class="tab on" id="tMap">Карта</button><button class="tab" id="tOstr" title="Кто работает: я, помощники и фоновые дела — кто к какому навыку пошёл и что делает">Кто работает</button><button class="tab" id="tWiki">Навыки</button><button class="tab" id="tDnev" title="Честный разговор: вечером 10–15 минут о себе. Всё остаётся на этом компьютере">Дневник</button><button class="tab" id="tIst" title="Что было за день: твои сообщения, мои ответы и действия, решения летописца">История работы</button><button class="tab" id="tZdor" title="Здоровье всего репо: знания и граф, правила работы, Оптимизатор, сервисы — живой опрос сторожей">Здоровье</button></nav>
+  <div class="st"><span><i class="dot" id="dLink"></i><span id="tLink">нет связи</span></span><span class="hide mono" id="tRepo"></span><span class="mono" id="clock"></span>
+    <details id="codexMenu" class="codex-menu" hidden><summary class="hb" title="Вход в Codex и управление очередью">Codex</summary><section id="codexBar" class="codex-bar" hidden>
+  <div class="controls"><b id="codexStatus">Codex</b><button class="hb" id="codexLogin">Войти в Codex</button><button class="hb" id="codexDevice">Войти по коду</button><button class="hb" id="codexCheck">Проверить вход</button><button class="hb" id="codexRetry" hidden>Продолжить очередь</button></div>
+  <pre id="codexLoginText" hidden></pre><a id="codexLoginLink" target="_blank" rel="noopener noreferrer" hidden>Открыть страницу входа ChatGPT</a><pre id="codexError" hidden></pre>
+</section></details>
+    <button class="hb" id="bEdit" title="Настроить карту: перетаскивать блоки мышью, тянуть границы, прятать и возвращать блоки">Настроить</button>
+    <button class="hb" id="bZnayu" title="Что Джинни знает о тебе: нажми — расскажет по разделам" hidden></button>
+    <button class="hb" id="bVoice" title="Читать ответы вслух">Голос</button>
+    <button class="hb" id="bOtz" title="Отзывы разработчикам: что отправляется и ответы" hidden>Отзывы</button>
+    <button class="hb" id="bPod" title="Поддержка проекта «Джинни»: отчёты людей и ответы им" hidden>Поддержка</button></div>
+</header>
+
+<div id="edbar" hidden><b>Настройка карты</b><span class="sub" title="К боку блока — встанет рядом. В середину блока — стопкой под ним. К самому низу на стык двух колонок — под обе. Размер — тяни границу между блоками.">тяни блоки мышью</span><span id="tray"></span>
+  <button class="hb" id="eCol" title="Добавить пустую колонку справа">+ колонка</button><button class="hb" id="eReset" title="Вернуть раскладку как была сначала">Сбросить</button><button class="hb go" id="eDone">Готово</button></div>
+<aside id="hist"><div class="ph">Переписка<small><button class="hb" id="bPin" title="Поставить переписку на карту, чтобы была видна всегда">на карту</button><button class="hb" id="bHistX">закрыть</button></small></div><div class="log" id="log"><div class="empty">Пока пусто.</div></div></aside>
+<aside id="pod"><div class="ph">Поддержка проекта «Джинни»<small><button class="hb" id="bPodNazad" hidden>к списку</button><button class="hb" id="bPodX">закрыть</button></small></div><div class="ob" id="podB"></div></aside>
+<aside id="otz"><div class="ph">Отзывы разработчикам<small><button class="hb" id="bOtzX">закрыть</button></small></div><div class="ob" id="otzB"></div></aside>
+<section id="vWiki" hidden>
+  <div class="wtop"><input id="wq" placeholder="Найти команду, навык или механику: «сжать», «звук», «продажи», «телефон»…" autocomplete="off">
+    <button class="chipf on" data-f="all">Всё</button><button class="chipf" data-f="spr">Как это устроено<b id="cSpr"></b></button><button class="chipf" data-f="pult">Пульт<b id="cPult"></b></button><button class="chipf" data-f="kom">Команды<b id="cKom"></b></button><button class="chipf" data-f="klav">Клавиши<b id="cKlav"></b></button><button class="chipf" data-f="nav">Навыки<b id="cNav"></b></button><button class="chipf" data-f="meh">Механики<b id="cMeh"></b></button></div>
+  <div id="wBody"><div class="empty" style="padding:30px 0">читаю команды и навыки…</div></div>
+</section>
+<section id="vDnev" hidden>
+  <div class="dtop"><b>Честный разговор</b><small id="dSub">10–15 минут о себе. Пиши внизу. Всё остаётся на этом компьютере.</small>
+    <button class="chipf" id="dNach" title="Спутник начнёт сам">Начать</button><button class="chipf" id="dKon" title="Закончить: разговор ляжет в дневник, а спутник запомнит главное к следующему разу" hidden>Закончить разговор</button></div>
+  <div id="dLog"></div>
+</section>
+<section id="vIst" hidden>
+  <div class="wtop"><div id="iDni" class="idni"></div><label class="ichk"><input type="checkbox" id="iHod" checked> мои действия</label><button class="chipf" id="iNow" title="Перечитать день">Обновить</button></div>
+  <div id="iBody"></div>
+</section>
+<section id="vZdor" hidden>
+  <div class="wtop"><div class="isum" id="zKogda" style="flex:1;margin:0"></div><button class="chipf" id="zNow" title="Опросить всех сторожей заново (~15 с)">Проверить заново</button></div>
+  <div id="zBody"></div>
+</section>
+<section id="vZnayu" hidden>
+  <div class="wtop"><div class="isum" id="zSum">читаю, что знаю о тебе…</div>
+    <button class="chipf" id="zPomog" title="Джинни расскажет, как то, что она знает, помогает в твоих делах">Как это помогает</button>
+    <button class="chipf" id="zPrav" title="Поправить или добавить, что Джинни знает">Поправить</button>
+    <button class="chipf" id="zNazad">На карту</button></div>
+  <div id="zBody"></div>
+</section>
+<section id="vOstr" hidden>
+  <canvas id="oCv"></canvas>
+  <i class="oUg a"></i><i class="oUg b"></i><i class="oUg c"></i><i class="oUg d"></i>
+  <div class="oHud tl"><b>КТО РАБОТАЕТ</b><span id="oSum">читаю навыки…</span><span id="oSeg"></span><i>тяни — повернуть · колесо — ближе · нажми на остров — позвать навык</i></div>
+  <div class="oTip" id="oTip" hidden></div>
+  <aside class="oPan">
+    <div class="oBlk"><small>СЕЙЧАС РАБОТАЮТ</small><div class="oNow" id="oNow"></div></div>
+    <div class="oBlk"><small>ЛЕНТА</small><div id="oFeed"></div></div>
+    <div class="oBlk"><small>ПОСЛЕДНИЙ ОТВЕТ · пиши в поле внизу</small><div class="oSay" id="oSay"></div></div>
+  </aside>
+</section>
+<main id="vMap"></main>
+<!-- блоки карты; раскладку по колонкам собирает скрипт, спрятанные остаются здесь -->
+<div id="wpool" hidden>
+  <section class="w" data-w="zamer" data-t="Ресурсы"><div class="panel" style="--pc:#4da3ff"><div class="ph">Ресурсы<small id="zAt">ждёт замера</small></div><div id="zamer"><div class="empty">Цифры придут после первого ответа сессии.</div></div></div></section>
+  <section class="w" data-w="zhel" data-t="Ноутбук"><div class="panel" style="--pc:#8ca69c"><div class="ph">Ноутбук<small>раз в 10 с</small></div><div id="zhel"><div class="empty">читаю датчики…</div></div></div></section>
+  <section class="w" data-w="hod" data-t="Джинни делает"><div class="panel"><div class="ph">Джинни делает<small><span id="nProc"></span> <button class="lnk" id="bIst" title="Вся история работы по дням">история →</button></small></div><div id="procs"><div class="empty">Пока тихо. Здесь будет видно каждое моё действие.</div></div><div id="hod"></div></div></section>
+  <section class="w" data-w="focus" data-t="Фокус"><div class="panel"><div class="ph">Фокус<small id="nFocus"></small></div><div id="focus"><div class="empty">читаю задачи…</div></div></div></section>
+  <section class="w" data-w="chat" data-t="Переписка"><div class="panel chatw"><div class="ph">Переписка<small>вся история</small></div><div class="log" id="clog"><div class="core-float" id="coreFloat"><canvas id="core" title="Нажми и скажи"></canvas><div class="phase" id="phase">готова</div></div><div class="empty">Пока пусто.</div></div></div></section>
+  <section class="w" data-w="say" data-t="Последний ответ"><div class="say" id="say"></div></section>
+  <section class="w" data-w="asks" data-t="Ждёт тебя"><div class="panel" style="--pc:#5affc8"><div class="ph">Ждёт тебя<small id="nAsk">0</small></div><div id="asks"><div class="empty">Ничего не ждёт.</div></div></div></section>
+  <section class="w" data-w="doki" data-t="Документы"><div class="panel" style="--pc:#b98cff"><div class="ph">Документы<small><span id="nDok"></span> <button class="lnk" id="bDokArh" title="Показать убранные в архив">архив</button></small></div><div id="doki"><div class="empty">Здесь соберутся отчёты и разборы, на которые я ссылаюсь в ответах.</div></div></div></section>
+  <section class="w" data-w="panels" data-t="Сводки от Джинни"><div id="panels" class="stack"></div></section>
+  <section class="w" data-w="sys" data-t="Система"><div class="panel"><div class="ph">Система<small>из файлов репо</small></div><div class="kv" id="kv"></div></div></section>
+</div>
+<footer>
+  <div id="att"></div>
+  <form id="f" autocomplete="off"><textarea id="q" rows="1" placeholder="Напиши Джинни — сообщение уйдёт в твою сессию Claude Code"></textarea><input type="file" id="fileIn" multiple hidden><button type="button" class="fb hb" id="bHist" title="Вся переписка: что ты написал и что я ответила">История</button><button type="button" class="fb" id="bFile" title="Приложить файлы, картинки, документы">📎</button><button type="button" class="fb" id="bReference" title="Прикрепить файл по пути без загрузки" aria-label="Прикрепить файл по пути без загрузки">По пути</button><button type="button" class="fb" id="bMic" title="Сказать голосом">🎙</button><button type="button" class="fb" id="bBig" title="Большое поле">⤢</button><button class="fb send">Отправить</button></form>
+  <div class="hint" id="hint"></div>
+</footer>
+<dialog class="phone-dialog" id="refDialog" aria-labelledby="refTitle">
+ <div class="phone-head"><h2 id="refTitle">Прикрепить без загрузки</h2><button type="button" class="phone-close" id="refClose" aria-label="Закрыть">×</button></div>
+ <p id="refInfo"></p>
+ <button type="button" id="refBrowse">Выбрать файл на компьютере</button>
+ <p><label for="refPath">Или вставь полный путь к файлу</label><input id="refPath" type="text" placeholder="D:\APK\Notion.apk" autocomplete="off" style="display:block;width:100%;box-sizing:border-box;margin-top:8px"></p>
+ <p class="note">В Проводнике: правой кнопкой по файлу → «Копировать как путь». Ссылка работает, пока файл остаётся на этом компьютере.</p>
+ <button type="button" id="refAdd">Прикрепить по пути</button>
+ <p id="refError" role="status" aria-live="polite"></p>
+</dialog>
+<div id="chtec" hidden onclick="if(event.target===this)this.hidden=true"><div class="chtec-okno"><div class="chtec-sh"><span id="chtecPut"></span><button class="lnk" onclick="$('#chtec').hidden=true" title="Закрыть (Esc)">✕</button></div><div id="chtecTelo"></div></div></div>
+<script src="/resurs.js"></script>
+<script src="/chat-composer.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let phase='idle';const PH={idle:['готова','#00e5ff'],think:['думает','#c77dff'],work:['работает','#ffb547'],speak:['говорит','#00e5ff'],ask:['ждёт да','#5affc8'],stop:['стоп','#ff5a7a']};
+const live={processes:{},asks:{},panels:{}};
+let providerState={provider:'claude'};
+function renderProvider(p){
+ if(!p)return;providerState=p;const codex=p.provider==='codex';$('#codexMenu').hidden=!codex;$('#codexBar').hidden=!codex;
+ $('#providerName').textContent=codex?'работает на Codex · твой аккаунт ChatGPT':'работает на Claude · боевой режим';
+ $('#q').placeholder=codex?'Напиши Джинни — сообщение уйдёт в твою сессию Codex':'Напиши Джинни — сообщение уйдёт в твою сессию Claude Code';
+ if($('#dLink').classList.contains('on'))$('#tLink').textContent=codex?'Codex на связи':'мост на связи';
+ if(!codex)return;
+ $('#codexStatus').textContent=!p.installed?'Codex CLI не найден':!p.authenticated?'Нужен вход в ChatGPT':p.paused?'Очередь приостановлена':p.busy?`Codex работает · в очереди ${Math.max(0,p.queued-1)}`:'Codex готова к работе';
+ $('#codexLogin').disabled=!!p.login?.running;
+ $('#codexDevice').disabled=!!p.login?.running;
+ $('#codexRetry').hidden=!p.paused;$('#codexRetry').disabled=p.busy;
+ const text=p.login?.text||'';$('#codexLoginText').textContent=text;$('#codexLoginText').hidden=!text;
+ const link=text.match(/https:\/\/(?:[\w-]+\.)*(?:openai\.com|chatgpt\.com)\/[\w/?=&.%-]*/i)?.[0];
+ $('#codexLoginLink').hidden=!link;if(link)$('#codexLoginLink').href=link;
+ const error=[p.error,p.login?.error].filter(Boolean).join('\n');$('#codexError').textContent=error;$('#codexError').hidden=!error;
+ renderZamer();
+}
+async function codexAction(action){try{renderProvider(await post('/codex/'+action,{}))}catch{$('#codexError').hidden=false;$('#codexError').textContent='Сервер Codex не отвечает.'}}
+$('#codexLogin').onclick=()=>codexAction('login');$('#codexDevice').onclick=()=>codexAction('login-device');$('#codexCheck').onclick=()=>codexAction('status');$('#codexRetry').onclick=()=>codexAction('retry');
+function setPhase(p,label){phase=p;$('#phase').textContent=label||PH[p][0]}
+// перерисовка раз в минуту заново проигрывала анимацию появления сводок — «панель дёргается»; рисуем только изменившееся
+const setHTML=(el,h)=>{if(el._h===h)return false;el._h=h;el.innerHTML=h;return true};
+// фаза ядра — из фактов, а не из того, кто последним позвал setPhase: «думает» висело, когда кончился лимит
+let sentAt=0;
+function limitKonchilsya(){const now=Date.now();for(const[l,o]of[['лимит 5 часов',zamer?.pyat],['недельный лимит',zamer?.nedelya]])
+ if(o&&o.procent>=100&&o.sbros>now)return `${l} кончился, до ${new Date(o.sbros).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}`;return ''}
+function faza(){if(phase==='speak')return;if(Object.keys(live.asks).length)return setPhase('ask');
+ const h=hodL.at(-1),posle=h?h.at:0,lim=limitKonchilsya(),zhdyot=Date.now()-sentAt;
+ if(h&&h.oshibka&&posle>=sentAt-1000&&(Date.now()-posle<30*60e3||lim))return setPhase('stop',h.oshibka);
+ if(busy()||Object.values(live.processes).some(p=>p.progress<100&&!p.stoit))return setPhase('work');
+ if(sentAt>posle){if(lim)return setPhase('stop',lim);return zhdyot<180e3?setPhase('think'):setPhase('stop','молчит — сессия не отвечает')}
+ setPhase('idle')}
+async function post(path,data){const r=await fetch(path,{method:'POST',headers:{'content-type':'application/json','x-dzhinni':'1'},body:JSON.stringify(data)});return r.json()}
+
+/* раскладка карты: колонки с блоками, как в Cursor. Ширины и высоты — flex-grow, раскладка в localStorage */
+const main=$('#vMap'),pool=$('#wpool'),W={};let edit=false;
+pool.querySelectorAll('.w').forEach(w=>{W[w.dataset.w]=w;
+ w.insertAdjacentHTML('afterbegin',`<div class="wh"><span>⠿ ${esc(w.dataset.t)}</span><button type="button" data-hide title="Убрать блок с карты; вернуть — кнопкой сверху">скрыть</button></div>`);
+ w.insertAdjacentHTML('beforeend','<div class="ry" title="Потяни, чтобы поменять высоту"></div><div class="rxw" title="Потяни, чтобы поменять ширину"></div>')});
+const DEF={cols:[{w:1.85,items:[['chat',1]]},{w:1,items:[['zhel',.75],['zamer',1.25]]}],hidden:['focus','hod','asks','doki','panels','sys','say']};
+const kids=c=>[...c.querySelectorAll(':scope>.w,:scope>.lrow')];
+function mkCol(g){const c=document.createElement('div');c.className='lcol';c.style.flexGrow=g;c.innerHTML='<div class="rx" title="Потяни, чтобы поменять ширину"></div>';return c}
+function mkRow(g){const r=document.createElement('div');r.className='lrow';r.style.flexGrow=g;return r}
+function mkStack(g){const s=document.createElement('div');s.className='lst';s.style.flexGrow=g;s.innerHTML='<div class="rxw" title="Потяни, чтобы поменять ширину"></div>';return s}
+// стопка из одного блока распускается: блок забирает её ширину; стопка, оказавшаяся прямо в колонке, высыпается в неё,
+// и её блоки делят высоту стопки в прежней пропорции
+function tidyStacks(){main.querySelectorAll('.lst').forEach(s=>{const k=[...s.children].filter(x=>x.matches('.w,.wph')),g=+s.style.flexGrow||1;
+ if(s.parentElement.classList.contains('lrow')){if(k.length>1)return;if(k[0])k[0].style.flexGrow=g;s.replaceWith(...k);return}
+ const sum=k.reduce((a,x)=>a+(+x.style.flexGrow||1),0)||1;k.forEach(x=>x.style.flexGrow=+(g*(+x.style.flexGrow||1)/sum).toFixed(4));s.replaceWith(...k)})}
+// ряд, в котором осталась одна ячейка, распускается: она забирает высоту ряда
+function tidyRows(){tidyStacks();main.querySelectorAll('.lrow').forEach(r=>{const k=[...r.children].filter(x=>x.matches('.w,.wph,.lst'));
+ if(k.length>1)return;if(k[0]){k[0].style.flexGrow=r.style.flexGrow||1;r.replaceWith(k[0])}else r.remove()});tidyStacks()}
+function markVoid(){main.querySelectorAll('.lcol').forEach(c=>c.classList.toggle('void',!c.querySelector(':scope>.w,:scope>.wph,:scope>.lrow')))}
+function dropVoid(){main.querySelectorAll('.lcol.void').forEach(c=>{if(main.children.length>1)c.remove()})}
+const toBottom=()=>{const l=$('#clog');l.scrollTop=l.scrollHeight};
+// переписка, прокрученная до низа, остаётся внизу и когда блок меняет размер
+{const l=$('#clog');let stick=true;l.addEventListener('scroll',()=>{stick=l.scrollHeight-l.scrollTop-l.clientHeight<40});new ResizeObserver(()=>{if(stick)toBottom()}).observe(l)}
+// полоса прокрутки у блока — только когда содержимое правда не влезает; пара пикселей запаса не в счёт
+//
+{const fit=el=>{el.style.overflowY=el.scrollHeight-el.clientHeight>8?'auto':'hidden'};
+ const ro=new ResizeObserver(es=>es.forEach(e=>fit(e.target)));
+ const watch=()=>document.querySelectorAll('.w>.panel,.w>.stack').forEach(el=>{if(!el._fit){el._fit=1;ro.observe(el);
+  new MutationObserver(()=>fit(el)).observe(el,{childList:true,subtree:true,characterData:true})}fit(el)});
+ watch();setInterval(watch,3000)}
+function applyLayout(L){Object.values(W).forEach(w=>pool.append(w));main.innerHTML='';const used=new Set(L.hidden||[]);
+ const put=(box,id,g)=>{const w=W[id];if(!w||used.has(id))return;used.add(id);w.style.flexGrow=g||1;box.append(w)};
+ for(const col of L.cols||[]){const c=mkCol(col.w||1);for(const[id,h,row]of col.items||[]){
+   if(id==='row'){const r=mkRow(h||1);for(const[i,g,st]of row||[]){if(i==='st'){const s=mkStack(g||1);for(const[j,hj]of st||[])put(s,j,hj);r.append(s)}else put(r,i,g)}c.append(r)}else put(c,id,h)}main.append(c)}
+ if(!main.children.length)main.append(mkCol(1));tidyRows();
+ for(const id in W)if(!used.has(id)){W[id].style.flexGrow=1;main.lastElementChild.append(W[id])} // блок, которого не было в сохранённой раскладке
+ markVoid();if(!edit)dropVoid();renderTray();toBottom()}
+const gr=el=>+(+el.style.flexGrow||1).toFixed(3);
+const readLayout=()=>({cols:[...main.children].map(c=>({w:gr(c),items:kids(c).map(w=>w.classList.contains('lrow')?['row',gr(w),[...w.children].filter(x=>x.matches('.w,.lst')).map(x=>x.classList.contains('lst')?['st',gr(x),[...x.children].filter(y=>y.matches('.w')).map(y=>[y.dataset.w,gr(y)])]:[x.dataset.w,gr(x)])]:[w.dataset.w,gr(w)])})),hidden:[...pool.children].map(w=>w.dataset.w)});
+function saveLayout(){try{localStorage.setItem('dzh-layout',JSON.stringify(readLayout()))}catch{}}
+// спрятанные блоки двумя списками: наши (обновляем мы) и твои
+function renderTray(){const b=w=>`<button class="hb" data-add="${esc(w.dataset.w)}" title="Вернуть блок на карту">+ ${esc(w.dataset.t)}</button>`,all=[...pool.children],
+  nashi=all.filter(w=>!w.dataset.v),tvoi=all.filter(w=>w.dataset.v);
+ $('#tray').innerHTML=(nashi.length?`<span class="trg">вернуть:</span>${nashi.map(b).join('')}`:'')+(tvoi.length?`<span class="trg">мои:</span>${tvoi.map(b).join('')}`:'')}
+$('#tray').onclick=e=>{const b=e.target.closest('[data-add]');if(!b)return;const w=W[b.dataset.add],cols=[...main.children];
+ const c=cols.find(c=>c.classList.contains('void'))||cols.reduce((a,b)=>kids(a).length<=kids(b).length?a:b);
+ w.style.flexGrow=1;c.append(w);markVoid();renderTray();saveLayout();toBottom()};
+function setEdit(on){edit=on;document.body.classList.toggle('edit',on);$('#edbar').hidden=!on;$('#bEdit').classList.toggle('on',on);
+ if(on){setView('map');renderTray()}else{dropVoid();saveLayout()}}
+$('#bEdit').onclick=()=>setEdit(!edit);$('#eDone').onclick=()=>setEdit(false);
+$('#eReset').onclick=()=>{applyLayout(DEF);saveLayout()};
+$('#eCol').onclick=()=>{if(main.children.length<5){main.append(mkCol(1));markVoid()}};
+main.addEventListener('click',e=>{const b=e.target.closest('[data-hide]');if(!b||!edit)return;pool.append(b.closest('.w'));tidyRows();markVoid();renderTray();saveLayout()});
+main.addEventListener('pointerdown',e=>{if(!edit||e.button!==0||e.target.closest('[data-hide],[data-izm]'))return;
+ const r=e.target.closest('.ry,.rx,.rxw');if(r)return split(e,r,r.classList.contains('ry'));
+ const w=e.target.closest('.w');if(w)drag(e,w)});
+// умные направляющие, как в Canva: граница липнет к краю соседнего блока, а размер — к размеру соседа
+// той же породы (колонка к колонке, блок к блоку); с чем совпало — показывают линия или пунктир с подписью
+const LIP=6,guide=document.createElement('div'),gtip=document.createElement('div');guide.className='guide';gtip.className='gtip';document.body.append(guide,gtip);
+function lipkie(a,b,vert,sum){const A=a.getBoundingClientRect(),B=b.getBoundingClientRect(),st=vert?A.top:A.left,gap=(vert?B.top:B.left)-(vert?A.bottom:A.right),out=[];
+ const kol=a.classList.contains('lcol');
+ for(const el of main.querySelectorAll('.lcol,.lrow,.lst,.w')){if(el===a||el===b||a.contains(el)||b.contains(el)||el.contains(a))continue;
+  const q=el.getBoundingClientRect(),s=vert?q.top:q.left,en=vert?q.bottom:q.right;
+  out.push({na:en-st,line:en},{na:s-gap-st,line:s}); // край к краю: конец «a» или начало «b» на линии соседа
+  if(kol===el.classList.contains('lcol'))out.push({na:en-s,el,who:a},{na:sum-(en-s),el,who:b})} // размер как у соседа
+ return out}
+function guidesOff(){guide.className='guide';gtip.style.display='none';document.querySelectorAll('.gmatch').forEach(x=>x.classList.remove('gmatch'))}
+function pokazatGuide(c,a,b,vert,ev){guidesOff();if(!c)return;const M=main.getBoundingClientRect();
+ if(c.line!=null){Object.assign(guide.style,vert?{top:c.line-1+'px',left:M.left+'px',width:M.width+'px',height:'2px'}:{left:c.line-1+'px',top:M.top+'px',height:M.height+'px',width:'2px'});guide.className='guide on';return}
+ c.el.classList.add('gmatch');c.who.classList.add('gmatch');
+ const imya=c.el.dataset.t?`«${c.el.dataset.t}»`:c.el.classList.contains('lcol')?'соседней колонки':'соседнего ряда';
+ gtip.textContent=`${vert?'высота':'ширина'} как у ${imya}`;Object.assign(gtip.style,{display:'block',left:ev.clientX+14+'px',top:ev.clientY+14+'px'})}
+// граница: меняются только два соседа, сумма их долей не меняется — остальные блоки стоят на месте
+function split(e,h,vert){let a=h.parentElement;
+ if(vert){const p=a.parentElement;if(p.classList.contains('lst')&&!a.nextElementSibling)a=p.parentElement; // нижний блок стопки меняет высоту всего ряда
+  else if(p.classList.contains('lrow'))a=p} // высоту блока в ряду меняет весь ряд
+ const b=a.nextElementSibling;if(!b||b.classList.contains('wph'))return;e.preventDefault();
+ const sz=el=>vert?el.getBoundingClientRect().height:el.getBoundingClientRect().width,MIN=vert?64:a.parentElement.classList.contains('lrow')?120:240; // 240 = min-width колонки в CSS
+ // доли соседей — в пикселях: колонка, упёртая в min-width, иначе сдвигает чужие, и «ширина как у соседа» выходила неравной
+ {const sib=[...a.parentElement.children].filter(x=>x.matches('.lcol,.lrow,.lst,.w')),px=sib.map(sz),sr=px.reduce((s,v)=>s+v,0)/px.length;
+  sib.forEach((x,i)=>x.style.flexGrow=+(px[i]/sr).toFixed(4))} // ~1, как в раскладке по умолчанию
+ const sa=sz(a),sb=sz(b),G=(+a.style.flexGrow)+(+b.style.flexGrow),p0=vert?e.clientY:e.clientX;
+ h.classList.add('on');h.setPointerCapture(e.pointerId);const cands=lipkie(a,b,vert,sa+sb);
+ const mv=ev=>{let na=Math.min(Math.max(sa+(vert?ev.clientY:ev.clientX)-p0,MIN),sa+sb-MIN),best=null;
+  for(const c of cands){const d=Math.abs(c.na-na);if(d<=LIP&&c.na>=MIN&&c.na<=sa+sb-MIN&&(!best||d<best.d))best={...c,d}}
+  if(best)na=best.na;a.style.flexGrow=G*na/(sa+sb);b.style.flexGrow=G*(sa+sb-na)/(sa+sb);pokazatGuide(best,a,b,vert,ev)};
+ const up=()=>{guidesOff();h.classList.remove('on');h.removeEventListener('pointermove',mv);h.removeEventListener('pointerup',up);h.removeEventListener('pointercancel',up);saveLayout()};
+ h.addEventListener('pointermove',mv);h.addEventListener('pointerup',up);h.addEventListener('pointercancel',up)}
+// блок: едет за мышью, на его месте рамка-заглушка; отпустил — встаёт туда, где заглушка.
+// Поднёс к левому или правому краю другого блока (четверть ширины) — встают рядом, в один ряд.
+function drag(e,w){e.preventDefault();const r=w.getBoundingClientRect(),dx=e.clientX-r.left,dy=e.clientY-r.top;
+ const ph=document.createElement('div');ph.className='wph';ph.style.flexGrow=w.style.flexGrow||1;w.before(ph);
+ Object.assign(w.style,{width:r.width+'px',height:r.height+'px',left:r.left+'px',top:r.top+'px'});w.classList.add('drag');document.body.append(w);
+ let inRow=ph.parentElement.classList.contains('lrow');
+ // заглушка сменила ряд на колонку или обратно — доля «высота/ширина» уже не та, начинаем с ровной
+ const place=fn=>{fn();const now=ph.parentElement.classList.contains('lrow');if(now!==inRow){ph.style.flexGrow=1;inRow=now}ph.classList.toggle('side',now);tidyRows();markVoid()};
+ const beside=(t,left)=>place(()=>{if(!t.parentElement.classList.contains('lrow')){const row=mkRow(t.style.flexGrow||1);t.before(row);t.style.flexGrow=1;row.append(t)}left?t.before(ph):t.after(ph)});
+ // Объединение двух соседних колонок в общий ряд стопок с размещением блока на всю ширину под ними.
+ const pod=(cL,cR)=>{if([cL,cR].some(c=>c.querySelector(':scope>.lrow')))return false;
+  place(()=>{const gL=+cL.style.flexGrow||1,gR=+cR.style.flexGrow||1,row=mkRow(2);
+   for(const[c,g]of[[cL,gL],[cR,gR]]){const s=mkStack(g);s.append(...[...c.children].filter(k=>k.matches('.w')));row.append(s)}
+   cL.style.flexGrow=+(gL+gR).toFixed(4);ph.style.flexGrow=1;cL.append(row,ph);cR.remove()});return true};
+ const mv=ev=>{w.style.left=ev.clientX-dx+'px';w.style.top=ev.clientY-dy+'px';const x=ev.clientX,y=ev.clientY,cols=[...main.children];
+  {const M=main.getBoundingClientRect();if(y>M.bottom-M.height*.15)for(let i=0;i<cols.length-1;i++){const L=cols[i].getBoundingClientRect(),R=cols[i+1].getBoundingClientRect();
+   if(x>L.right-30&&x<R.left+30&&pod(cols[i],cols[i+1]))return}}
+  const col=cols.find(c=>{const q=c.getBoundingClientRect();return x>=q.left-12&&x<=q.right+12})||(x<cols[0].getBoundingClientRect().left?cols[0]:cols.at(-1));
+  const t=kids(col).find(s=>{const q=s.getBoundingClientRect();return y>=q.top-7&&y<=q.bottom+7});
+  if(!t){const sib=kids(col).find(s=>y<s.getBoundingClientRect().top);if(sib){if(sib.previousElementSibling!==ph)place(()=>sib.before(ph))}else if(col.lastElementChild!==ph)place(()=>col.append(ph));return}
+  const q=t.getBoundingClientRect(),top=y<q.top+q.height*.25,bot=y>q.bottom-q.height*.25;
+  if(t.classList.contains('lrow')){ // в ряду: самый верх/низ — из ряда в колонку, середина ячейки — стопкой в ней, бока ячейки — место в ряду
+   const kr=q.height*.12,cell=[...t.children].find(c=>c!==ph&&c.matches('.w,.lst')&&(r=>x>=r.left+r.width*.25&&x<=r.right-r.width*.25)(c.getBoundingClientRect()));
+   if(y<q.top+kr){if(t.previousElementSibling!==ph)place(()=>t.before(ph))}else if(y>q.bottom-kr){if(t.nextElementSibling!==ph)place(()=>t.after(ph))}
+   else if(cell){const st=cell.classList.contains('lst')?cell:null,bl=st?[...st.children].filter(c=>c!==ph&&c.matches('.w')):[cell];
+    const nx=bl.find(c=>(r=>y<r.top+r.height/2)(c.getBoundingClientRect()));
+    if(st&&ph.parentElement===st&&(nx?ph.nextElementSibling===nx:st.lastElementChild===ph))return;
+    place(()=>{let s=st;if(!s){s=mkStack(cell.style.flexGrow||1);cell.before(s);cell.style.flexGrow=1;s.append(cell)}nx?nx.before(ph):s.append(ph)})}
+   else{const s=[...t.children].find(c=>c!==ph&&c.matches('.w,.lst')&&x<c.getBoundingClientRect().left+c.getBoundingClientRect().width/2);
+    if(s){if(s.previousElementSibling!==ph)place(()=>s.before(ph))}else if(t.lastElementChild!==ph)place(()=>t.append(ph))}return}
+  const edge=q.width*.25;
+  if(x<q.left+edge)return beside(t,true);if(x>q.right-edge)return beside(t,false);
+  if(y<q.top+q.height/2){if(t.previousElementSibling!==ph)place(()=>t.before(ph))}else if(t.nextElementSibling!==ph)place(()=>t.after(ph))};
+ const up=()=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);
+  w.classList.remove('drag');for(const k of['width','height','left','top'])w.style[k]='';w.style.flexGrow=ph.style.flexGrow;ph.replaceWith(w);tidyRows();markVoid();saveLayout();if(w===W.chat)toBottom()};
+ addEventListener('pointermove',mv);addEventListener('pointerup',up);addEventListener('pointercancel',up)}
+
+/* отрисовка */
+// «осталось ~N мин»: сколько ушло на сделанное, столько же в пропорции на остаток
+const ostalos=p=>{if(!p.start||p.progress<=0||p.progress>=100||p.stoit)return'';const ms=(p.at-p.start)*(100-p.progress)/p.progress,m=Math.max(1,Math.round(ms/60000));
+ return' · осталось ~'+(m<60?m+' мин':Math.floor(m/60)+' ч'+(m%60?' '+m%60+' мин':''))};
+// готовое висит 10 минут и уходит
+const svezhee=p=>p.progress<100||Date.now()-(p.at||0)<6e5;setInterval(()=>renderProcs(),60000);
+// Готовое и остановленное убирается ✓ сразу;
+// Помним id: пока дело готово или стоит, оно скрыто; пошло заново — снова видно. (Время не годится: мост его
+// обновляет при каждой отправке, и галочка «не закрывала» — пользователь .)
+const skryto=(()=>{try{return JSON.parse(localStorage.getItem('dzh-skryto')||'{}')}catch(e){return{}}})();
+const neSkryto=p=>!(skryto[p.id]&&(p.progress>=100||p.stoit));
+$('#procs').addEventListener('click',e=>{const b=e.target.closest('[data-skryt]');if(!b)return;const p=live.processes[b.dataset.skryt];if(!p)return;
+ skryto[p.id]=Date.now();try{localStorage.setItem('dzh-skryto',JSON.stringify(skryto))}catch(e){}renderProcs()});
+function renderProcs(){const a=Object.values(live.processes).filter(svezhee).filter(neSkryto).sort((x,y)=>y.at-x.at).slice(0,6);$('#nProc').textContent=a.filter(p=>p.progress<100&&!p.stoit).length||'';
+ setHTML($('#procs'),a.length?a.map(p=>`<div class="row"><div class="grow">${esc(p.name)}<div class="sub">${p.progress>=100?'готово':p.ag?(p.stoit?'⛔ молчит 15 мин':'работает'):p.stoit?'⛔ остановлено на '+Math.round(p.progress)+'%':Math.round(p.progress)+'%'+ostalos(p)}${p.note?' · '+esc(p.note):''}</div><div class="prog"><i style="width:${p.progress}%"></i></div></div>${p.progress>=100||p.stoit?`<button class="lnk" data-skryt="${esc(p.id)}" title="Убрать надпись" style="font-size:18px;padding:0 6px;align-self:center">✓</button>`:''}</div>`).join(''):hodL.length?'':'<div class="empty">Пока тихо. Здесь будет видно каждое моё действие.</div>');
+ faza()}
+/* лента хода: каждое действие сессии приходит от мода само */
+let hodL=[];const tm=t=>new Date(t).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+const busy=()=>{const h=hodL.at(-1);return !!h&&!h.konec&&Date.now()-h.at<120000};
+function renderHod(){const a=hodL.slice(-7).reverse();
+ setHTML($('#hod'),a.map((h,i)=>h.konec?`<div class="hl done"><b>${tm(h.at)}</b><span>${h.oshibka?'⛔ '+esc(h.oshibka):'✓ ответила, жду тебя'}</span></div>`:`<div class="hl${!i?' now':''}"><b>${tm(h.at)}</b><span>${esc(h.text)}</span></div>`).join(''));
+ if(!Object.keys(live.processes).length)setHTML($('#procs'),'');
+ $('#nProc').textContent=a[0]&&!a[0].konec&&busy()?'работает':(Object.values(live.processes).filter(p=>p.progress<100&&!p.stoit).length||'');
+ faza()}
+setInterval(()=>{if(hodL.length&&!busy())renderHod();else faza()},15000);
+// «Ждёт тебя»: сверху разрешения (ДА/НЕТ), ниже вопросы, ответа на которые я жду
+function renderAsks(){const a=Object.values(live.asks),v=live.voprosy||[];$('#nAsk').textContent=(a.length+v.filter(q=>!q.otvechen).length)||'';
+ setHTML($('#asks'),a.length||v.length?a.map(k=>`<div class="row" style="align-items:flex-start"><div class="grow">${esc(k.tool)}<div class="sub">${esc(k.what)}</div>${k.preview?`<pre class="pv">${esc(k.preview)}</pre>`:''}</div><button class="yes" data-id="${esc(k.id)}" data-v="1">ДА</button><button class="no" data-id="${esc(k.id)}" data-v="0">НЕТ</button></div>`).join('')
+  +v.map(q=>`<div class="row" style="align-items:flex-start${q.otvechen?';opacity:.55':''}"><div class="grow">${q.otvechen?'✓':'❓'} ${esc(q.text)}<div class="sub">${q.otvechen?'ответ получен '+tm(q.otvechen)+', Джинни разбирает':'жду с '+new Date(q.at).toLocaleDateString('ru-RU',{day:'2-digit',month:'2-digit'})}</div></div><button class="yes" data-q="${esc(q.id)}" data-v="otv">ОТВЕТИТЬ</button><button class="no" data-q="${esc(q.id)}" data-v="snyat" title="Убрать: вопрос отпал">✕</button></div>`).join('')
+  :'<div class="empty">Ничего не ждёт.</div>');
+ document.querySelectorAll('#asks button[data-id]').forEach(b=>b.onclick=async()=>{b.disabled=true;await post('/verdict',{id:b.dataset.id,allow:b.dataset.v==='1'});delete live.asks[b.dataset.id];renderAsks()});
+ document.querySelectorAll('#asks button[data-q]').forEach(b=>b.onclick=async()=>{const q=v.find(x=>x.id===b.dataset.q);if(!q)return;
+  if(b.dataset.v==='otv')return fillQ(`Ответ на твой вопрос «${q.text}»: `);
+  b.disabled=true;await post('/vopros-snyat',{id:q.id});live.voprosy=v.filter(x=>x.id!==q.id);renderAsks()});
+ if(a.length)setPhase('ask');else renderProcs()}
+// убранная сводка не возвращается после F5; новая версия той же сводки (другое содержимое) — покажется снова
+const pSled=p=>JSON.stringify([p.title,p.rows]);
+let pUbrano={};try{pUbrano=JSON.parse(localStorage.getItem('dzh-panels-ubrano')||'{}')}catch{}
+function ubratPanel(id){const p=live.panels[id];if(!p)return;pUbrano[id]=pSled(p);try{localStorage.setItem('dzh-panels-ubrano',JSON.stringify(pUbrano))}catch{}renderPanels()}
+function renderPanels(){$('#panels').onclick=e=>{const b=e.target.closest('[data-ub]');if(b)ubratPanel(b.dataset.ub)};setHTML($('#panels'),Object.values(live.panels).filter(p=>pUbrano[p.id]!==pSled(p)).map(p=>`<div class="panel" style="${p.color?'--pc:'+esc(p.color):''}"><div class="ph">${esc(p.title)}<small>от Джинни · <button class="lnk" data-ub="${esc(p.id)}" title="Убрать эту сводку из окна">убрать ×</button></small></div>${p.rows.map(r=>`<div class="row"><div class="grow">${esc(r.text)}${r.sub?`<div class="sub">${esc(r.sub)}</div>`:''}</div></div>`).join('')}</div>`).join(''))}
+/* история переписки */
+let chat=[],unread=0;const hm=t=>new Date(t).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+const OTVETCHIK={codex:'Codex',qoder:'Qoder',claude:'Claude',opencode:'OpenCode',support:'разработчики'};
+const otKogo=m=>m.who==='ty'?'ты':'Джинни'+(m.engine?` · ${OTVETCHIK[m.engine]||m.engine}`:'');
+const IMG=/\.(png|jpe?g|gif|webp|bmp)$/i;
+const mFiles=fs=>fs&&fs.length?`<div class="mf">${fs.map(n=>{const u='/f/'+encodeURIComponent(n),short=n.replace(/^\d{8}-\d{6}-\d+-/,'');return IMG.test(n)?`<a href="${u}" target="_blank" title="${esc(short)}" style="padding:0;border:0"><img src="${u}" alt="${esc(short)}"></a>`:`<a href="${u}" target="_blank">📎 ${esc(short)}</a>`}).join('')}</div>`:'';
+const vnizu=l=>l.scrollHeight-l.scrollTop-l.clientHeight<40;
+// кнопка ↓ по центру внизу переписки: видна, пока ты выше конца; нажал — плавно к последнему сообщению
+function strelka(l,n){const p=l.parentElement;let b=p.querySelector(':scope>.vniz');
+ if(!b){b=document.createElement('button');b.className='vniz';b.title='К последнему сообщению';b.hidden=true;b.dataset.n=0;
+  b.onclick=()=>l.scrollTo({top:l.scrollHeight,behavior:'smooth'});p.appendChild(b);
+  l.addEventListener('scroll',()=>{const v=vnizu(l);if(v){b.dataset.n=0}b.hidden=v;b.innerHTML='↓'+(+b.dataset.n?`<b>${b.dataset.n}</b>`:'')})}
+ if(n){b.dataset.n=(+b.dataset.n||0)+n}if(!vnizu(l)){b.hidden=false;b.innerHTML='↓'+(+b.dataset.n?`<b>${b.dataset.n}</b>`:'')}}
+// путь к отчёту в ответе — ссылка; нажал — полный текст открывается прямо в окне (чтец поверх всего).
+const PUT_RX=/(?:[A-Za-z]:[\\/](?:[^\\/\n<>"]+[\\/])*?)?(?:[\wА-Яа-яЁё.\-]+[\\/])+[\wА-Яа-яЁё.\-]+\.(?:md|txt)\b/g;
+// Строка «📎 путь» —
+// карточка файла (картинка видна сразу, у всего есть «скачать»); путь к картинке/документу в тексте — ссылка «скачать».
+const FAJL_RX=/(?:[A-Za-z]:[\\/](?:[^\\/\n<>"]+[\\/])*?)?(?:[\wА-Яа-яЁё.\-]+[\\/])+[\wА-Яа-яЁё.\-]+\.(?:jpe?g|png|webp|gif|pdf|mp3|wav|ogg|m4a|mp4|webm|mov|docx|xlsx|pptx|csv|zip)\b/gi;
+const KARTINKA=/\.(jpe?g|png|webp|gif)$/i,ZVUK=/\.(mp3|wav|ogg|m4a)$/i;
+const urlF=(p,dl)=>'/api/skachat?put='+encodeURIComponent(p)+(dl?'&dl=1':'');
+function fajlKartochka(p){const imya=p.split(/[\\/]/).pop(),skach=`<a class="lnk" href="${urlF(p,1)}" download="${esc(imya)}">скачать</a>`;
+ const vid=KARTINKA.test(p)?`<img src="${urlF(p)}" alt="" loading="lazy" data-uvel="${esc(p)}">`:ZVUK.test(p)?`<audio controls preload="none" src="${urlF(p)}"></audio>`:'';
+ const otkr=/\.(md|txt)$/i.test(p)?` · <a class="put lnk" data-put="${esc(p)}">открыть</a>`:'';
+ return `<div class="fajl">${vid}<div class="fajlNiz"><span>📎 ${esc(imya)}</span> ${skach}${otkr}</div></div>`}
+const sPutyami=t=>esc(t).replace(PUT_RX,p=>`<a class="put" data-put="${p}" title="Открыть полный текст">${p}</a>`)
+ .replace(FAJL_RX,p=>p.includes('class=')?p:`<a class="put-f" href="${urlF(p.replace(/&amp;/g,'&'),1)}" download title="Скачать">${p}</a>`).replace(/`([^`\n]+)`/g,'<code>$1</code>');
+// Команда = строка с «! »
+// в начале или блок в ```; рисуем тёмным блоком моноширинным, кнопка кладёт текст в буфер.
+const kodBlok=k=>`<div class="kod"><pre>${esc(k)}</pre><button class="lnk kop" title="Скопировать в буфер">копировать</button></div>`;
+function tekstHtml(t){return String(t).split(/```[a-z]*\n?([\s\S]*?)```/).map((ch,i)=>i%2?kodBlok(ch.replace(/\n$/,'')):
+ ch.split('\n').map(s=>/^\s*! \S/.test(s)?'\u0000'+kodBlok(s.trim())+'\u0000':/^\s*📎\s*\S/.test(s)?'\u0000'+fajlKartochka(s.replace(/^\s*📎\s*/,'').trim())+'\u0000':sPutyami(s)).join('\n')).join('\u0000')
+ .replace(/\n?\u0000\n?/g,'')}
+document.addEventListener('click',async e=>{const b=e.target.closest('.kop');if(!b)return;const t=b.previousElementSibling.textContent;
+ try{await navigator.clipboard.writeText(t)}catch{const a=document.createElement('textarea');a.value=t;document.body.append(a);a.select();document.execCommand('copy');a.remove()}
+ b.textContent='скопировано ✓';setTimeout(()=>b.textContent='копировать',1500)});
+function mdHtml(src){const e=s=>esc(s).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>');
+ const L=src.replace(/\r/g,'').replace(/^---\n[\s\S]*?\n---\n/,'').split('\n');let o='',spisok=false,tab=false,abz=[];
+ // строки одного абзаца склеиваем: жирный и цитата, разбитые переносом, не рвутся
+ const zakryt=()=>{if(abz.length){o+='<p>'+e(abz.join(' '))+'</p>';abz=[]}if(spisok){o+='</ul>';spisok=false}if(tab){o+='</table>';tab=false}};
+ for(const s of L){let m;
+  if(/^\|/.test(s)){if(/^\|[\s|:-]+\|$/.test(s))continue;if(abz.length||spisok){const t=tab;tab=false;zakryt();tab=t}if(!tab){o+='<table>';tab=true}o+='<tr>'+s.replace(/^\||\|$/g,'').split('|').map(c=>'<td>'+e(c.trim())+'</td>').join('')+'</tr>';continue}
+  if((m=s.match(/^\s*[-*] (.*)/))){if(abz.length||tab){const sp=spisok;spisok=false;zakryt();spisok=sp}if(!spisok){o+='<ul>';spisok=true}o+='<li>'+e(m[1])+'</li>';continue}
+  if(spisok&&/^\s{2,}\S/.test(s)){o=o.replace(/<\/li>$/,' '+e(s.trim())+'</li>');continue}   // продолжение пункта
+  if((m=s.match(/^(#{1,4}) (.*)/))){zakryt();o+=`<h${m[1].length+1}>${e(m[2])}</h${m[1].length+1}>`}
+  else if((m=s.match(/^> ?(.*)/))){zakryt();o+='<blockquote>'+e(m[1])+'</blockquote>'}
+  else if(s.trim()){if(spisok||tab){const a=abz;abz=[];zakryt();abz=a}abz.push(s.trim())}
+  else zakryt()}
+ zakryt();return o}
+async function otkrytFajl(put){const d=$('#chtec');d.hidden=false;$('#chtecPut').textContent=put;$('#chtecTelo').innerHTML='<div class="empty">Открываю…</div>';
+ try{const r=await fetch('/api/fajl?put='+encodeURIComponent(put)),j=await r.json();
+  $('#chtecTelo').innerHTML=r.ok?mdHtml(j.tekst):`<div class="empty">${esc(j.oshibka||'не открылся')}${r.status===404&&!j.oshibka?'':''}</div>`}
+ catch{$('#chtecTelo').innerHTML='<div class="empty">Мост не отдал файл: старый мост? Переподключи его (/mcp → dzhinni).</div>'}
+ $('#chtecTelo').scrollTop=0}
+document.addEventListener('click',e=>{const a=e.target.closest('a.put');if(a){e.preventDefault();otkrytFajl(a.dataset.put)}});
+// картинка в карточке → крупно в чтеце
+document.addEventListener('click',e=>{const i=e.target.closest('img[data-uvel]');if(!i)return;const d=$('#chtec');d.hidden=false;
+ $('#chtecPut').textContent=i.dataset.uvel;$('#chtecTelo').innerHTML=`<img src="${i.src}" alt="" style="max-width:100%;display:block;margin:0 auto">`});
+// Документы: всё, на что Джинни сослалась, — здесь; «в архив» убирает с глаз, в архиве — «вернуть»
+let doki=[],dokArh=false;
+const dnMes=t=>{const d=new Date(t);return d.toLocaleDateString('ru',{day:'numeric',month:'short'})+' '+hm(t)};
+function renderDoki(){const v=doki.filter(d=>!!d.arhiv===dokArh),na=doki.filter(d=>d.arhiv).length;
+ $('#nDok').textContent=dokArh?'':(doki.length-na||'');$('#bDokArh').textContent=dokArh?'← назад':'архив'+(na?' '+na:'');
+ setHTML($('#doki'),v.length?v.map(d=>`<div class="row dok"><div class="grow"><a class="put" data-put="${esc(d.put)}" title="${esc(d.put)}">${esc(d.nazv)}</a><div class="sub">${dnMes(d.posl)}${d.raz>1?' · упоминала '+d.raz+' раз':''} · ${esc(d.put.split('/').slice(-2,-1)[0]||'')}</div></div><button class="lnk" data-dok="${esc(d.put)}" data-arh="${dokArh?0:1}" title="${dokArh?'Вернуть в список':'Убрать в архив — можно вернуть'}">${dokArh?'вернуть':'в архив'}</button></div>`).join(''):`<div class="empty">${dokArh?'Архив пуст.':'Здесь соберутся отчёты и разборы, на которые я ссылаюсь в ответах.'}</div>`)}
+async function loadDoki(){try{doki=await (await fetch('/api/dokumenty')).json();renderDoki()}catch{}}
+$('#bDokArh').onclick=()=>{dokArh=!dokArh;renderDoki()};
+$('#doki').addEventListener('click',async e=>{const b=e.target.closest('[data-dok]');if(!b)return;b.disabled=true;
+ try{await post('/dokument',{put:b.dataset.dok,arhiv:b.dataset.arh==='1'})}catch{}
+ loadDoki()});
+loadDoki();
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#chtec').hidden)$('#chtec').hidden=true});
+function chatLocalFiles(text){
+ const files=[];const body=String(text).replace(/^Файл на компьютере \(без загрузки\): (.+) · (\d+) байт\r?\n`?([^`\r\n]+)`?(?=\r?\n|$)/gm,(_,name,bytes,path)=>{files.push({name,path,bytes:Number(bytes)});return''});
+ return{body:body.trim(),files};
+}
+function chatLocalFileTiles(files){return files.map(f=>`<div class="file-tile local-file" title="${esc(f.path)}" role="group" aria-label="${esc(f.name)}, файл на компьютере"><span class="file-type">${esc((f.name.split('.').pop()||'ФАЙЛ').toUpperCase())}</span><span class="file-title">${esc(f.name)}</span><small>${Math.round(f.bytes/1048576)} МБ · На компьютере</small></div>`).join('')}
+function placeCoreFloat(lg){
+ if(!lg||lg.id!=='clog')return;
+ const cf=$('#coreFloat');if(!cf)return;
+ const ya=[...lg.querySelectorAll('.m.ya')];
+ const target=ya.at(-1)||lg;
+ if(cf.parentElement!==target||target.firstElementChild!==cf)target.prepend(cf);
+}
+function renderChat(){const h=chat.length?chat.map(m=>{const local=m.who==='ty'?chatLocalFiles(m.text):{body:m.text,files:[]};return `<div class="m ${m.who==='ty'?'ty':'ya'}"><small>${esc(otKogo(m))} · ${hm(m.at)}</small>${tekstHtml(local.body)}${chatLocalFileTiles(local.files)}${mFiles(m.files)}</div>`}).join(''):'<div class="empty">Пока пусто.</div>';
+ // // Вниз — только при первом показе и после своей реплики; пришло новое, а ты читаешь выше — кнопка ↓ с числом новых.
+ const svoe=chat.at(-1)?.who==='ty',cf=$('#coreFloat');
+ for(const lg of[$('#log'),$('#clog')]){const bylo=+lg.dataset.len||0,pervyy=!lg.dataset.pokazan,niz=vnizu(lg);if(lg.id==='clog'&&cf&&lg.contains(cf))cf.remove();if(!setHTML(lg,h)){placeCoreFloat(lg);continue}placeCoreFloat(lg);lg.dataset.len=chat.length;
+  // стоишь на последних — значит не читаешь старое, новое докручиваем вниз.
+  if(pervyy||niz||(svoe&&chat.length>bylo)){if(lg.clientHeight)lg.dataset.pokazan=1;lg.scrollTop=lg.scrollHeight;
+   // картинка догружается позже и удлиняет ленту — докрутить вниз ещё раз
+   for(const im of lg.querySelectorAll('img'))if(!im.complete)im.addEventListener('load',()=>{lg.scrollTop=lg.scrollHeight},{once:true})}
+  strelka(lg,!niz&&!pervyy&&chat.length>bylo&&!svoe?chat.length-bylo:0)}
+ $('#bHist').innerHTML='История'+(unread?`<b>${unread}</b>`:'')}
+const chatOnMap=()=>!main.hidden&&main.contains(W.chat);
+function toggleHist(open){$('#hist').classList.toggle('open',open);$('#bHist').classList.toggle('on',open);if(open){unread=0;renderChat()}}
+// переписка на карте — «История» листает её вниз и подсвечивает; нет на карте — выезжает шторка
+$('#bHist').onclick=()=>{if(chatOnMap()&&!$('#hist').classList.contains('open')){unread=0;renderChat();W.chat.classList.remove('flash');void W.chat.offsetWidth;W.chat.classList.add('flash');return}
+ toggleHist(!$('#hist').classList.contains('open'))};
+$('#bHistX').onclick=()=>toggleHist(false);
+$('#bPin').onclick=()=>{if(!main.contains(W.chat)){const c=main.children[Math.min(1,main.children.length-1)];W.chat.style.flexGrow=2;c.append(W.chat);markVoid();renderTray();saveLayout()}toggleHist(false);setView('map');toBottom()};
+{let L=null;try{L=JSON.parse(localStorage.getItem('dzh-layout')||'null')}catch{}applyLayout(L&&L.cols?L:DEF)}
+// карта стоит НАД полем ввода: поле остаётся во всю ширину
+new ResizeObserver(()=>document.body.style.setProperty('--fh',$('footer').offsetHeight+'px')).observe($('footer'));
+new ResizeObserver(()=>document.body.style.setProperty('--hh',$('header').offsetHeight+'px')).observe($('header'));
+document.addEventListener('click',e=>{const menu=$('#codexMenu');if(menu.open&&!menu.contains(e.target))menu.open=false});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#codexMenu').open=false});
+new ResizeObserver(()=>document.body.style.setProperty('--eh',$('#edbar').offsetHeight+'px')).observe($('#edbar'));
+// своё окно (pywebview) глушит клавиши браузера — F5 и Ctrl+R делаем сами
+document.addEventListener('keydown',e=>{if(e.key==='F5'||(e.ctrlKey&&(e.key==='r'||e.key==='к'))){e.preventDefault();location.reload()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(edit)setEdit(false);toggleHist(false);if($('footer').classList.contains('big'))bigMode(false)}});
+
+// железо — своим блоком «Ноутбук»: градусы и нагрузка процессора и видеокарты, раз в 10 с
+const gradC=(c,zh,kr)=>c==null?'#4da3ff':c<zh?'#5affc8':c<kr?'#ffb547':'#ff5a7a';
+async function loadZhelezo(){let z;try{z=await (await fetch('/api/zhelezo')).json()}catch{return}const rows=[];
+ rows.push({l:'Процессор',p:z.cpu.nagruzka??0,c:gradC(z.cpu.c,80,90),sub:z.cpu.c!=null?`${Math.round(z.cpu.c)}° · опасно с 90°`:'градусов нет: задача «AllY Termo» молчит'});
+ if(z.ram){const g=b=>(b/2**30).toFixed(1);rows.push({l:'Оперативная память',p:z.ram.pc,c:z.ram.pc<75?'#5affc8':z.ram.pc<90?'#ffb547':'#ff5a7a',sub:`занято ${g(z.ram.zanyato)} из ${g(z.ram.vsego)} ГБ · свободно ${g(z.ram.vsego-z.ram.zanyato)} ГБ`})}
+ if(z.gpu)rows.push({l:'Видеокарта',p:z.gpu.nagruzka,c:gradC(z.gpu.c,75,85),sub:`${z.gpu.spit?'спит':z.gpu.c+'°'} · память ${z.gpu.pamyat}% (${(z.gpu.pamyatMb/1024).toFixed(1)} из ${(z.gpu.pamyatVsego/1024).toFixed(0)} ГБ)`});
+ $('#zhel').innerHTML=rows.map(r=>`<div class="meter" style="--pc:${r.c}"><div class="top"><span>${r.l}</span><b>${Math.round(r.p)}%</b></div><div class="prog"><i style="width:${Math.min(100,r.p)}%"></i></div><div class="sub">${esc(r.sub)}</div></div>`).join('')}
+loadZhelezo();setInterval(()=>{if(!document.hidden)loadZhelezo()},10000);
+
+/* голос: ответы вслух и диктовка */
+let voiceOn=false;try{voiceOn=localStorage.getItem('dzh-voice')==='1'}catch{}
+const pickVoice=()=>{const v=speechSynthesis.getVoices().filter(v=>/^ru/i.test(v.lang));return v.find(v=>/svetlana|dariya|natural/i.test(v.name))||v.find(v=>/female|irina/i.test(v.name))||v[0]};
+/* голос: нейроголос «Светлана» через мост (golos.mjs), по предложениям — первое звучит, пока готовится следующее;
+ сервис не ответил — дочитывает голос Windows */
+let golosGen=0,aud=null;
+function stopGolos(){golosGen++;if(aud){aud.pause();aud=null}if('speechSynthesis'in window)speechSynthesis.cancel()}
+const kuskiG=t=>{const fr=String(t).replace(/[*_`#>|]/g,' ').replace(/\s+/g,' ').trim().match(/[^.!?…]+[.!?…]*\s*/g)||[];const out=[];let k='';for(const f of fr){if(k&&(k+f).length>300){out.push(k.trim());k=''}k+=f}if(k.trim())out.push(k.trim());return out};
+const zvuk=t=>fetch('/golos',{method:'POST',headers:{'x-dzhinni':'1','content-type':'application/json'},body:JSON.stringify({text:t})}).then(r=>{if(!r.ok)throw new Error('голос');return r.blob()}).then(b=>URL.createObjectURL(b));
+const igrat=(url,g)=>new Promise(ok=>{if(g!==golosGen){URL.revokeObjectURL(url);return ok()}aud=new Audio(url);aud.onpause=aud.onerror=()=>{URL.revokeObjectURL(url);ok()};aud.play().catch(ok)});
+async function speak(t){if(!voiceOn)return;stopGolos();const g=golosGen,ks=kuskiG(t);let next=ks.length?zvuk(ks[0]):null;
+ for(let i=0;i<ks.length;i++){let url;try{url=await next}catch{if(g===golosGen)speakWin(ks.slice(i).join(' '));return}
+  if(g!==golosGen){URL.revokeObjectURL(url);return}next=i+1<ks.length?zvuk(ks[i+1]):null;next?.catch(()=>{});await igrat(url,g)}}
+function speakWin(t){if(!('speechSynthesis'in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ru-RU';const v=pickVoice();if(v)u.voice=v;u.rate=1.05;speechSynthesis.speak(u)}
+function showVoice(){$('#bVoice').classList.toggle('on',voiceOn);$('#bVoice').textContent=voiceOn?'Голос вкл':'Голос'}
+$('#bZnayu').onclick=()=>setView('znayu');
+async function loadZnayu(){let z;try{z=await (await fetch('/api/znayu')).json()}catch{$('#zSum').textContent='Мост не отвечает.';return}
+ const n=z.vsego%100,f=n%10,sl=n>10&&n<15?'вещей':f===1?'вещь':f>1&&f<5?'вещи':'вещей';
+ $('#zSum').textContent=z.vsego?`Я знаю о тебе ${z.vsego} ${sl}${z.zaNedelyu?` · ${z.zaNedelyu} — новое за эту неделю`:''}`:'Мы ещё не знакомились. Нажми «Познакомимся» — и здесь появится то, что я о тебе узнаю.';
+ const stroka=s=>`<div class="zs${s.novoe?' nov':''}"><div>${s.novoe?'<b>новое</b>':''}${esc(s.chto)}</div><small>${esc(s.otkuda||'')}</small></div>`;
+ setHTML($('#zBody'),(z.novoe.length?`<div class="zr">Новое за неделю</div>${z.novoe.map(s=>stroka({...s,otkuda:s.razdel})).join('')}`:'')+z.razdely.map(r=>`<div class="zr">${esc(r.t)} · ${r.stroki.length}</div>${r.stroki.map(stroka).join('')}`).join(''))}
+const zSend=t=>{fillQ(t);$('#hint').textContent='Вопрос в поле внизу: отправь Enter или сотри.'}; // не отправлять за человека
+$('#zPomog').onclick=()=>zSend('Как то, что ты обо мне знаешь, помогает в моих делах? Конкретно, на примерах этой недели.');
+$('#zPrav').onclick=()=>{setView('map');fillQ('Поправь, что ты обо мне знаешь: ')};
+$('#zNazad').onclick=()=>setView('map');
+$('#bVoice').onclick=()=>{voiceOn=!voiceOn;try{localStorage.setItem('dzh-voice',voiceOn?'1':'0')}catch{};showVoice();if(voiceOn)speak('Голос включён.');else stopGolos()};showVoice();
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;let rec=null;
+/* слух: окно само пишет микрофон (16 кГц), мост расшифровывает на этом компьютере (GigaAM); без модели — распознавание браузера */
+let zap=null;
+const micImya=st=>{const t=st.getAudioTracks()[0];return t?t.label.replace(/^(По умолчанию|Default)\s*-\s*/i,''):''};
+async function mic(){if(zap)return stopZap();if(rec){rec.stop();return}
+ let est=false;try{est=(await(await fetch('/api/slukh')).json()).est}catch{}
+ if(!est)return micSR();
+ let st;try{st=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}})}
+ catch(e){$('#hint').textContent=e.name==='NotAllowedError'?'Микрофон не разрешён окну Джинни.':'Микрофон не найден: Windows не отдаёт звук. Проверь «Параметры → Звук → Ввод».';return}
+ const ctx=new AudioContext({sampleRate:16000}),src=ctx.createMediaStreamSource(st),proc=ctx.createScriptProcessor(2048,1,1),imya=micImya(st);
+ // текст по ходу речи: замолчал на полсекунды — фраза уходит в расшифровку и через секунду встаёт в поле
+ // нарезчик (slukh_okno.js) звук не выбрасывает: хвост раз в 1,5 с — черновиком, после паузы — набело
+ const z={ctx,st,src,proc,nar:new DzhNarezchik(),max:0,lvl:0,t0:Date.now(),base:$('#q').value.replace(/\s*$/,''),chasti:[],chern:'',chernIdet:false,zhdut:[]};zap=z;
+ proc.onaudioprocess=e=>{if(zap!==z)return;const d=new Float32Array(e.inputBuffer.getChannelData(0));let m=0;for(const x of d)m=Math.max(m,Math.abs(x));
+  z.lvl=m;z.max=Math.max(z.max,m);const k=z.nar.kadr(d);if(k)otpravitKusok(z,k);
+  if((Date.now()-z.t0)>=600e3)stopZap()};
+ z.chernT=setInterval(()=>{if(zap!==z||z.chernIdet||!z.nar.estRech())return;z.chernIdet=true;const n=z.chasti.length;
+  slushat(z.nar.hvost()).then(r=>{if(zap===z&&n===z.chasti.length&&r.ok){z.chern=r.text||'';pokazat(z)}}).catch(()=>{}).finally(()=>z.chernIdet=false)},1500);
+ src.connect(proc);proc.connect(ctx.destination);stopGolos();$('#bMic').classList.add('rec');setPhase('think','слушает');
+ const show=()=>{const s=Math.round((Date.now()-z.t0)/1000);$('#hint').textContent=`Слушаю${imya?' через «'+imya+'»':''} · ${Math.floor(s/60)}:${String(s%60).padStart(2,'0')} ${'▮'.repeat(Math.min(8,Math.round(z.lvl*24)))} — текст появляется по ходу; договоришь — нажми 🎙.`};
+ show();z.timer=setInterval(show,200)}
+const slushat=a=>{const pcm=Int16Array.from(a,x=>Math.max(-1,Math.min(1,x))*32767);
+ return fetch('/slukh',{method:'POST',headers:{'x-dzhinni':'1','content-type':'application/octet-stream'},body:pcm.buffer}).then(r=>r.json())};
+function pokazat(z){const t=[...z.chasti,z.chern].filter(Boolean).join(' ');$('#q').value=(z.base&&t?z.base+' ':z.base)+t;grow()}
+function otpravitKusok(z,a){const i=z.chasti.length;z.chasti.push(z.chern);z.chern='';
+ z.zhdut.push(slushat(a).then(r=>{if(!r.ok)throw new Error(r.error||'не вышло');z.chasti[i]=r.text||'';pokazat(z)}).catch(e=>{z.oshibka=e.message}))}
+async function stopZap(){const z=zap;zap=null;clearInterval(z.timer);clearInterval(z.chernT);try{z.proc.disconnect();z.src.disconnect()}catch{};z.st.getTracks().forEach(t=>t.stop());z.ctx.close();$('#bMic').classList.remove('rec');
+ if(z.max<0.01&&!z.chasti.length){setPhase('idle');$('#hint').textContent='Ничего не услышала: микрофон молчит. Проверь, тот ли выбран в Windows («Параметры → Звук → Ввод»).';return}
+ const ost=z.nar.konec();if(ost&&ost.length>=16000*0.3)otpravitKusok(z,ost);
+ setPhase('think','расшифровываю');$('#hint').textContent='Дописываю последнюю фразу…';
+ await Promise.all(z.zhdut);
+ $('#hint').textContent=z.oshibka?'Не расшифровала: '+z.oshibka:z.chasti.some(Boolean)?'Готово. Проверь текст и отправь.':'Слов не разобрала — скажи ещё раз чуть ближе к микрофону.';
+ setPhase('idle');$('#q').focus()}
+fetch('/api/slukh').catch(()=>{}); // модель грузится заранее, чтобы первая запись не ждала
+function micSR(){if(!SR){$('#hint').textContent='Этот браузер не умеет слушать. Окно Edge умеет: открой ярлык «Джинни».';return}
+ if(rec){rec.stop();return}
+ rec=new SR();rec.lang='ru-RU';rec.continuous=true;rec.interimResults=true;const base=$('#q').value.replace(/\s*$/,'');stopGolos();
+ rec.onresult=e=>{let s='';for(const r of e.results)s+=r[0].transcript;$('#q').value=(base?base+' ':'')+s.trim();grow()};
+ let heard=false,failed=false;
+ const ERR={'not-allowed':'Микрофон не разрешён: разреши его окну (значок замка слева от адреса).','service-not-allowed':'Микрофон не разрешён: разреши его окну (значок замка слева от адреса).',
+  'audio-capture':'Микрофон не найден: Windows не отдаёт звук. Проверь «Параметры → Звук → Ввод».','network':'Нет связи со службой распознавания: Edge распознаёт речь через интернет. Проверь VPN и антивирус.',
+  'no-speech':'Ничего не услышала: микрофон молчит. Проверь, тот ли выбран в Windows («Параметры → Звук → Ввод»).'};
+ rec.onresult=e=>{heard=true;let s='';for(const r of e.results)s+=r[0].transcript;$('#q').value=(base?base+' ':'')+s.trim();grow()};
+ rec.onerror=e=>{failed=true;$('#hint').textContent=ERR[e.error]||('Голос не распознан: '+e.error)};
+ rec.onend=()=>{const m=rec&&rec.micName;rec=null;$('#bMic').classList.remove('rec');setPhase('idle');$('#q').focus();
+  if(!heard&&!failed)$('#hint').textContent='Ничего не услышала'+(m?' через «'+m+'»':'')+'. Если микрофон не тот — смени его в Windows: «Параметры → Звук → Ввод».'};
+ const r0=rec;rec.start();$('#bMic').classList.add('rec');setPhase('think','слушает');$('#hint').textContent='Слушаю… нажми 🎙 ещё раз, когда договоришь, и отправь.';
+ /* какой микрофон слушает: распознавание берёт микрофон Windows по умолчанию, выбрать другой из окна нельзя */
+ navigator.mediaDevices?.getUserMedia({audio:true}).then(st=>{const t=st.getAudioTracks()[0];const n=t?t.label.replace(/^(По умолчанию|Default)\s*-\s*/i,''):'';st.getTracks().forEach(x=>x.stop());
+  if(n&&rec===r0){r0.micName=n;if(!heard&&!failed)$('#hint').textContent='Слушаю через «'+n+'»… нажми 🎙 ещё раз, когда договоришь, и отправь.'}}).catch(()=>{})}
+$('#bMic').onclick=mic;
+
+/* поле ввода: растёт по тексту, ⤢ — большое */
+const grow=()=>{const q=$('#q');if($('footer').classList.contains('big'))return;q.style.height='auto';q.style.height=q.scrollHeight+'px'};
+function bigMode(on){$('footer').classList.toggle('big',on);$('#bBig').textContent=on?'⤡':'⤢';$('#q').style.height='';if(!on)grow();$('#q').focus();
+ $('#hint').textContent=on?'Большое поле: Enter — новая строка, Ctrl+Enter — отправить, Esc — свернуть.':''}
+$('#bBig').onclick=()=>bigMode(!$('footer').classList.contains('big'));
+$('#q').addEventListener('input',grow);
+$('#q').addEventListener('keydown',e=>{if(e.key!=='Enter')return;const big=$('footer').classList.contains('big');if(big?(e.ctrlKey||e.metaKey):!(e.shiftKey||e.ctrlKey)){e.preventDefault();$('#f').requestSubmit()}});
+
+let sayT;function say(t){speak(t);clearInterval(sayT);const el=$('#say');let i=0;setPhase('speak');sayT=setInterval(()=>{i+=2;el.textContent=t.slice(0,i);if(i>=t.length){clearInterval(sayT);setTimeout(()=>{if(phase==='speak'){phase='idle';renderAsks()}},1500)}},18)}
+
+// «Фокус»: ✓ — закрыть (статус «Готово»), ✎ — поправить название и статус. Прямо из окна, без Claude и без лимитов;
+// правку вносит мост в задача.md, в Notion её увезёт синк задач
+const STAT=['Сегодня','На неделю','Оформлено','Входящие','Готово','Архив'];let fTasks=[],fEdit=null;
+function renderFocus(){setHTML($('#focus'),fTasks.length?fTasks.map(t=>fEdit===t.slug
+ ?`<div class="row" data-s="${esc(t.slug)}" style="align-items:flex-start"><div class="grow"><input class="fin" value="${esc(t.title)}"><select class="fst">${STAT.map(x=>`<option${x===t.status?' selected':''}>${x}</option>`).join('')}</select></div><button class="yes" data-f="save">Сохранить</button><button class="no" data-f="cancel">Отмена</button></div>`
+ :`<div class="row" data-s="${esc(t.slug||'')}"><span class="chip" style="color:${t.status==='Сегодня'?'var(--accent)':'var(--dim)'}">${esc(t.status)}</span><div class="grow">${esc(t.title)}<div class="sub">${esc(t.area)}</div></div>${t.slug?'<button class="fk" data-f="done" title="Закрыть задачу: статус «Готово»">✓</button><button class="fk" data-f="edit" title="Поправить название и статус">✎</button>':''}</div>`).join('')
+ :'<div class="empty">Задач на сегодня и неделю нет.</div>')}
+$('#focus').addEventListener('click',async e=>{const b=e.target.closest('[data-f]');if(!b)return;const row=b.closest('[data-s]'),slug=row.dataset.s,t=fTasks.find(x=>x.slug===slug),f=b.dataset.f;if(!t)return;
+ if(f==='edit'){fEdit=slug;renderFocus();$('#focus .fin')?.focus();return}
+ if(f==='cancel'){fEdit=null;renderFocus();return}
+ const pr=[];if(f==='done')pr.push(['статус','Готово']);else{const ti=row.querySelector('.fin').value.trim(),st=row.querySelector('.fst').value;if(ti&&ti!==t.title)pr.push(['название',ti]);if(st!==t.status)pr.push(['статус',st])}
+ b.disabled=true;let err='';
+ for(const[pole,znach]of pr){const r=await post('/zadacha',{slug,pole,znach}).catch(()=>({ok:false,error:'мост не знает этой команды — перезапусти окно Джинни'}));if(!r.ok){err=r.error||'не вышло';break}}
+ fEdit=null;$('#hint').textContent=err?'Задача не поправилась: '+err:!pr.length?'Ничего не поменялось.':f==='done'?`Закрыла «${t.title}». В Notion уедет синком.`:'Поправила задачу. В Notion уедет синком.';
+ await loadState().catch(()=>{});renderFocus()});
+$('#focus').addEventListener('keydown',e=>{if(!e.target.matches('.fin'))return;if(e.key==='Enter'){e.preventDefault();$('#focus [data-f=save]').click()}else if(e.key==='Escape'){e.stopPropagation();fEdit=null;renderFocus()}});
+async function loadState(){
+ const s=await (await fetch('/api/state')).json();
+ renderProvider(s.provider);
+ $('#tRepo').textContent=s.repo.split(/[\\/]/).slice(-1)[0];
+ fTasks=s.tasks;if(!fEdit)renderFocus(); // пока правишь — минутное обновление поле не сбивает
+ $('#nFocus').textContent=`сегодня ${s.counts.today??0} · неделя ${s.counts.week??0}`;
+ {const z=s.znayu,b=$('#bZnayu');b.hidden=!z||!z.vsego;if(z&&z.vsego){const n=z.vsego%100,f=n%10;b.textContent=`Знаю о тебе: ${z.vsego}${z.zaNedelyu?` · +${z.zaNedelyu}`:''}`;b.title=`Я знаю о тебе ${z.vsego} ${n>10&&n<15?'вещей':f===1?'вещь':f>1&&f<5?'вещи':'вещей'}${z.zaNedelyu?`, из них ${z.zaNedelyu} — новое за неделю`:''}. Нажми — покажу всё по разделам`}}
+ const c=s.counts;$('#kv').innerHTML=[['живых задач',c.tasksLive],['навыков',c.skills],['механик',c.mech],['модулей механик',c.mechModules]].map(([a,b])=>`<div><label>${a}</label><span class="big">${b==null?'—':Number(b).toLocaleString('ru-RU')}</span></div>`).join('');
+ s.live.processes.forEach(p=>live.processes[p.id]=p);s.live.asks.forEach(k=>live.asks[k.id]=k);live.voprosy=s.live.voprosy||[];s.live.panels.forEach(p=>live.panels[p.id]=p);
+ renderProcs();renderAsks();renderPanels();if(s.live.said&&!$('#say').textContent)$('#say').textContent=s.live.said.text;
+ if(s.live.chat&&s.live.chat.length>=chat.length){chat=s.live.chat;renderChat()}
+ if(s.live.zamer){zamer=s.live.zamer;renderZamer()}
+ if(s.live.hod&&s.live.hod.length>=hodL.length){hodL=s.live.hod;renderHod()}
+}
+function connect(){
+ const es=new EventSource('/events');
+ es.addEventListener('provider',e=>renderProvider(JSON.parse(e.data)));
+ es.onopen=()=>{$('#dLink').classList.add('on');$('#tLink').textContent=providerState.provider==='codex'?'Codex на связи':'мост на связи';fetch('/api/provider').then(r=>r.json()).then(renderProvider).catch(()=>{})};
+ es.onerror=()=>{$('#dLink').classList.remove('on');$('#tLink').textContent='нет связи — сессия Джинни закрыта?'};
+ es.addEventListener('say',e=>say(JSON.parse(e.data).text));
+ es.addEventListener('process',e=>{const p=JSON.parse(e.data);if(p.ubrat)delete live.processes[p.id];else live.processes[p.id]=p;renderProcs()});
+ es.addEventListener('panel',e=>{const p=JSON.parse(e.data);if(p.ubrat)delete live.panels[p.id];else live.panels[p.id]=p;renderPanels()});
+ es.addEventListener('ask',e=>{const k=JSON.parse(e.data);live.asks[k.id]=k;renderAsks()});
+ es.addEventListener('voprosy',e=>{live.voprosy=JSON.parse(e.data);renderAsks()});
+ es.addEventListener('doki',e=>{doki=JSON.parse(e.data);renderDoki()});
+ es.addEventListener('asked',e=>{delete live.asks[JSON.parse(e.data).id];renderAsks()});
+ es.addEventListener('chat',e=>{const m=JSON.parse(e.data);chat.push(m);if(m.who==='ya'&&!$('#hist').classList.contains('open')&&!chatOnMap())unread++;renderChat()});
+ es.addEventListener('zamer',e=>{zamer=JSON.parse(e.data);renderZamer()});
+ es.addEventListener('hod',e=>{const h=JSON.parse(e.data);hodL.push(h);hodL=hodL.slice(-40);renderHod();ostrHod(h)});
+ es.addEventListener('say',e=>ostrSay(JSON.parse(e.data).text));
+}
+initializeChatComposer();
+$('#core').onclick=mic;$('#core').title='Нажми и скажи';
+setInterval(()=>$('#clock').textContent=new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'}),1000);
+setInterval(()=>loadState().catch(()=>{}),60000);
+loadState().catch(()=>{$('#focus').innerHTML='<div class="empty">Мост не отвечает.</div>'});connect();
+
+/* острова: навыки висят архипелагами на орбите вокруг ядра; к острову, где я работаю, от ядра идёт световая дуга */
+/* «Кто работает»: я — бирюзовый луч из ядра; каждый помощник — свой янтарный спутник, летит к острову, где
+ работает, и тянет нитку от меня; фоновые дела (расшифровка и т. п.) — зелёные счётчики на внешнем кольце */
+const AMB=(al)=>`rgba(255,184,77,${Math.max(0,Math.min(1,al)).toFixed(3)})`;
+const O={cv:$('#oCv'),agenty:{},ag:new Map(),isl:[],arh:[],akt:null,sledy:[],seg:{},feed:[],az:-1.2,el:.52,zoom:1,ruka:0,drag:null,hover:null,run:false,t0:0,
+ stars:Array.from({length:520},(_,i)=>{const u=Math.random()*6.283,v=Math.acos(Math.random()*2-1);return[Math.sin(v)*Math.cos(u)*2200,Math.cos(v)*1300,Math.sin(v)*Math.sin(u)*2200,Math.random()]}),
+ core:Array.from({length:420},(_,i)=>{const y=1-(i+.5)/420*2,r=Math.sqrt(1-y*y),f=i*2.39996;return[Math.cos(f)*r,y,Math.sin(f)*r]})};
+O.c=O.cv.getContext('2d');
+const PROCHIE='Прочие навыки';
+function ostrStroit(d){
+ const by=new Map();for(const n of d.navyki){const a=n.arh||PROCHIE;if(!by.has(a))by.set(a,[]);by.get(a).push(n)}
+ // большие архипелаги чередуются с малыми, чтобы кольцо было ровным
+ const sv=[...by].sort((a,b)=>b[1].length-a[1].length),gr=[];while(sv.length){gr.push(sv.shift());if(sv.length)gr.push(sv.pop())}
+ const N=gr.length,R=N>6?320:260;
+ O.arh=[];O.isl=[];
+ gr.forEach(([nm,sp],i)=>{const u=i/N*6.283,A={nm,u,cx:Math.cos(u)*R,cz:Math.sin(u)*R,r:20+Math.sqrt(sp.length)*13,isl:[]};O.arh.push(A);
+  sp.forEach((n,j)=>{const f=j*2.39996,rr=sp.length>1?A.r*Math.sqrt((j+.5)/sp.length):0;
+   const I={name:n.name,imya:n.imya,opis:n.opis,rod:n.rod,A,x:A.cx+Math.cos(f)*rr,y:((j*37)%11-5)*1.4,z:A.cz+Math.sin(f)*rr,ph:j*1.7+i,heat:0,glow:0};A.isl.push(I);O.isl.push(I)})});
+ Object.entries(d.osobye||{}).forEach(([k,nm],i)=>{const u=i*Math.PI+.9,A={nm,u,cx:Math.cos(u)*125,cz:Math.sin(u)*125,r:12,isl:[],osob:1};O.arh.push(A);
+  const I={name:k,label:nm,opis:k==='_pamyat'?'Память: что я знаю о тебе и о делах':'Задачи: что в работе',A,x:A.cx,y:0,z:A.cz,ph:i*3,heat:0,glow:0};A.isl.push(I);O.isl.push(I)});
+ O.agenty=d.agenty||{};O.seg=d.segodnya||{};O.isl.forEach(ostrTeplo);
+ const nav=d.navyki.length,arh=O.arh.filter(a=>!a.osob).length;$('#oSum').textContent=`${nav} ${plur(nav,'остров','острова','островов')} · ${arh} ${plur(arh,'архипелаг','архипелага','архипелагов')}`;ostrSegodnya();
+ for(const h of d.hod||[])if(h.text)h.text=chel(h.text);
+ O.feed=(d.hod||[]).filter(h=>!h.konec).slice(-9);const last=[...(d.hod||[])].reverse().find(h=>!h.agent&&(h.ostrov||h.konec));
+ if(last&&!last.konec)ostrCel(last);
+ const shest=Date.now()-6e5;for(const h of d.hod||[])if(h.agent&&h.at>shest)agHod(h,1);ostrPanel()}
+// шаг помощника: его спутник летит к острову; без острова кружит у ядра
+// старые записи хода хранят голый текст команды — в окне его не показываем
+const chel=t=>{t=String(t||"");if(!/^команда:/.test(t))return t.replace(/^инструмент (playwright|claude-in-chrome) · .*/,"смотрю страницу в браузере");const m=t.match(/([\w.-]+\.(?:py|mjs|js|ps1|sh|bat))/i);return m?"запускаю скрипт "+m[1]:"выполняю команду"};
+function agHod(h,tiho){let g=O.ag.get(h.agent);
+ if(!g){g={imya:h.agent,start:h.at||Date.now(),s:.12,ang:O.ag.size*2.3+.7,konec:0,I:null,text:''};O.ag.set(h.agent,g)}
+ g.text=h.text||g.text;g.at=h.at||Date.now();g.konec=0;
+ if(h.ostrov){const I=O.isl.find(i=>i.name===h.ostrov)||null;if(I&&I!==g.I){g.I=I;g.s=tiho?.8:.12}}}
+// помощник сдал работу (мост ставит progress 100) или молчит — гасим спутник
+function agSverit(){const now=performance.now();
+ for(const p of Object.values(live.processes||{})){if(!p.ag)continue;const im=String(p.name).replace(/^Помощник:\s*/,'');
+  let g=O.ag.get(im);if(!g&&p.progress<100&&!p.stoit){g={imya:im,start:p.start||Date.now(),s:.12,ang:O.ag.size*2.3+.7,konec:0,I:null,text:p.note||''};O.ag.set(im,g)}
+  if(g&&(p.progress>=100||p.stoit)&&!g.konec)g.konec=now;if(g&&!g.konec&&p.note)g.shag=p.note}
+ for(const[k,g]of O.ag)if(g.konec&&now-g.konec>9000)O.ag.delete(k)}
+const ostrTeplo=I=>{I.heat=Math.min(1,Math.log2(1+(O.seg[I.name]?.n||0))/4)};
+function ostrSegodnya(){const n=Object.values(O.seg).reduce((s,o)=>s+o.n,0),k=Object.keys(O.seg).length;$('#oSeg').textContent=n?`сегодня ${n} ${plur(n,'обращение','обращения','обращений')} к ${k} ${plur(k,'острову','островам','островам')}`:'сегодня обращений не было'}
+const imyaOstr=I=>I.label||I.imya||I.name;
+const imyaAg=k=>O.agenty[k]||k,kakAg=n=>n==='Помощник'?n:`Помощник «${n}»`;
+function ostrCel(h){const I=O.isl.find(i=>i.name===h.ostrov)||null;
+ if(O.akt?.I&&O.akt.I!==I)O.sledy.push({I:O.akt.I,at:performance.now()});O.sledy=O.sledy.slice(-12);
+ O.akt={I,ostrov:h.ostrov,agent:h.agent?imyaAg(h.agent):null,text:h.text,at:performance.now(),konec:0}}
+function ostrHod(h){
+ if(h.konec){if(O.akt&&!O.akt.konec)O.akt.konec=performance.now();ostrPanel();return}
+ if(h.text)h.text=chel(h.text);O.feed.push(h);O.feed=O.feed.slice(-9);
+ if(h.ostrov){const s=(O.seg[h.ostrov]??={n:0,posl:0});s.n++;s.posl=h.at;const I=O.isl.find(i=>i.name===h.ostrov);if(I)ostrTeplo(I);ostrSegodnya()}
+ if(h.agent)agHod(h);
+ else if(h.ostrov)ostrCel(h);
+ else if(O.akt&&!O.akt.konec){O.akt.text=h.text;O.akt.at=performance.now()}
+ else O.akt={I:null,ostrov:null,agent:null,text:h.text,at:performance.now(),konec:0};
+ ostrPanel()}
+function ostrSay(t){$('#oSay').textContent=t||'Пока не отвечала. Напиши мне в поле внизу.'}
+const minut=st=>{const m=Math.max(0,Math.round((Date.now()-(st||Date.now()))/6e4));return m<1?'только что':m+' мин'};
+function ostrPanel(){const a=O.akt,zhivo=a&&!a.konec&&performance.now()-a.at<12e4;agSverit();
+ const ya=`<div class="akt ya"><i></i><div><b>Джинни</b>${zhivo?` → ${esc(a.I?imyaOstr(a.I):a.ostrov||'думает')}`:''}<small>${esc(zhivo?a.text||'работаю':'жду тебя')}</small></div></div>`;
+ const ag=[...O.ag.values()].map(g=>`<div class="akt pm${g.konec?' gotov':''}"><i></i><div><b>${esc(g.imya)}</b>${g.I?` → ${esc(imyaOstr(g.I))}`:''}<small>${g.konec?'готово':esc(g.text||g.shag||'начинает')} · ${minut(g.start)}</small></div></div>`);
+ const fon=Object.values(live.processes||{}).filter(p=>p.fon&&(p.progress<100||Date.now()-p.at<6e5)).map(p=>`<div class="akt fn${p.progress>=100?' gotov':''}"><i></i><div><b>${esc(p.name)}</b> ${p.stoit?'⛔ встало':Math.round(p.progress)+'%'}<small>${esc(p.note||'')}${p.progress<100&&!p.stoit?ostalos(p):''}</small><u style="--p:${p.progress}%"></u></div></div>`);
+ $('#oNow').innerHTML=ya+ag.join('')+fon.join('');
+ $('#oFeed').innerHTML=O.feed.slice().reverse().map(h=>`<div${h.agent?' class="ag"':''}><b>${tm(h.at)}</b><span>${esc(h.text)}${h.ostrov?`<u>${esc((I=>I?imyaOstr(I):h.ostrov)(O.isl.find(i=>i.name===h.ostrov)))}</u>`:''}</span></div>`).join('')||'<div><b></b><span style="color:var(--dim)">Пока пусто.</span></div>'}
+async function ostrZagruzit(){try{ostrStroit(await (await fetch('/api/ostrova')).json())}catch{$('#oSum').textContent='Мост не отдал острова: старый мост? Перезапусти Джинни ярлыком.'}}
+setInterval(()=>{if(O.run)ostrPanel()},2000);
+function ostrVkl(on){if(on===O.run)return;O.run=on;if(!on)return;ostrZagruzit();ostrSay($('#say').textContent||'');requestAnimationFrame(ostrKadr)}
+// камера: поворот вокруг оси (az), наклон (el), приближение
+function P(x,y,z){const ca=Math.cos(O.az),sa=Math.sin(O.az),ce=Math.cos(O.el),se=Math.sin(O.el),x1=x*ca-z*sa,z1=x*sa+z*ca,y2=y*ce+z1*se,z2=z1*ce-y*se,s=O.f/(O.D+z2);return{x:O.X+x1*s,y:O.Y-y2*s,s:s*O.D/O.f,z:z2}}
+const ugol=a=>Math.atan2(Math.sin(a),Math.cos(a));
+const bez=(a,b,c,t)=>(1-t)*(1-t)*a+2*(1-t)*t*b+t*t*c;
+function ostrKadr(ts){if(!O.run)return;requestAnimationFrame(ostrKadr);
+ {const fps=fpsNado(!(O.ag&&O.ag.size)&&phase==='idle');if(!fps||ts-(O.kl||0)<1000/fps-2)return;O.kl=ts}
+ const sec=$('#vOstr'),hb=document.querySelector('header').getBoundingClientRect().bottom,fb=document.querySelector('footer')?.offsetHeight||0;
+ if(sec.style.top!==hb+'px')sec.style.top=hb+'px';if(sec.style.bottom!==fb+'px')sec.style.bottom=fb+'px';
+ const cv=O.cv,w=cv.clientWidth,h=cv.clientHeight,d=Math.min(devicePixelRatio||1,2);if(!w||!h)return;
+ if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d)}
+ const c=O.c,t=ts/1000,dt=Math.min(.05,(ts-(O.t0||ts))/1000),now=ts,uzk=w<900;O.t0=ts;
+ c.setTransform(d,0,0,d,0,0);c.clearRect(0,0,w,h);
+ O.X=uzk?w/2:(w-Math.min(340,w*.38))/2;O.Y=uzk?h*.32:h*.47;O.D=1000/O.zoom;O.f=Math.min(uzk?w:w*.7,h*1.4)*1.1;
+ // сама поворачиваюсь к острову, где работаю; без дела — медленно плыву
+ const a=O.akt,zhivo=a&&!a.konec,sila=!a?0:a.konec?Math.max(0,1-(now-a.konec)/5000):1;
+ if(!O.drag&&performance.now()-O.ruka>7000){if(zhivo&&a.I){O.az+=ugol(-Math.PI/2-Math.atan2(a.I.z,a.I.x)+.6-O.az)*Math.min(1,dt*1.2)}else O.az+=dt*.035}
+ const cyan=(al)=>`rgba(0,229,255,${Math.max(0,Math.min(1,al)).toFixed(3)})`,zel=(al)=>`rgba(90,255,200,${Math.max(0,Math.min(1,al)).toFixed(3)})`;
+ // звёзды
+ for(const s of O.stars){const p=P(s[0],s[1],s[2]);if(p.z<-O.D*.9||p.x<0||p.x>w||p.y<0||p.y>h)continue;c.fillStyle=`rgba(160,230,245,${(.15+.5*s[3]*(.6+.4*Math.sin(t*1.3+s[3]*40))).toFixed(3)})`;const r=s[3]>.93?1.6:1;c.fillRect(p.x,p.y,r,r)}
+ // пол: круги орбит, лучи и бегущий радар
+ const FY=-46;c.lineWidth=1;
+ for(let k=1;k<=7;k++){const r=k*72;c.beginPath();for(let i=0;i<=96;i++){const u=i/96*6.283,p=P(Math.cos(u)*r,FY,Math.sin(u)*r);i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y)}c.strokeStyle=cyan(k===4?.12:.055);c.stroke()}
+ for(let i=0;i<36;i++){const u=i/36*6.283,p1=P(Math.cos(u)*72,FY,Math.sin(u)*72),p2=P(Math.cos(u)*504,FY,Math.sin(u)*504);c.beginPath();c.moveTo(p1.x,p1.y);c.lineTo(p2.x,p2.y);c.strokeStyle=cyan(i%9?.03:.08);c.stroke()}
+ const sw=t*.45;for(let k=0;k<26;k++){const u=sw-k*.022,p1=P(0,FY,0),p2=P(Math.cos(u)*504,FY,Math.sin(u)*504);c.beginPath();c.moveTo(p1.x,p1.y);c.lineTo(p2.x,p2.y);c.strokeStyle=cyan(.16*(1-k/26));c.stroke()}
+ // архипелаги: пунктирный круг вокруг каждого
+ c.setLineDash([3,5]);for(const A of O.arh){const hot=zhivo&&a.I&&a.I.A===A;c.beginPath();for(let i=0;i<=48;i++){const u=i/48*6.283,p=P(A.cx+Math.cos(u)*(A.r+12),FY+4,A.cz+Math.sin(u)*(A.r+12));i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y)}c.strokeStyle=cyan(hot?.5:.14);c.stroke()}c.setLineDash([]);
+ // дуги: следы прошлых обращений гаснут за минуту
+ // мост: почти ровный луч от края ядра к острову
+ const YC=34,tochka=(m,I,s)=>P(bez(m.sx,m.mx,I.x,s),bez(YC,m.my,I.y+6,s),bez(m.sz,m.mz,I.z,s)),
+ duga=(I,al,cvet,sh)=>{const L=Math.hypot(I.x,I.z)||1,sx=I.x/L*50,sz=I.z/L*50,m={sx,sz,mx:(sx+I.x)/2,mz:(sz+I.z)/2,my:(YC+I.y+6)/2+12};
+  c.beginPath();for(let i=0;i<=44;i++){const p=tochka(m,I,i/44);i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y)}c.strokeStyle=cvet(al);c.lineWidth=sh?1.4:1;
+  if(sh){c.shadowColor=cvet(.9);c.shadowBlur=8;c.setLineDash([2,7]);c.lineDashOffset=-performance.now()*.03}c.stroke();c.setLineDash([]);c.shadowBlur=0;c.lineWidth=1;return m};
+ O.sledy=O.sledy.filter(s=>now-s.at<60000);for(const s of O.sledy)duga(s.I,.22*(1-(now-s.at)/60000),cyan,0);
+ // острова и ядро — по глубине, дальние раньше
+ const agI=new Set([...O.ag.values()].filter(g=>!g.konec&&g.I).map(g=>g.I));const sp=O.isl.map(I=>{I.glow+=(((zhivo&&a.I===I)||agI.has(I)?1:0)-I.glow)*Math.min(1,dt*4);const p=P(I.x,I.y+Math.sin(t*.9+I.ph)*3,I.z);I.p=p;return[p.z,I]});
+ const pc=P(0,YC,0);sp.push([pc.z,null]);sp.sort((x,y)=>y[0]-x[0]);
+ c.font="11px 'JetBrains Mono',monospace";c.textAlign='center';
+ for(const[,I]of sp){
+  if(!I){// ядро: шар из точек, два кольца, свечение
+   const R=40*pc.s,bl=phase==='idle'?.5:1,g=c.createRadialGradient(pc.x,pc.y,0,pc.x,pc.y,R*3.2);g.addColorStop(0,cyan(.28*bl));g.addColorStop(1,cyan(0));c.fillStyle=g;c.fillRect(pc.x-R*3.2,pc.y-R*3.2,R*6.4,R*6.4);
+   const rot=t*(phase==='idle'?.25:.8),cr=Math.cos(rot),sr=Math.sin(rot);c.globalCompositeOperation='lighter';
+   for(const q of O.core){const x=q[0]*cr-q[2]*sr,z=q[0]*sr+q[2]*cr,br=1+Math.sin(t*2+q[1]*6)*.06*bl,p=P(x*40*br,YC+q[1]*40*br,z*40*br);c.fillStyle=cyan(.25+.5*(1-(p.z-pc.z+40)/80));c.fillRect(p.x,p.y,1.4,1.4)}
+   c.globalCompositeOperation='source-over';
+   for(const[k,tilt,rad]of[[0,.5,62],[1,-.7,76]]){c.beginPath();for(let i=0;i<=72;i++){const u=i/72*6.283+t*(k?-.3:.4),x=Math.cos(u)*rad,yy=Math.sin(u)*rad*Math.sin(tilt),z=Math.sin(u)*rad*Math.cos(tilt),p=P(x,YC+yy,z);i?c.lineTo(p.x,p.y):c.moveTo(p.x,p.y)}c.strokeStyle=cyan(.32);c.stroke()}
+   c.font="600 12px 'Chakra Petch',sans-serif";c.letterSpacing='5px';c.fillStyle=cyan(.9);const pl=P(0,YC+64,0);c.fillText('ДЖИННИ',pl.x,pl.y-8);c.letterSpacing='0px';c.font="11px 'JetBrains Mono',monospace";continue}
+  const p=I.p,k=p.s,hv=O.hover===I,mo=zhivo&&a.I===I,gl=I.glow*(mo?sila:1),ht=I.heat;
+  const pf=P(I.x,FY+4,I.z);c.beginPath();c.moveTo(pf.x,pf.y);c.lineTo(p.x,p.y);c.strokeStyle=cyan(.06+ht*.12+gl*.3);c.stroke();// ножка к полу
+  c.beginPath();c.ellipse(p.x,p.y+2*k,8*k,8*k*Math.sin(O.el),0,0,6.283);c.strokeStyle=cyan(.18+ht*.45+gl*.5);c.stroke();
+  if(gl>.02){const f=(t*1.1)%1;c.beginPath();c.ellipse(p.x,p.y+2*k,8*k*(1+f*3.5),8*k*(1+f*3.5)*Math.sin(O.el),0,0,6.283);c.strokeStyle=(mo?cyan:AMB)(gl*(1-f)*.8);c.stroke();
+   const top=P(I.x,I.y+120,I.z),lg=c.createLinearGradient(p.x,p.y,top.x,top.y);lg.addColorStop(0,cyan(.7*gl));lg.addColorStop(1,cyan(0));c.strokeStyle=lg;c.lineWidth=3*k;c.beginPath();c.moveTo(p.x,p.y);c.lineTo(top.x,top.y);c.stroke();c.lineWidth=1}
+  const r=(I.A.osob?4.2:3)*k*(1+gl*.6+(hv?.4:0));c.fillStyle=gl>.05?'#e8fdff':cyan(.35+ht*.65);if(gl>.05||ht>.5||hv){c.shadowColor=cyan(1);c.shadowBlur=(8+gl*16)*k}
+  c.beginPath();c.arc(p.x,p.y,r,0,6.283);c.fill();c.shadowBlur=0;
+  if(gl>.05||hv||I.A.osob||(zhivo&&a.I&&a.I.A===I.A&&O.seg[I.name])){c.fillStyle=gl>.05||hv?'#e8fdff':cyan(I.A.osob?.75:.55);c.fillText(imyaOstr(I),p.x,p.y-10*k-4)}}
+ // подписи архипелагов: снаружи орбиты, с чёрточкой
+ c.font="500 11px 'Chakra Petch',sans-serif";c.letterSpacing='3px';
+ for(const A of O.arh){if(A.osob)continue;const ou=Math.atan2(A.cz,A.cx),e=P(A.cx+Math.cos(ou)*(A.r+14),FY+4,A.cz+Math.sin(ou)*(A.r+14)),l=P(A.cx+Math.cos(ou)*(A.r+44),FY+4,A.cz+Math.sin(ou)*(A.r+44));
+  const hot=zhivo&&a.I&&a.I.A===A,n=A.isl.reduce((s,I)=>s+(O.seg[I.name]?.n||0),0);c.beginPath();c.moveTo(e.x,e.y);c.lineTo(l.x,l.y);c.lineTo(l.x+(l.x>e.x?18:-18),l.y);c.strokeStyle=cyan(hot?.8:.3);c.stroke();
+  const vpr=l.x>e.x,tw=c.measureText(A.nm.toUpperCase()).width+A.nm.length*3;c.textAlign=vpr?'left':'right';const tx=vpr?Math.min(l.x+22,w-12-tw):Math.max(l.x-22,12+tw);c.fillStyle=hot?'#e8fdff':cyan(.75);l.y=Math.min(l.y,h-26);c.fillText(A.nm.toUpperCase(),tx,l.y+4);
+  c.letterSpacing='0px';c.font="10px 'JetBrains Mono',monospace";c.fillStyle=cyan(.4);c.fillText(`${A.isl.length} ${plur(A.isl.length,'остров','острова','островов')}${n?` · ${n} сегодня`:''}`,tx,l.y+17);c.font="500 11px 'Chakra Petch',sans-serif";c.letterSpacing='3px'}
+ c.letterSpacing='0px';c.textAlign='center';
+ // живой мост: по лучу бегут три светлых импульса с хвостами; помощник — зелёный ромб посередине
+ if(a&&a.I&&sila>0){const I=a.I,m=duga(I,.5*sila,a.agent?zel:cyan,1);c.globalCompositeOperation='lighter';
+  for(let i=0;i<3;i++){const s0=(t*.4+i/3)%1;for(let j=0;j<10;j++){const s=s0-j*.012;if(s<0)break;const p=tochka(m,I,s),cv=(a.agent&&s>.5?zel:cyan);
+   c.fillStyle=cv(sila*(1-j/10)*(j?.5:1));if(!j){c.shadowColor=cv(1);c.shadowBlur=10}c.beginPath();c.arc(p.x,p.y,(j?1.3:2.2)*p.s,0,6.283);c.fill();c.shadowBlur=0}}
+  c.globalCompositeOperation='source-over';
+  }
+ // помощники: янтарный ромб-спутник летит по нитке от ядра к своему острову и висит у него; без острова — кружит у ядра
+ const kor=(s,n)=>s.length>n?s.slice(0,n-1)+'…':s;
+ for(const g of O.ag.values()){const al=g.konec?Math.max(0,1-(now-g.konec)/9000):1;if(al<=0)continue;let p;
+  if(g.I){g.s+=(.8-g.s)*Math.min(1,dt*.9);const m=duga(g.I,.55*al,AMB,1);p=tochka(m,g.I,g.s)}
+  else{const u=g.ang+t*.35;p=P(Math.cos(u)*105,YC+18,Math.sin(u)*105)}
+  const s=11*p.s;c.save();c.translate(p.x,p.y);c.rotate(Math.PI/4+Math.sin(t*2+g.ang)*.25);c.shadowColor=AMB(1);c.shadowBlur=14*al;c.fillStyle=AMB(.25*al);c.strokeStyle=AMB(al);c.lineWidth=1.6;
+  c.fillRect(-s/2,-s/2,s,s);c.strokeRect(-s/2,-s/2,s,s);c.restore();c.shadowBlur=0;
+  c.font="600 11px 'Chakra Petch',sans-serif";c.fillStyle=AMB(al);c.fillText(kor(g.imya,26),p.x,p.y-s-8);
+  c.font="10px 'JetBrains Mono',monospace";c.fillStyle=AMB(.6*al);c.fillText(kor(g.konec?'готово':(g.text||g.shag||''),40),p.x,p.y+s+12)}
+ // фоновые дела: зелёный счётчик с дугой прогресса на внешнем кольце
+ const fon=Object.values(live.processes||{}).filter(q=>q.fon&&(q.progress<100||Date.now()-q.at<6e5));
+ fon.forEach((q,i)=>{const p={x:(uzk?w*.5:O.X)+(i-(fon.length-1)/2)*190,y:uzk?h*.06+20:52},r=15,al=q.progress>=100?.45:1;
+  c.beginPath();c.arc(p.x,p.y,r,0,6.283);c.strokeStyle=zel(.25*al);c.lineWidth=2;c.stroke();
+  c.beginPath();c.arc(p.x,p.y,r,-Math.PI/2,-Math.PI/2+6.283*q.progress/100);c.strokeStyle=zel(al);c.shadowColor=zel(1);c.shadowBlur=10;c.lineWidth=2.4;c.stroke();c.shadowBlur=0;c.lineWidth=1;
+  c.font="10px 'JetBrains Mono',monospace";c.fillStyle=zel(al);c.fillText(q.stoit?'⛔':Math.round(q.progress)+'%',p.x,p.y+3.5);
+  c.font="600 11px 'Chakra Petch',sans-serif";c.fillText(kor(q.name,30),p.x,p.y-r-8)});
+ c.font="11px 'JetBrains Mono',monospace";
+}
+// мышь: тянуть — повернуть, колесо — ближе, наведение — подсказка, нажатие — позвать навык
+const oNaid=(x,y)=>{let best=null,bd=196;for(const I of O.isl){if(!I.p)continue;const dd=(I.p.x-x)**2+(I.p.y-y)**2;if(dd<bd){bd=dd;best=I}}return best};
+O.cv.addEventListener('pointerdown',e=>{O.drag={x:e.clientX,y:e.clientY,az:O.az,el:O.el,moved:0};O.cv.setPointerCapture(e.pointerId);O.cv.classList.add('tyanu')});
+O.cv.addEventListener('pointermove',e=>{const r=O.cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+ if(O.drag){const dx=e.clientX-O.drag.x,dy=e.clientY-O.drag.y;if(Math.abs(dx)+Math.abs(dy)>4)O.drag.moved=1;O.az=O.drag.az+dx*.006;O.el=Math.max(.12,Math.min(1.25,O.drag.el+dy*.004));O.ruka=performance.now();$('#oTip').hidden=true;return}
+ const I=oNaid(x,y);O.hover=I;O.cv.style.cursor=I?'pointer':'';const tip=$('#oTip');
+ if(!I){tip.hidden=true;return}const n=O.seg[I.name]?.n||0;
+ tip.innerHTML=`<b>${esc(imyaOstr(I))}</b>${esc(I.opis||'')}<small>${I.A.osob?'':esc(I.A.nm)+' · '+esc(I.name)+' · '}${n?`сегодня ${n} ${plur(n,'обращение','обращения','обращений')}`:'сегодня не обращалась'}${I.A.osob?'':' · нажми, чтобы позвать'}</small>`;
+ tip.hidden=false;tip.style.left=Math.min(x+16,r.width-300)+'px';tip.style.top=Math.max(8,y-10)+'px'});
+O.cv.addEventListener('pointerup',e=>{const d=O.drag;O.drag=null;O.cv.classList.remove('tyanu');if(d&&!d.moved&&O.hover&&!O.hover.A.osob)fillQ(`Навык «${imyaOstr(O.hover)}» (${O.hover.name}): `)});
+O.cv.addEventListener('pointerleave',()=>{O.hover=null;$('#oTip').hidden=true});
+O.cv.addEventListener('wheel',e=>{e.preventDefault();O.zoom=Math.max(.6,Math.min(2.2,O.zoom*Math.exp(-e.deltaY*.0012)));O.ruka=performance.now()},{passive:false});
+
+/* вики и пульт: команды Claude Code, наши навыки и механики */
+let wiki=null,wf='all';
+function setView(v){$('#vDnev').hidden=v!=='dnev';if(v==='dnev')loadDnev();$('#tDnev').classList.toggle('on',v==='dnev');$('#vMap').hidden=v!=='map';$('#vWiki').hidden=v!=='wiki';$('#vIst').hidden=v!=='ist';$('#vZnayu').hidden=v!=='znayu';$('#vOstr').hidden=v!=='ostr';$('#vZdor').hidden=v!=='zdor';if(v==='zdor')loadZdor();if(v==='znayu')loadZnayu();ostrVkl(v==='ostr');
+ $('#tMap').classList.toggle('on',v==='map');$('#tWiki').classList.toggle('on',v==='wiki');$('#tIst').classList.toggle('on',v==='ist');$('#tOstr').classList.toggle('on',v==='ostr');$('#tZdor').classList.toggle('on',v==='zdor');
+ if(v!=='map'&&edit)setEdit(false);
+ try{localStorage.setItem('dzh-view',v)}catch{};if(v==='wiki'&&!wiki)loadWiki();if(v==='ist')loadIst(istDen);window.scrollTo(0,0)}
+/* дневник: реплики идут не мне в работу, а спутнику «Мудрому» (мост → dnevnik.mjs) */
+let dnev={msgs:[],idet:false,dumaet:false,zap:[],zapIdet:false};
+const dnevView=()=>!$('#vDnev').hidden;
+/* мост дневник → «Знаю о тебе»: после разговора спутник предлагает «запомнить?», пишется только «Да» */
+const zapBlok=()=>dnev.zap.length?`<div class="dzap"><b>Запомнить о тебе?</b><small>Это ляжет в «Знаю о тебе». Без твоего «да» ничего не запишу.</small>${dnev.zap.map(z=>`<div class="dzs"><span>${esc(z.chto)}<small>${esc(z.razdel)}</small></span><button class="chipf" data-zap="${esc(z.id)}" data-da="1">Да</button><button class="chipf" data-zap="${esc(z.id)}">Нет</button></div>`).join('')}</div>`:dnev.zapIdet?'<div class="dpust">Спутник перечитывает разговор и сейчас предложит, что запомнить о тебе…</div>':'';
+let dnevT;
+function renderDnev(){const L=$('#dLog');const m=dnev.msgs;
+ setHTML(L,zapBlok()+(m.length?m.map(x=>`<div class="dm ${x.role==='user'?'ty':'ch'}"><small>${x.role==='user'?'ты':'спутник'} · ${hm(x.at)}</small>${esc(x.content)}</div>`).join(''):'<div class="dpust">Здесь можно побыть с собой. Нажми «Начать» — спутник откроет разговор. Или просто начни говорить сам.</div>')+(dnev.dumaet?'<div class="dm ch dum">спутник слушает и думает…</div>':''));
+ $('#dNach').hidden=dnev.idet;$('#dKon').hidden=!dnev.idet;window.scrollTo(0,document.body.scrollHeight)}
+async function loadDnev(){try{const s=await (await fetch('/api/dnevnik')).json();dnev={...dnev,msgs:s.msgs,idet:s.idet,zap:s.zapomnit||[],zapIdet:!!s.zapiskaIdet}}catch{$('#dSub').textContent='Мост не отвечает.'}renderDnev()
+ clearTimeout(dnevT);if(dnev.zapIdet&&dnevView())dnevT=setTimeout(loadDnev,8000)} // записка пишется ~минуту — ждём строки «запомнить?»
+$('#dLog').addEventListener('click',async e=>{const b=e.target.closest('[data-zap]');if(!b)return;b.parentNode.querySelectorAll('button').forEach(x=>x.disabled=true);const da=b.dataset.da==='1';
+ const r=await post('/dnevnik',{zapomnit:b.dataset.zap,da}).catch(()=>({ok:false}));
+ $('#hint').textContent=!r.ok?'Не вышло: '+(r.error||'мост не отвечает'):!da?'Хорошо, это не запоминаю.':r.zapisano?`Запомнила: «${r.razdel}» в «Знаю о тебе».`:'Это я уже знала.';
+ await loadDnev();if(da&&r.ok)loadState().catch(()=>{})});
+async function dnevPost(o,mine){if(dnev.dumaet)return;if(mine){dnev.msgs.push({role:'user',content:mine,at:Date.now()});dnev.idet=true}dnev.dumaet=true;renderDnev();
+ let r;try{r=await post('/dnevnik',o)}catch{r={ok:false,error:'мост не отвечает'}}dnev.dumaet=false;
+ if(r.ok&&r.reply){dnev.msgs.push({role:'assistant',content:r.reply,at:Date.now()});dnev.idet=true;speak(r.reply)}
+ else if(!r.ok){$('#hint').textContent='Спутник не ответил: '+(r.error||'')+(mine?' Твои слова сохранены — отправь что-нибудь ещё или подожди.':'')}
+ renderDnev()}
+$('#dNach').onclick=()=>dnevPost({});
+$('#dKon').onclick=async()=>{const r=await post('/dnevnik',{konec:1}).catch(()=>({ok:false}));if(!r.ok){$('#hint').textContent='Не закрылось: '+(r.error||'мост не отвечает');return}
+ dnev={...dnev,msgs:[],idet:false,dumaet:false};$('#hint').textContent=r.zapiska?'Разговор лёг в дневник. Спутник запомнит главное к следующему разу и спросит, что записать о тебе.':'Разговор закрыт.';loadDnev()};
+$('#tDnev').onclick=()=>setView('dnev');
+$('#tMap').onclick=()=>setView('map');$('#tOstr').onclick=()=>setView('ostr');$('#tWiki').onclick=()=>setView('wiki');$('#tIst').onclick=()=>setView('ist');$('#tZdor').onclick=()=>setView('zdor');$('#zNow').onclick=()=>loadZdor(true);$('#bIst').onclick=()=>setView('ist');
+
+/* история работы: переписка, действия и ★-решения летописца по дням */
+let istDen='';
+const dnya=t=>{const d=new Date(t),p=n=>String(n).padStart(2,'0');return`${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`};
+const tmS=t=>new Date(t).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+const plur=(n,a,b,c)=>{const m=n%10,k=n%100;return m===1&&k!==11?a:m>=2&&m<=4&&(k<12||k>14)?b:c};
+// Здоровье репо: свод сторожей с моста (/api/zdorove, кэш 10 мин; «Проверить заново» — свежий прогон ~15 с)
+const Z_IMYA={ok:'всё в порядке',warn:'есть что подправить',bad:'есть поломка'}
+async function loadZdor(svezhiy){
+ if(svezhiy||!$('#zBody').children.length)$('#zBody').innerHTML='<div class="empty" style="padding:30px 0">опрашиваю сторожей…</div>'
+ let d;try{d=await (await fetch('/api/zdorove'+(svezhiy?'?svezhiy=1':''))).json()}catch(e){d={error:e.message}}
+ if(d.net){$('#zBody').innerHTML='<div class="empty" style="padding:30px 0">В этой копии сторожей репо нет — страница для владельца системы.</div>';return}
+ if(d.error){$('#zBody').innerHTML='<div class="empty" style="padding:30px 0">Не получилось: '+esc(d.error)+'</div>';return}
+ $('#zKogda').textContent='проверено '+d.kogda+' · '+d.sek+' с · в порядке '+d.schet.ok+' · подправить '+d.schet.warn+' · поломок '+d.schet.bad
+ let h='<div class="zsv"><i class="z-'+d.svetofor+'"></i>'+Z_IMYA[d.svetofor]+'</div>'
+ if(d.slomano.length)h+='<div class="zslom"><b>Сломано сейчас</b><br>'+d.slomano.map(esc).join('<br>')+'</div>'
+ for(const s of d.sekcii){h+='<div class="zsek">'+esc(s.imya)+'</div>'
+  for(const r of s.stroki){const det=[...r.detali,r.komanda?'▶ '+r.komanda:''].filter(Boolean)
+   h+='<details class="zr"><summary><i class="z-'+r.status+'"></i><span>'+esc(r.imya)+'</span><div>'+esc(r.svodka)+'</div></summary>'+(det.length?'<pre>'+esc(det.join('\n'))+'</pre>':'')+'</details>'}}
+ $('#zBody').innerHTML=h}
+async function loadIst(d){if(!$('#iBody').children.length||d!==istDen)$('#iBody').innerHTML='<div class="empty" style="padding:30px 0">собираю день…</div>';
+ try{const r=await (await fetch('/api/istoriya'+(d?'?den='+d:''))).json();if(!r.dni)throw 0;istDen=r.den;renderIst(r)}
+ catch{$('#iBody').innerHTML='<div class="empty" style="padding:30px 0">Мост не отдал историю: старый мост? Перезапусти Джинни ярлыком.</div>'}}
+function renderIst(r){const seg=dnya(Date.now()),s=r.sobytiya,c={ty:0,ya:0,hod:0,resh:0};s.forEach(e=>{if(c[e.vid]!=null)c[e.vid]++});
+ $('#iDni').innerHTML=r.dni.map(d=>`<button class="chipf${d===r.den?' on':''}" data-den="${d}">${d.slice(8)}.${d.slice(5,7)}${d===seg?' · сегодня':''}</button>`).join('');
+ let h=`<div class="isum">твоих сообщений ${c.ty} · моих ответов ${c.ya} · действий ${c.hod} · ★ решений ${c.resh}</div>`,grp=[];
+ const flush=()=>{if(!grp.length)return;const n=grp.length;
+  h+=`<details class="ig"><summary><b>${tmS(grp[0].at)}</b><span>⚙ ${n} ${plur(n,'действие','действия','действий')}${n>1?' · до '+tmS(grp.at(-1).at):''}</span></summary><div class="igl">${grp.map(g=>`<div class="hl"><b>${tm(g.at)}</b><span>${esc(g.text)}</span></div>`).join('')}</div></details>`;grp=[]};
+ for(const e of s){if(e.vid==='hod'){grp.push(e);continue}if(e.vid==='konec')continue;flush();
+  const lab={ty:'ты',ya:'Джинни',resh:'★ решение · летописец'}[e.vid],long=(e.text||'').length>420;
+  h+=`<div class="it ${e.vid}"><b>${tmS(e.at)}</b><div><i>${lab}</i><span${long?' class="clamp" title="Нажми, чтобы раскрыть"':''}>${esc(e.text)}</span>${mFiles(e.files)}</div></div>`}
+ flush();if(!s.length)h+='<div class="empty" style="padding:20px 0">В этот день записей нет.</div>';
+ $('#iBody').innerHTML=h;if(r.den===seg)window.scrollTo(0,document.body.scrollHeight)} // сегодня — сразу к свежему
+$('#iDni').onclick=e=>{const b=e.target.closest('[data-den]');if(b)loadIst(b.dataset.den)};
+$('#iBody').onclick=e=>{const cl=e.target.closest('.clamp');if(cl)cl.classList.toggle('open')};
+$('#iHod').onchange=e=>$('#iBody').classList.toggle('nohod',!e.target.checked);
+$('#iNow').onclick=()=>loadIst(istDen);
+const grp=(arr,key,last)=>{const m=new Map();for(const x of arr){const k=x[key]||last;if(!m.has(k))m.set(k,[]);m.get(k).push(x)}return[...m].sort((a,b)=>(a[0]===last)-(b[0]===last))};
+const lo=(...a)=>esc(a.filter(Boolean).join(' ').toLowerCase());
+const ROD={'память':'📖 память области','исполнитель':'🛠 исполнитель','взгляд':'🎭 взгляд'};
+function buildWiki(w){
+ const VID={send:['отправит сразу',''],fill:['начнёт в поле',''],nazhat:['впишет в терминал','nz']};
+ const act=d=>d.vid==='send'?`data-send="${esc(d.text)}"`:d.vid==='fill'?`data-fill="${esc(d.text)}"`:`data-press="${esc(d.text)}"`;
+ const codex=providerState.provider==='codex',spr=w.spravka||[];
+ let h=spr.length?`<section class="wsec" data-s="spr"><h2>Как это устроено<small>${spr.length}</small></h2><p class="note">Коротко о Claude и Джинни: память разговора, лимиты, модели, что умеет окно. «Спросить Джинни» — разберёмся на твоём примере.</p>`+
+  grp(spr,'razdel','Прочее').map(([r,a])=>`<div class="wgrp"><h3>${esc(r)}</h3><div class="wgrid">${a.map(k=>`<div class="card" data-q="${lo(k.t,k.tekst,k.razdel)}"><div class="t" style="font-family:inherit;color:var(--ink)">${esc(k.t)}</div><p>${esc(k.tekst)}</p>${k.sprosit?`<div class="acts"><button class="wb" data-fill="${esc(k.sprosit)}" title="Вопрос встанет в поле внизу — отправишь сам">Спросить Джинни</button></div>`:''}</div>`).join('')}</div></div>`).join('')+'</section>':'';
+ h+=`<section class="wsec" data-s="pult"><h2>Пульт Джинни<small>${w.deystviya.length}</small></h2><p class="note">Частые дела одной кнопкой. «Отправит сразу» — просьба уходит мне; «начнёт в поле» — допиши своё и отправь.</p>`+
+  grp(w.deystviya,'razdel','Прочее').map(([r,a])=>`<div class="wgrp"><h3>${esc(r)}</h3><div class="pult">${a.map(d=>`<button class="pb" data-q="${lo(d.name,d.chto)}" ${act(d)}><i class="${VID[d.vid][1]}">${VID[d.vid][0]}</i><b>${esc(d.name)}</b><span>${esc(d.chto)}</span></button>`).join('')}</div></div>`).join('')+'</section>';
+ h+=`<section class="wsec" data-s="kom"><h2>Команды ${codex?'Codex':'Claude Code'}<small>${w.komandy.length}</small></h2><p class="note">${codex?'Вход и очередь управляются кнопками над картой. Просьбы пиши обычным текстом в поле внизу.':'Эти команды принимает только терминал Claude Code. «Скопировать» кладёт команду в буфер: вставь в терминал и нажми Enter. Пример под командой тоже копируется щелчком. «Нажать в терминале» — впишу сама.'}</p>`+
+  grp(w.komandy,'razdel','Прочее').map(([r,a])=>`<div class="wgrp"><h3>${esc(r)}</h3><div class="wgrid">${a.map(c=>`<div class="card" data-q="${lo(c.cmd,c.alias,c.chto,c.kogda)}"><div class="t">${esc(c.cmd)}${c.alias?`<small>${esc(c.alias)}</small>`:''}</div><p>${esc(c.chto)}</p><p class="k">${esc(c.kogda)}</p>${c.primer&&c.primer!==c.cmd?`<div class="ex" data-copy="${esc(c.primer)}" title="Скопировать пример">${esc(c.primer)}</div>`:''}<div class="acts"><button class="wb" data-copy="${esc(c.cmd)}">Скопировать</button>${c.nazhat?`<button class="wb hot" data-press="${esc(c.cmd)}">Нажать в терминале</button>`:''}</div></div>`).join('')}</div></div>`).join('')+'</section>';
+ h+=`<section class="wsec" data-s="klav"><h2>Клавиши в терминале<small>${w.klavishi.length}</small></h2><div class="wgrp"><div class="kk">${w.klavishi.map(k=>`<div data-q="${lo(k.keys,k.chto)}"><kbd>${esc(k.keys)}</kbd><span>${esc(k.chto)}</span></div>`).join('')}</div></div></section>`;
+ h+=`<section class="wsec" data-s="nav"><h2>Наши навыки<small>${w.navyki.length}</small></h2><p class="note">📖 память области — я читаю её перед работой; 🛠 исполнитель — отдаю ему работу; 🎭 взгляд — мнение со своей позиции. «Позвать» начинает просьбу в поле: допиши, что нужно.</p>`+
+  grp(w.navyki,'arh','Без архипелага').map(([r,a])=>`<div class="wgrp"><h3>${esc(r)}</h3><div class="wgrid">${a.map(n=>`<div class="card" data-q="${lo(n.imya,n.name,n.opis,n.arh,n.rod)}"><div class="t">${n.imya?`<span style="font-family:'Chakra Petch',sans-serif;color:var(--ink)">${esc(n.imya)}</span><small>${esc(n.name)}</small>`:esc(n.name)}${n.rod?`<span class="rod">${ROD[n.rod]||esc(n.rod)}</span>`:''}</div><p class="clamp">${esc(n.opis||'описания нет')}</p><div class="acts"><button class="wb" data-fill="Навык ${n.imya?`«${esc(n.imya)}» (${esc(n.name)})`:esc(n.name)}: ">Позвать</button></div></div>`).join('')}</div></div>`).join('')+'</section>';
+ h+=`<section class="wsec" data-s="meh"><h2>Механики<small>${w.mehaniki.reduce((s,m)=>s+m.n,0).toLocaleString('ru-RU')} приёмов в ${w.mehaniki.length} книгах и практиках</small></h2><p class="note">Книги и практики, разобранные на приёмы. «Взять приём» — назову механику по номеру и применю к твоему делу.</p>`+
+  grp(w.mehaniki,'razdel','Прочее').map(([r,a])=>`<div class="wgrp"><h3>${esc(r)}</h3><div class="wgrid">${a.map(m=>`<div class="card" data-q="${lo(m.name,m.kogda,m.razdel)}"><div class="t" style="font-family:inherit;color:var(--ink)">${esc(m.name)}<small>${m.n} мех.</small></div><p class="k">${esc(m.kogda)}</p><div class="acts"><button class="wb" data-fill="По механикам «${esc(m.name)}»: ">Взять приём</button></div></div>`).join('')}</div></div>`).join('')+'</section>';
+ if(w.oshibka)h=`<div class="empty">${esc(w.oshibka)}</div>`+h;
+ $('#wBody').innerHTML=h;
+ $('#cSpr').textContent=spr.length;$('#cPult').textContent=w.deystviya.length;$('#cKom').textContent=w.komandy.length;$('#cKlav').textContent=w.klavishi.length;$('#cNav').textContent=w.navyki.length;$('#cMeh').textContent=w.mehaniki.length;
+ filterWiki()}
+async function loadWiki(){try{wiki=await (await fetch('/api/wiki')).json();buildWiki(wiki)}catch{$('#wBody').innerHTML='<div class="empty" style="padding:30px 0">Мост не отдал вики: старый мост? Перезапусти Джинни ярлыком.</div>'}}
+function filterWiki(){const q=$('#wq').value.trim().toLowerCase();
+ document.querySelectorAll('#wBody .wsec').forEach(s=>{const onF=wf==='all'||s.dataset.s===wf;let any=false;
+  s.querySelectorAll('.wgrp').forEach(g=>{let n=0;g.querySelectorAll('[data-q]').forEach(el=>{const v=onF&&(!q||el.dataset.q.includes(q));el.hidden=!v;if(v)n++});g.hidden=!n;if(n)any=true});
+  s.hidden=!any})}
+$('#wq').addEventListener('input',filterWiki);
+document.querySelectorAll('.chipf').forEach(b=>b.onclick=()=>{wf=b.dataset.f;document.querySelectorAll('.chipf').forEach(x=>x.classList.toggle('on',x===b));filterWiki()});
+function fillQ(t){const q=$('#q');q.value=t;grow();q.focus();q.setSelectionRange(t.length,t.length);$('#hint').textContent='Допиши, что нужно, и отправь.'}
+$('#vWiki').addEventListener('click',async e=>{
+ const cl=e.target.closest('.clamp');if(cl){cl.classList.toggle('open');return}
+ const b=e.target.closest('[data-send],[data-fill],[data-press],[data-copy]');if(!b)return;
+ if(b.dataset.fill!=null)return fillQ(b.dataset.fill);
+ if(b.dataset.copy!=null){try{await navigator.clipboard.writeText(b.dataset.copy);const t=b.textContent;if(b.classList.contains('wb')){b.textContent='Скопировано ✓';b.classList.add('ok');setTimeout(()=>{b.textContent=t;b.classList.remove('ok')},1600)}$('#hint').textContent=`«${b.dataset.copy}» в буфере: вставь в терминал Claude Code и нажми Enter.`}catch{$('#hint').textContent='Буфер обмена не дался — выдели команду и скопируй вручную.'}return}
+ // кнопка сама не отправляет — текст встаёт в поле, дальше решает человек
+ if(b.dataset.send!=null){fillQ(b.dataset.send);$('#hint').textContent='Вопрос в поле внизу: отправь Enter или сотри.';return}
+ if(b.dataset.press!=null){b.disabled=true;try{const r=await post('/press',{cmd:b.dataset.press});$('#hint').textContent=r.ok?`Вписала ${b.dataset.press} в терминал сессии.`:'Не нажалось: '+(r.error||'мост не ответил')}catch{$('#hint').textContent='Не нажалось: мост не отвечает (старый мост? перезапусти ярлыком).'}b.disabled=false}
+});
+try{const v=localStorage.getItem('dzh-view');if(v==='wiki'||v==='ist'||v==='ostr'||v==='zdor')setView(v)}catch{}
+
+/* ядро */
+const cv=$('#core'),cx=cv.getContext('2d');const PN=1000,pr=Array.from({length:PN},()=>[Math.random(),Math.random(),Math.random()]);let rgb=[0,229,255],level=.25;
+const hex=h=>{const n=parseInt(h.slice(1),16);return[(n>>16)&255,(n>>8)&255,n&255]};
+// ядро на 60 кадрах ело почти ядро процессора, ноутбук тормозил. Покой — 20 кадров,
+// дело — 40; окно не в фокусе — 8 и 15; свёрнуто или ядро не видно — не рисуем.
+function fpsNado(spokoy){if(document.hidden)return 0;const f=document.hasFocus();return spokoy?(f?20:8):(f?40:15)}
+function frame(ts){requestAnimationFrame(frame);
+ const fps=fpsNado(phase==='idle'||phase==='stop');if(!fps||!cv.offsetParent||ts-(frame.l||0)<1000/fps-2)return;frame.l=ts;
+ const t=ts/1000,w=cv.clientWidth,h=cv.clientHeight,d=Math.min(devicePixelRatio||1,2);
+ if(w&&h){if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d)}
+ const c=cx;c.setTransform(d,0,0,d,0,0);c.clearRect(0,0,w,h);const tg=hex(PH[phase][1]);for(let i=0;i<3;i++)rgb[i]+=(tg[i]-rgb[i])*.06;
+ const[r,g,b]=rgb.map(Math.round),col=a=>`rgba(${r},${g},${b},${Math.max(0,Math.min(1,a)).toFixed(3)})`;
+ level+=(({idle:.25,think:.7,work:.85,speak:1,ask:.6,stop:.12})[phase]-level)*.05;const X=w/2,Y=h/2,R=Math.min(w,h)*.33;
+ const gr=c.createRadialGradient(X,Y,R*.5,X,Y,R*1.6);gr.addColorStop(0,col(.16*(.6+level)));gr.addColorStop(1,col(0));c.fillStyle=gr;c.fillRect(0,0,w,h);
+ c.lineWidth=1;for(let i=0;i<22;i++){c.strokeStyle=col(.04+.06*(.5+.5*Math.sin(i*1.3+t*(.5+level))));c.beginPath();c.arc(X,Y,R*(.16+i*.03),0,7);c.stroke()}
+ for(let k=0;k<3;k++){c.strokeStyle=col(.25+.4*level);c.lineWidth=k?1:2;const st=t*(.2+level*1.3)*(k%2?-1:1)+k*2.1;c.beginPath();c.arc(X,Y,R*(.8-k*.08),st,st+Math.PI*(.35+.2*k));c.stroke()}
+ c.save();c.translate(X,Y);c.rotate(t*.04);c.lineWidth=1;for(let i=0;i<120;i++){const a=i/120*Math.PI*2,lg=i%10==0;c.strokeStyle=col(lg?.55:.2);c.beginPath();c.moveTo(Math.cos(a)*R*1.22,Math.sin(a)*R*1.22);c.lineTo(Math.cos(a)*R*(lg?1.31:1.26),Math.sin(a)*R*(lg?1.31:1.26));c.stroke()}c.restore();
+ c.lineWidth=R*.1;c.strokeStyle=col(.22+.15*level);c.shadowColor=col(.9);c.shadowBlur=R*.3;c.beginPath();c.arc(X,Y,R,0,7);c.stroke();c.shadowBlur=0;
+ c.globalCompositeOperation='lighter';for(let i=0;i<PN;i++){const p=pr[i],a=p[0]*Math.PI*2+t*.03,nz=Math.sin(a*3+t*.7)*.5+Math.sin(a*7-t*1.1)*.3+Math.sin(a*13+t*1.9)*.2,sp=(p[1]-.5)*R*.16,rr=R+sp+Math.max(0,nz)*R*(.05+.14*level)*p[2];c.fillStyle=col(.2+.65*p[2]*(1-Math.abs(sp)/(R*.1)));c.fillRect(X+Math.cos(a)*rr,Y+Math.sin(a)*rr,p[2]<.85?1:1.8,p[2]<.85?1:1.8)}
+ c.globalCompositeOperation='source-over';c.lineWidth=1.2;c.strokeStyle=col(.85);c.beginPath();c.arc(X,Y,R*.94,0,7);c.stroke();
+ if(level>.4){c.beginPath();for(let i=0;i<=90;i++){const x=X-R*.55+i*(R*1.1/90),y=Y+Math.sin(i*.45+t*7)*Math.sin(i/90*Math.PI)*R*.13*level*Math.sin(t*2.7+i*.08);i?c.lineTo(x,y):c.moveTo(x,y)}c.strokeStyle=col(.8);c.lineWidth=1.5;c.stroke()}}}
+requestAnimationFrame(frame);
+
+/* отзывы разработчикам: только в клиентской сборке; при первом запуске — вопрос о согласии */
+const VID={zapusk:'запуск',etap:'этап знакомства',navyk:'новый навык',oshibka:'ошибка',trudnost:'трудность',soglasie:'согласие'};
+const vremya=t=>new Date(t).toLocaleString('ru-RU',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+async function loadOtz(open){
+ let o;try{o=await (await fetch('/api/otzyvy')).json()}catch{return}
+ if(!o.vkl)return;$('#bOtz').hidden=false;renderOtz(o);if(open||o.soglasie===null)$('#otz').classList.add('open')}
+function renderOtz(o){
+ const pro='<p>Джинни молодая, и разработчикам важно знать, где она спотыкается. Если согласишься, раз в день Джинни будет отправлять только события: запуск, пройденные этапы знакомства, имена новых навыков, ошибки. Твои тексты, файлы и то, что ты рассказываешь о себе, не уходят.</p><p>Отчёт с твоими словами уходит, только когда ты сам скажешь «да» и увидишь его текст.</p>';
+ const kn=o.soglasie===true?'<div class="obtn"><b>Помогаешь улучшать Джинни.</b><button class="hb" data-otz="0">Выключить</button></div>'
+  :'<div class="obtn">'+(o.soglasie===false?'<b>Сейчас выключено.</b>':'')+'<button class="hb go" data-otz="1">Да, помогать</button>'+(o.soglasie===null?'<button class="hb" data-otz="0">Нет</button>':'')+'</div>';
+ const och=o.ochered.length?o.ochered.slice().reverse().map(s=>`<div class="orow"><small>${esc(vremya(s.at))}</small>${esc(VID[s.vid]||s.vid)}${s.chto?': '+esc(s.chto):''}</div>`).join(''):'<div class="orow">Пусто.</div>';
+ const otv=o.otvety.length?o.otvety.slice().reverse().map(a=>`<div class="orow"><small>${esc(vremya(a.at))}</small>${esc(a.text)}</div>`).join(''):'<div class="orow">Пока нет.</div>';
+ $('#otzB').innerHTML=pro+kn+'<h4>Ответы разработчиков</h4>'+otv+'<h4>Что уйдёт со следующей отправкой</h4>'+och+(o.bylo?`<p style="opacity:.6;margin-top:10px">Последняя отправка: ${esc(vremya(o.bylo))}</p>`:'')}
+$('#otzB').addEventListener('click',async e=>{const b=e.target.closest('[data-otz]');if(!b)return;renderOtz(await post('/otzyvy/soglasie',{da:b.dataset.otz==='1'}))});
+$('#bOtz').onclick=()=>loadOtz(true);$('#bOtzX').onclick=()=>$('#otz').classList.remove('open');
+loadOtz(false);
+
+/* «Поддержка проекта „Джинни“»: только у владельца проекта. Отчёты людей — текст (esc), в сессию сами не уходят */
+let podId='';
+async function podGet(id){try{return await (await fetch('/api/podderzhka'+(id?'?id='+id:''))).json()}catch{return {vkl:false}}}
+async function podSpisok(){
+ podId='';$('#bPodNazad').hidden=true;const d=await podGet();
+ if(!d.vkl)return;if(!d.ok){$('#podB').innerHTML='<p>Приёмник отзывов не ответил. Связь с сервером?</p>';return}
+ $('#podB').innerHTML=d.kopii.length?'<p>Копии Джинни у людей. Нажми на копию, чтобы прочитать и ответить.</p>'+d.kopii.map(k=>`<div class="orow kop" data-id="${esc(k.id)}"><small>${esc(vremya(k.byl))}</small><b>${esc(k.id.slice(0,6))}</b> · v${esc(k.versiya||'?')} · этап: ${esc(k.etap||'—')} · отчётов ${k.otchetov}, ошибок ${k.oshibok}, ответов ${k.otvetov}${k.poslednij?'\n«'+esc(k.poslednij.text.slice(0,160))+'»':''}</div>`).join(''):'<p>Пока ни одной копии не отозвалось.</p>'}
+async function podKopiya(id){
+ podId=id;$('#bPodNazad').hidden=false;const d=await podGet(id);if(!d.ok){$('#podB').innerHTML='<p>Копия не нашлась.</p>';return}
+ const sp=(a,f)=>a.length?a.slice().reverse().map(f).join(''):'<div class="orow">Нет.</div>';
+ $('#podB').innerHTML=`<p><b>${esc(id)}</b> · v${esc(d.versiya||'?')} · с ${esc(vremya(d.at))}, был ${esc(vremya(d.byl))}</p>`
+  +'<h4>Отчёты</h4>'+sp(d.otchety,o=>`<div class="orow"><small>${esc(vremya(o.at))}</small>${esc(o.text)}${o.kontekst?'\n— '+esc(o.kontekst):''}</div>`)
+  +'<h4>Ответить</h4><textarea id="podTxt" placeholder="Ответ придёт человеку в переписку Джинни"></textarea><div class="obtn"><button class="hb go" id="podSend">Отправить</button><span id="podSt"></span></div>'
+  +'<h4>Мои ответы</h4>'+sp(d.otvety,o=>`<div class="orow"><small>${esc(vremya(o.at))}</small>${esc(o.text)}</div>`)
+  +'<h4>События</h4>'+sp(d.sobytiya.slice(-80),s=>`<div class="orow"><small>${esc(vremya(s.at))}</small>${esc(VID[s.vid]||s.vid)}${s.chto?': '+esc(s.chto):''}</div>`)}
+$('#podB').addEventListener('click',async e=>{
+ const k=e.target.closest('.kop');if(k)return podKopiya(k.dataset.id);
+ if(e.target.id==='podSend'){const t=$('#podTxt').value.trim();if(!t)return;$('#podSt').textContent='отправляю…';
+  const r=await post('/podderzhka/otvet',{id:podId,text:t}).catch(()=>({}));if(r.ok)podKopiya(podId);else $('#podSt').textContent='не ушло'}});
+$('#bPod').onclick=()=>{$('#pod').classList.add('open');podSpisok()};$('#bPodX').onclick=()=>$('#pod').classList.remove('open');$('#bPodNazad').onclick=podSpisok;
+podGet().then(d=>{if(d.vkl)$('#bPod').hidden=false});
+</script>
+<script src="/slukh_okno.js"></script>
+<script src="/vidzhety.js"></script>
+</body>
+</html>

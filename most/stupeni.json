@@ -1,0 +1,17 @@
+{
+  "_zachem": "Что на какой ступени. ЧЕРНОВИК до решения владельца продукта (таблица 31.10.2026). Ступени: otkryto / registraciya / kluch.",
+  "vozmozhnosti": {
+    "okno":            { "stupen": "otkryto",      "t": "Окно Джинни и связь с Claude" },
+    "znakomstvo":      { "stupen": "otkryto",      "t": "Знакомство и память" },
+    "spravka":         { "stupen": "otkryto",      "t": "Справка «Как это устроено»" },
+    "proverka_chuzhogo": { "stupen": "otkryto",    "t": "Проверка чужого кода" },
+    "obnovleniya":     { "stupen": "registraciya", "t": "Обновления Джинни" },
+    "slukh":           { "stupen": "registraciya", "t": "Слух: говоришь — текст появляется" },
+    "vidzhety":        { "stupen": "registraciya", "t": "Виджеты и страницы" },
+    "podderzhka":      { "stupen": "registraciya", "t": "Поддержка и ответы разработчиков" },
+    "golos":           { "stupen": "registraciya", "t": "Голос Джинни" },
+    "neshkola":        { "stupen": "kluch",        "t": "неШкола неВозможного" },
+    "prodazhi":        { "stupen": "kluch",        "t": "Модуль продаж" },
+    "nabory_vidzhetov": { "stupen": "kluch",       "t": "Готовые наборы виджетов под дело" }
+  }
+}

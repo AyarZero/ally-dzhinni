@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>AllY · Запуск</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #05070b;
+    color: #dbe4ee;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    user-select: none;
+    cursor: pointer;
+  }
+  .stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 45%, #0c131d 0%, #05070b 75%);
+  }
+  video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: transparent;
+  }
+  #fallback {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  #fallback.on {
+    display: flex;
+  }
+  .hud {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    pointer-events: none;
+    font-size: 12px;
+    color: rgba(219, 228, 238, 0.7);
+  }
+  #hint {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  }
+  .skip {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(15, 22, 32, 0.65);
+    border: 1px solid rgba(130, 165, 210, 0.25);
+    color: rgba(219, 228, 238, 0.82);
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(0.96); opacity: 0.86; }
+    50% { transform: scale(1.03); opacity: 1; }
+  }
+  .orb-svg {
+    width: 96px;
+    height: 96px;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+</style>
+</head>
+<body>
+<div class="stage" id="stage" title="Нажмите, чтобы пропустить заставку">
+  <video id="introVideo" src="./ally-intro-flow-enhanced-full.webm" autoplay playsinline preload="auto"></video>
+  <div id="fallback" aria-hidden="true">
+    <svg class="orb-svg" viewBox="0 0 120 120" fill="none">
+      <defs>
+        <radialGradient id="g1" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#8ec5ff" stop-opacity="0.95"/>
+          <stop offset="55%" stop-color="#3b82f6" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#0b1220" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="52" fill="url(#g1)"/>
+      <circle cx="50" cy="60" r="24" stroke="#93c5fd" stroke-opacity="0.7" stroke-width="1.6"/>
+      <circle cx="70" cy="60" r="24" stroke="#60a5fa" stroke-opacity="0.7" stroke-width="1.6"/>
+    </svg>
+  </div>
+  <div class="hud">
+    <div id="hint">Запускаю AllY…</div>
+    <div class="skip">Пропустить — клик или Esc</div>
+  </div>
+</div>
+<script>
+(() => {
+  window.__allyIntroMode = true
+  window.__allyIntroDone = false
+  const video = document.getElementById('introVideo')
+  const fallback = document.getElementById('fallback')
+  const hint = document.getElementById('hint')
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  let finished = false
+  let startedPlaying = false
+
+  function finish() {
+    if (finished) return
+    finished = true
+    window.__allyIntroDone = true
+    try { video.pause() } catch {}
+  }
+
+  function showFallback(reason) {
+    if (fallback.classList.contains('on')) return
+    video.style.display = 'none'
+    fallback.classList.add('on')
+    if (reason && hint) hint.textContent = reason
+    setTimeout(finish, 1100)
+  }
+
+  if (reduced) {
+    showFallback('Запускаю AllY…')
+    finish()
+    return
+  }
+
+  video.addEventListener('playing', () => { startedPlaying = true })
+  video.addEventListener('ended', finish)
+  video.addEventListener('error', () => showFallback('Подготавливаю окно…'))
+
+  window.addEventListener('click', finish)
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault()
+      finish()
+    }
+  })
+
+  const tryPlay = async () => {
+    try {
+      await video.play()
+      startedPlaying = true
+    } catch {
+      try {
+        video.muted = true
+        await video.play()
+        startedPlaying = true
+      } catch {
+        showFallback('Загружаю интерфейс…')
+      }
+    }
+  }
+  tryPlay()
+
+  setTimeout(() => {
+    if (!startedPlaying && !finished) showFallback('Загружаю интерфейс…')
+  }, 3200)
+})()
+</script>
+</body>
+</html>

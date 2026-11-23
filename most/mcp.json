@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "dzhinni": {
+      "command": "node",
+      "args": [
+        "most/server.mjs"
+      ],
+      "env": {
+        "DZHINNI_OTZYVY": "https://app.ayar.pro/dzhinni"
+      }
+    }
+  }
+}

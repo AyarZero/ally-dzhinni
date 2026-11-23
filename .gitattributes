@@ -1,0 +1,12 @@
+# Windows-файлы держим с CRLF: .bat с LF ломается, PowerShell 5.1 капризничает
+*.bat  text eol=crlf
+*.ps1  text eol=crlf
+*.cmd  text eol=crlf
+* text=auto
+*.ico binary
+*.png binary
+*.onnx binary
+*.exe binary
+*.webm binary
+*.mp4 binary
+*.pdf binary

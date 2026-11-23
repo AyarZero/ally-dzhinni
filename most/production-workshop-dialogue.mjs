@@ -1,0 +1,7 @@
+// Источник переписки остаётся общим журналом Джинни. Здесь только выборка по квитанциям.
+import {createReadStream} from 'node:fs';
+import {createInterface} from 'node:readline';
+import {join} from 'node:path';
+import {readProductionConsistent} from './production-store.mjs';
+export function selectWorkshopDialogue(rows,ids){const wanted=new Set(ids);return rows.filter(r=>r.who==='ty'&&(wanted.has(r.messageId)||wanted.has('msg_'+String(r.clientMessageId||'').replaceAll('-','')))||r.who==='ya'&&Array.isArray(r.replyTo)&&r.replyTo.some(id=>wanted.has(id)));}
+export async function workshopDialogue(repo,here,unit){const project=await readProductionConsistent(repo,unit),ids=Object.values(project.store?.projects||{}).flatMap(p=>(p.doc.workshop?.requests||[]).map(r=>r.messageId||'msg_'+r.id.replaceAll('-','')));if(!ids.length)return{chat:[]};const file=process.env.DZHINNI_HISTORY||join(here,'.istoriya.jsonl'),stream=createReadStream(file,{encoding:'utf8'});const lines=createInterface({input:stream,crlfDelay:Infinity}),kept=[];let bytes=0;try{for await(const line of lines){let row;try{row=JSON.parse(line)}catch{continue}if(selectWorkshopDialogue([row],ids).length){bytes+=line.length;if(bytes>3_000_000)throw Object.assign(Error('Переписка проекта больше 3 МБ. Продолжи в общем чате.'),{status:413});kept.push(row)}}return{chat:kept}}catch(e){if(e.code==='ENOENT')return{chat:[]};throw e}finally{lines.close();stream.destroy()}}

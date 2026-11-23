@@ -1,0 +1,16 @@
+{
+  "name": "dzhinni",
+  "productName": "AllY",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AllY — окно приложения (Electron), внутри помощница Джинни. Мост — ../most/server.mjs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "sobrat": "node sobrat.mjs"
+  },
+  "devDependencies": {
+    "electron": "44.8.0",
+    "rcedit": "4.0.1"
+  }
+}

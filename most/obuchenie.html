@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Обучение · AllY</title>
+<link rel="stylesheet" href="/obuchenie.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="back-ally" href="/" id="backAlly" title="Вернуться в AllY">← AllY</a>
+  <div class="crumbs" id="crumbs">Обучение</div>
+  <div class="topbar-right"><span id="topProgress"></span></div>
+</header>
+<main id="app">
+  <section id="library" class="library">
+    <div class="library-head">
+      <h1>Обучение</h1>
+      <p>Курсы и практика — в своём темпе.</p>
+    </div>
+    <div class="catalog-tools">
+      <label for="courseFilter">Найти курс</label>
+      <div class="catalog-search"><input id="courseFilter" type="search" placeholder="Название, автор или направление" autocomplete="off"><button type="button" id="courseReset" disabled>Сбросить</button></div>
+      <p id="courseCount" role="status"></p>
+    </div>
+    <div id="courseCards" class="cards"></div>
+  </section>
+  <section id="course" class="course" hidden>
+    <aside class="sidebar">
+      <button class="back-lib" id="backLib">← Все курсы</button>
+      <div class="side-title" id="sideTitle"></div>
+      <div class="progress"><div class="bar"><i id="bar"></i></div><span id="progressText"></span></div>
+      <input id="lessonFilter" placeholder="Найти урок…" autocomplete="off" aria-label="Поиск урока">
+      <nav id="lessonList" class="lesson-list" aria-label="Уроки курса"></nav>
+    </aside>
+    <article class="reader">
+      <div class="reader-bar">
+        <div class="lesson-meta" id="lessonMeta"></div>
+        <div class="reader-actions">
+          <button id="prevLesson" title="Предыдущий урок" aria-label="Предыдущий урок">←</button>
+          <button id="nextLesson" title="Следующий урок" aria-label="Следующий урок">→</button>
+          <button id="markDone" class="primary" aria-pressed="false">Пройден</button>
+        </div>
+      </div>
+      <div class="tabs" role="tablist">
+        <button type="button" data-tab="lesson" class="on" role="tab" aria-selected="true">Урок</button>
+        <button type="button" data-tab="prompts" role="tab" aria-selected="false">Промты <span id="nPrompts"></span></button>
+        <button type="button" data-tab="tasks" role="tab" aria-selected="false">Задания <span id="nTasks"></span></button>
+        <button type="button" data-tab="notes" role="tab" aria-selected="false">Пометки <span id="nNotes"></span></button>
+      </div>
+      <div id="lessonPane" class="pane lesson-pane"></div>
+      <div id="promptsPane" class="pane" hidden></div>
+      <div id="tasksPane" class="pane" hidden></div>
+      <div id="notesPane" class="pane" hidden></div>
+    </article>
+  </section>
+</main>
+<div id="lightbox" class="lightbox" hidden><img alt="Скриншот урока"><button id="lightboxClose" aria-label="Закрыть">×</button></div>
+<script src="/obuchenie.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Подключить телефон — Джинни</title><link rel="stylesheet" href="/mobile.css"></head>
+<body><main class="connect"><h1>Джинни на телефоне</h1><p>На телефоне будет та же переписка. Ноутбук должен оставаться включённым.</p>
+<section class="card"><h2>Подключить по QR-коду</h2><p>Наведи камеру телефона на код и нажми «Открыть Джинни».</p>
+<img id="qrImage" alt="QR-код подключения телефона" width="280" height="280" style="max-width:100%;height:auto;background:white;padding:12px;border-radius:12px" hidden>
+<p id="status" role="status">Готовлю QR-код…</p><button id="create">Обновить QR-код</button>
+<details><summary>Подключить без камеры</summary><textarea id="link" readonly aria-label="Одноразовая ссылка подключения"></textarea><button id="copy" class="quiet">Скопировать ссылку</button></details><p id="message" role="status"></p></section>
+<p><a id="apkLink" href="/mobile/app.apk">Скачать приложение для Android</a></p>
+<details class="card"><summary>Управление устройствами</summary><p>Если телефон потерян, отключи выданные подключения.</p><button id="revoke" class="quiet">Отключить все телефоны</button></details>
+</main><script src="/mobile-connect.js"></script></body></html>
