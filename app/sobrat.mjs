@@ -1,7 +1,7 @@
 // Собирает программу «AllY» (Джинни — помощница внутри; имя exe и папки прежние): Electron из node_modules → %LOCALAPPDATA%\Dzhinni\programma,
 // electron.exe → Dzhinni.exe со своим значком и именем (его видят Касперский и диспетчер задач),
 // наш код — в resources\app. Запуск: node sobrat.mjs (после npm install).
-import { cp, mkdir, rename, rm, copyFile, access } from 'node:fs/promises'
+import { cp, mkdir, rename, rm, copyFile, access, readFile } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import rceditMod from 'rcedit'
@@ -23,6 +23,8 @@ await rename(join(VYHOD, 'electron.exe'), EXE)
 const APP = join(VYHOD, 'resources', 'app')
 await mkdir(APP, { recursive: true })
 for (const f of KOD) await copyFile(join(HERE, f), join(APP, f))
+const pkg = JSON.parse(await readFile(join(HERE, 'package.json'), 'utf8'))
+const appVersion = String(pkg.version || '0.1.0').trim()
 await rcedit(EXE, {
   icon: join(HERE, 'dzhinni.ico'),
   'version-string': {
@@ -32,7 +34,7 @@ await rcedit(EXE, {
     OriginalFilename: 'Dzhinni.exe',
     CompanyName: 'AllY',
   },
-  'file-version': '0.1.0',
-  'product-version': '0.1.0',
+  'file-version': appVersion,
+  'product-version': appVersion,
 })
 console.log('собрано:', EXE)

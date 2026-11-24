@@ -12,8 +12,8 @@ using System.Windows.Forms;
 [assembly: AssemblyTitle("AllY")]
 [assembly: AssemblyDescription("AllY · Джинни — локальный клиент")]
 [assembly: AssemblyProduct("AllY · Джинни")]
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.1.1.0")]
+[assembly: AssemblyFileVersion("0.1.1.0")]
 
 namespace AllYLaunchers
 {

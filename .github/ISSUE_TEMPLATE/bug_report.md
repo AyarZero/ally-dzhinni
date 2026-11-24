@@ -7,7 +7,7 @@ labels: bug
 
 > Совет: о проблеме можно также написать прямо из окна AllY через кнопку с жучком («Обратная связь») в правой части шапки.
 
-**Версия AllY / AllY version:** v0.1
+**Версия AllY / AllY version:** v0.1.1
 **Операционная система / Windows version:** Windows 10 / Windows 11
 **Версии окружения / Environment:**
 - `node -v`:

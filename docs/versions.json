@@ -1,8 +1,173 @@
 {
-  "current": "0.1",
+  "current": "0.1.1",
   "birthday": "2026-11-23",
   "license": "MIT",
   "releases": [
+    {
+      "version": "v0.1.1",
+      "date": "2026-11-24",
+      "status": "released",
+      "ru": {
+        "title": "AllY · Джинни v0.1.1 — тихий колокольчик в заставке и единая фиксация версий",
+        "summary": "Обновлён звук стартовой заставки приложения и выстроена единая система фиксации версий (SemVer) между окном, лаунчерами, справочником и GitHub Releases.",
+        "added": [
+          "Заменена звуковая дорожка стартовой заставки: один мягкий удар медитационного колокольчика в момент схождения кругов (0,78 с) с плавным рассеиванием и сниженной громкостью (пик −15 дБ вместо −0,7 дБ).",
+          "Внедрена единая фиксация версий по SemVer (0.1.1): синхронизированы метаданные окна, лаунчеров AllY.exe / AllY-Guide.exe, конфигурации клиента, CHANGELOG.md и 16-язычного свода версий."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Мгновенное завершение фонового моста при закрытии окна и полный серверный приём вложений обратной связи."
+      },
+      "en": {
+        "title": "AllY · Genie v0.1.1 — calm bell intro sound & unified version tracking",
+        "summary": "Updated the startup intro audio and established unified SemVer version tracking across the desktop window, native launchers, guide archive, and GitHub Releases.",
+        "added": [
+          "Replaced the startup intro soundtrack with a single soft meditation-bell chime at the moment the two rings meet (0.78 s), fading out smoothly at comfortable loudness (−15 dB peak instead of −0.7 dB).",
+          "Unified SemVer (0.1.1) tracking across the Electron build, AllY.exe / AllY-Guide.exe launchers, client config, CHANGELOG.md, and the 16-language version history."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Instant background bridge shutdown on window close and full server-side media attachment handling in feedback."
+      },
+      "zh-CN": {
+        "title": "AllY · 精灵 v0.1.1 — 柔和启动钟声与统一版本记录",
+        "summary": "更新了启动动画音效，并在桌面窗口、原生启动器、16 语指南与 GitHub Releases 之间建立统一的 SemVer 版本管理。",
+        "added": [
+          "更换启动动画音轨：在双环交汇瞬间（0.78 秒）响起一声柔和的冥想钟声并自然消散，峰值音量从 −0.7 dB 降至更舒适的 −15 dB。",
+          "建立统一的 SemVer（0.1.1）版本同步机制：窗口可执行文件、AllY.exe / AllY-Guide.exe 启动器、客户端配置、CHANGELOG.md 与 16 种语言版本记录保持一致。"
+        ],
+        "knownLimits": [],
+        "nextFocus": "关闭窗口时立即终止后台桥接进程，并完善反馈附件的服务端接收。"
+      },
+      "uk": {
+        "title": "AllY · Джинні v0.1.1 — тихий дзвіночок у заставці та єдина фіксація версій",
+        "summary": "Оновлено звук стартової заставки та налаштовано єдину систему фіксації версій (SemVer) між вікном, лаунчерами, довідником і GitHub Releases.",
+        "added": [
+          "Замінено звукову доріжку стартової заставки: один м’який удар медитаційного дзвіночка в момент сходження кіл (0,78 с) із плавним згасанням та комфортною гучністю (пік −15 дБ замість −0,7 дБ).",
+          "Впроваджено єдину фіксацію версій за SemVer (0.1.1): синхронізовано метадані вікна, лаунчерів AllY.exe / AllY-Guide.exe, конфігурацію клієнта, CHANGELOG.md і 16-мовний звід версій."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Миттєве завершення фонового мосту при закритті вікна та повне серверне приймання вкладень зворотного зв’язку."
+      },
+      "vi": {
+        "title": "AllY · Djinni v0.1.1 — tiếng chuông dịu lúc mở đầu và đồng bộ phiên bản",
+        "summary": "Cập nhật âm thanh màn hình khởi động và thiết lập quy trình theo dõi phiên bản SemVer thống nhất giữa cửa sổ ứng dụng, trình khởi chạy, tài liệu và GitHub Releases.",
+        "added": [
+          "Thay đổi âm thanh video mở đầu thành một tiếng chuông thiền nhẹ đúng khoảnh khắc hai vòng tròn giao nhau (0,78 giây), ngân tan dần với mức đỉnh giảm từ −0,7 dB xuống −15 dB.",
+          "Áp dụng đồng bộ phiên bản SemVer (0.1.1) cho bản dựng Electron, AllY.exe / AllY-Guide.exe, cấu hình ứng dụng, CHANGELOG.md và lịch sử phiên bản 16 ngôn ngữ."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Tắt ngay cầu nối nền khi đóng cửa sổ và hoàn thiện xử lý tệp đính kèm phản hồi trên máy chủ."
+      },
+      "hi": {
+        "title": "AllY · जिन्नी v0.1.1 — शांत घंटी की ध्वनि और एकीकृत संस्करण ट्रैकिंग",
+        "summary": "स्टार्टअप इंट्रो वीडियो की ध्वनि बदली गई और डेस्कटॉप विंडो, नेटिव लॉन्चर, गाइड व GitHub Releases के बीच एकीकृत SemVer संस्करण प्रणाली लागू की गई।",
+        "added": [
+          "स्टार्टअप इंट्रो की आवाज़ को दोनों वृत्तों के मिलने के क्षण (0.78 सेकंड) पर एक कोमल ध्यान घंटी की गूँज से बदला गया, जो −0.7 dB के बजाय −15 dB पीक पर धीरे-धीरे शांत होती है।",
+          "Electron बिल्ड, AllY.exe / AllY-Guide.exe, क्लाइंट कॉन्फ़िग, CHANGELOG.md और 16-भाषा संस्करण इतिहास में एकीकृत SemVer (0.1.1) सिंक्रनाइज़ेशन लागू किया गया।"
+        ],
+        "knownLimits": [],
+        "nextFocus": "विंडो बंद होने पर बैकग्राउंड ब्रिज का तुरंत बंद होना और फ़ीडबैक अटैचमेंट का पूर्ण सर्वर समर्थन।"
+      },
+      "ja": {
+        "title": "AllY · ジンニー v0.1.1 — 穏やかな起動ベル音と統一バージョン管理",
+        "summary": "起動イントロの音声を更新し、デスクトップ画面、ネイティブランチャー、16言語ガイド、GitHub Releases間でSemVerバージョン管理を統一しました。",
+        "added": [
+          "起動イントロの音声を、2つの円が重なる瞬間（0.78秒）に鳴る穏やかな瞑想ベルの一打へ差し替え、ピーク音量を −0.7 dB から −15 dB へ抑えて自然に減衰させました。",
+          "Electronビルド、AllY.exe / AllY-Guide.exe、クライアント設定、CHANGELOG.md、16言語の更新履歴全体で SemVer（0.1.1）を統一管理するようにしました。"
+        ],
+        "knownLimits": [],
+        "nextFocus": "ウィンドウ終了時のブリッジ即時停止とフィードバック添付ファイルのサーバー受信完了。"
+      },
+      "de": {
+        "title": "AllY · Dschinni v0.1.1 — Sanfter Glockenton im Intro & einheitliche Versionierung",
+        "summary": "Der Startton des Intros wurde erneuert und eine durchgängige SemVer-Versionierung zwischen Fenster, Launchern, Handbuch und GitHub Releases eingerichtet.",
+        "added": [
+          "Neue Tonspur für das Startvideo: ein sanfter Meditationsglocken-Klang genau beim Zusammentreffen der beiden Ringe (0,78 s) mit weichem Ausklang bei angenehmer Lautstärke (−15 dB Peak statt −0,7 dB).",
+          "Einheitliche SemVer-Pflege (0.1.1) für Electron-Build, AllY.exe / AllY-Guide.exe, Client-Konfiguration, CHANGELOG.md und das 16-sprachige Versionsarchiv."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Sofortiges Beenden der Hintergrund-Bridge beim Schließen des Fensters und vollständige Annahme von Feedback-Anhängen auf dem Server."
+      },
+      "fr": {
+        "title": "AllY · Джинни v0.1.1 — Son de cloche apaisé au démarrage et suivi unifié des versions",
+        "summary": "Le son de l’animation de démarrage a été adouci et un suivi SemVer unifié relie désormais l’application, les lanceurs, le guide et les GitHub Releases.",
+        "added": [
+          "Remplacement de la piste sonore d’introduction par une note douce de cloche de méditation au croisement des deux cercles (0,78 s), avec extinction progressive et volume réduit (−15 dB crête au lieu de −0,7 dB).",
+          "Synchronisation SemVer (0.1.1) entre le build Electron, AllY.exe / AllY-Guide.exe, la configuration client, CHANGELOG.md et l’historique en 16 langues."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Arrêt immédiat du pont en arrière-plan à la fermeture et réception serveur complète des pièces jointes de retour."
+      },
+      "he": {
+        "title": "AllY · ג'יני v0.1.1 — צליל פעמון רגוע בפתיחה וניהול גרסאות אחיד",
+        "summary": "צליל אנימציית הפתיחה עודכן והוטמע מעקב גרסאות SemVer אחיד בין חלון היישום, קובצי ההפעלה, המדריך ו-GitHub Releases.",
+        "added": [
+          "פסקול הפתיחה הוחלף בצלצול פעמון מדיטציה רך ברגע המפגש של שני המעגלים (0.78 שניות), עם דעיכה הדרגתית ועוצמה נוחה (−15 dB שיא במקום −0.7 dB).",
+          "סונכרנו מספרי גרסת SemVer (0.1.1) בין בניית Electron,‏ AllY.exe / AllY-Guide.exe, הגדרות הלקוח, CHANGELOG.md וארכיון הגרסאות ב-16 שפות."
+        ],
+        "knownLimits": [],
+        "nextFocus": "כיבוי מיידי של הגשר ברקע בעת סגירת החלון וטיפול מלא בקבצים מצורפים למשוב בצד השרת."
+      },
+      "ar": {
+        "title": "AllY · جيني v0.1.1 — صوت جرس هادئ في شاشة البدء وتوثيق موحّد للإصدارات",
+        "summary": "تم تحديث صوت شاشة البدء وتوحيد تتبع الإصدارات وفق SemVer بين نافذة التطبيق والمُشغِّلات والدليل وإصدارات GitHub.",
+        "added": [
+          "استبدال المسار الصوتي لشاشة البدء بضربة جرس تأمل هادئة عند التقاء الدائرتين (0.78 ثانية) مع تلاشي تدريجي ومستوى صوت مريح (ذروة −15 dB بدلاً من −0.7 dB).",
+          "توحيد ترقيم SemVer (0.1.1) عبر حزمة Electron ومُشغِّلات AllY.exe / AllY-Guide.exe وإعدادات العميل وملف CHANGELOG.md وسجل الإصدارات بـ 16 لغة."
+        ],
+        "knownLimits": [],
+        "nextFocus": "إيقاف فوري للجسر الخلفي عند إغلاق النافذة واستقبال كامل لمرفقات الملاحظات على الخادم."
+      },
+      "es": {
+        "title": "AllY · Genie v0.1.1 — Campana suave en la intro y control unificado de versiones",
+        "summary": "Se actualizó el audio de la animación de inicio y se unificó el registro de versiones SemVer entre la ventana, los lanzadores, la guía y GitHub Releases.",
+        "added": [
+          "Nueva pista de audio para la intro: un toque suave de campana de meditación justo al unirse los dos círculos (0,78 s), con desvanecimiento gradual y volumen cómodo (pico de −15 dB en lugar de −0,7 dB).",
+          "Sincronización SemVer (0.1.1) entre la compilación Electron, AllY.exe / AllY-Guide.exe, la configuración del cliente, CHANGELOG.md y el historial en 16 idiomas."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Cierre instantáneo del puente en segundo plano al salir y recepción completa de adjuntos en el servidor."
+      },
+      "pt-BR": {
+        "title": "AllY · Genie v0.1.1 — Sino suave na abertura e controle unificado de versões",
+        "summary": "O áudio da animação inicial foi suavizado e o versionamento SemVer foi unificado entre a janela, os executáveis, o guia e os GitHub Releases.",
+        "added": [
+          "Faixa de áudio da abertura substituída por um toque suave de sino de meditação no encontro dos dois círculos (0,78 s), com decaimento gradual e volume confortável (pico de −15 dB em vez de −0,7 dB).",
+          "Rastreamento unificado em SemVer (0.1.1) entre o pacote Electron, AllY.exe / AllY-Guide.exe, configuração do cliente, CHANGELOG.md e histórico em 16 idiomas."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Encerramento imediato da ponte em segundo plano ao fechar a janela e recebimento completo de anexos no servidor."
+      },
+      "ko": {
+        "title": "AllY · 지니 v0.1.1 — 잔잔한 인트로 종소리와 통합 버전 관리",
+        "summary": "시작 인트로의 사운드를 다듬고 데스크톱 창, 실행기, 16개 언어 가이드 및 GitHub Releases 전반에 통일된 SemVer 버전 관리를 적용했습니다.",
+        "added": [
+          "시작 영상 오디오를 두 원이 만나는 순간(0.78초)에 울리는 부드러운 명상 종소리로 교체하여 자연스럽게 퍼지며 사라지도록 하고 최대 음량을 −0.7 dB에서 −15 dB로 낮췄습니다.",
+          "Electron 빌드, AllY.exe / AllY-Guide.exe, 클라이언트 설정, CHANGELOG.md 및 16개 언어 버전 기록에 통합 SemVer(0.1.1) 관리를 적용했습니다."
+        ],
+        "knownLimits": [],
+        "nextFocus": "창 종료 시 백그라운드 브리지 즉시 종료 및 피드백 첨부 파일의 서버 수신 완료."
+      },
+      "tr": {
+        "title": "AllY · Genie v0.1.1 — Yumuşak açılış çanı ve birleşik sürüm takibi",
+        "summary": "Açılış animasyonunun sesi güncellendi ve masaüstü penceresi, başlatıcılar, rehber ile GitHub Releases arasında birleşik SemVer sürüm takibi kuruldu.",
+        "added": [
+          "Açılış videosunun sesi, iki halkanın birleştiği anda (0,78 sn) çalan yumuşak bir meditasyon çanı vuruşu ve kademeli sönümleme ile değiştirildi; tepe ses düzeyi −0,7 dB yerine −15 dB'ye düşürüldü.",
+          "Electron derlemesi, AllY.exe / AllY-Guide.exe başlatıcıları, istemci yapılandırması, CHANGELOG.md ve 16 dilli sürüm geçmişi arasında birleşik SemVer (0.1.1) senkronizasyonu sağlandı."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Pencere kapatıldığında arka plan köprüsünün anında durdurulması ve geri bildirim eklerinin tam sunucu alımı."
+      },
+      "id": {
+        "title": "AllY · Jin v0.1.1 — Suara lonceng lembut di pembuka dan pencatatan versi terpadu",
+        "summary": "Audio layar pembuka diperbarui dan pelacakan versi SemVer disatukan di jendela aplikasi, peluncur asli, panduan 16 bahasa, dan GitHub Releases.",
+        "added": [
+          "Audio video pembuka diganti menjadi satu ketukan lonceng meditasi lembut tepat saat dua lingkaran bertemu (0,78 dtk) dengan pudar perlahan dan volume lebih nyaman (puncak −15 dB, turun dari −0,7 dB).",
+          "Sinkronisasi SemVer (0.1.1) diterapkan pada build Electron, AllY.exe / AllY-Guide.exe, konfigurasi klien, CHANGELOG.md, dan riwayat versi 16 bahasa."
+        ],
+        "knownLimits": [],
+        "nextFocus": "Penghentian seketika jembatan latar saat jendela ditutup dan penanganan lampiran umpan balik penuh di server."
+      }
+    },
     {
       "version": "v0.1",
       "date": "2026-11-23",

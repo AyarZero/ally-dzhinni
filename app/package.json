@@ -2,7 +2,7 @@
   "name": "dzhinni",
   "productName": "AllY",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AllY — окно приложения (Electron), внутри помощница Джинни. Мост — ../most/server.mjs",
   "main": "main.js",
   "scripts": {

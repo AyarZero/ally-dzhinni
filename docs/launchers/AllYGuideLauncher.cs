@@ -8,8 +8,8 @@ using System.Windows.Forms;
 [assembly: AssemblyTitle("AllY Guide")]
 [assembly: AssemblyDescription("AllY · Джинни — интерактивный свод версий и документация")]
 [assembly: AssemblyProduct("AllY · Свод версий")]
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.1.1.0")]
+[assembly: AssemblyFileVersion("0.1.1.0")]
 
 namespace AllYLaunchers
 {

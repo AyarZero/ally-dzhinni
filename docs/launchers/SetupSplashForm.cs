@@ -368,11 +368,12 @@ namespace AllYLaunchers
 
         private void DrawTitleAndBadge(Graphics g, float cx, float y) {
             const string title = "AllY · Джинни";
-            const string badge = "v0.1";
+            const string badge = "v0.1.1";
             using (Font tf = new Font("Segoe UI", 19f, FontStyle.Bold, GraphicsUnit.Pixel))
             using (Font bf = new Font("Consolas", 11.5f, FontStyle.Bold, GraphicsUnit.Pixel)) {
                 SizeF ts = g.MeasureString(title, tf);
-                float badgeW = 40f, left = cx - (ts.Width + 8f + badgeW) * 0.5f;
+                float badgeW = Math.Max(44f, g.MeasureString(badge, bf).Width + 12f);
+                float left = cx - (ts.Width + 8f + badgeW) * 0.5f;
                 using (SolidBrush tb = new SolidBrush(Color.FromArgb(240, 236, 228))) g.DrawString(title, tf, tb, left, y);
                 RectangleF pill = new RectangleF(left + ts.Width + 6f, y + 3f, badgeW, 20f);
                 using (GraphicsPath pp = CreateRoundRect(pill, 9f))

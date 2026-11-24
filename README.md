@@ -1,8 +1,8 @@
 **Языки / Languages:** **Русский** · [English](docs/readme/README.en.md) · [简体中文](docs/readme/README.zh-CN.md) · [Українська](docs/readme/README.uk.md) · [Tiếng Việt](docs/readme/README.vi.md) · [हिन्दी](docs/readme/README.hi.md) · [日本語](docs/readme/README.ja.md) · [Deutsch](docs/readme/README.de.md) · [Français](docs/readme/README.fr.md) · [עברית](docs/readme/README.he.md) · [العربية](docs/readme/README.ar.md) · [Español](docs/readme/README.es.md) · [Português (BR)](docs/readme/README.pt-BR.md) · [한국어](docs/readme/README.ko.md) · [Türkçe](docs/readme/README.tr.md) · [Bahasa Indonesia](docs/readme/README.id.md)
 
-> 📖 **Интерактивный гид и свод версий (16 языков):** [Открыть в браузере (GitHub Pages)](https://ayarzero.github.io/ally-dzhinni/) · `AllY-Guide.exe` · [Обсуждение и отзывы v0.1](https://github.com/AyarZero/ally-dzhinni/discussions/1) · [CHANGELOG.md](CHANGELOG.md)
+> 📖 **Интерактивный гид и свод версий (16 языков):** [Открыть в браузере (GitHub Pages)](https://ayarzero.github.io/ally-dzhinni/) · `AllY-Guide.exe` · [Обсуждение и отзывы](https://github.com/AyarZero/ally-dzhinni/discussions/1) · [CHANGELOG.md](CHANGELOG.md) · [Все релизы](https://github.com/AyarZero/ally-dzhinni/releases)
 
-# AllY · Джинни (v0.1)
+# AllY · Джинни (v0.1.1)
 
 Локальная десктопная оболочка для Windows, объединяющая несколько нейросетей в одном окне с общей историей разговора, локальной памятью на диске, очередью задач и контролем лимитов.
 
@@ -10,11 +10,11 @@
 
 ### Интерфейс в двух темах: «Графит» и «Светлая»
 
-![AllY · Джинни — стартовый экран в теме Графит](docs/screenshots/ally-ui-graphite.png)
+![Стартовый экран AllY · Джинни в теме Графит](docs/screenshots/ally-ui-graphite.png)
 
-![AllY · Джинни — стартовый экран в Светлой теме](docs/screenshots/ally-ui-light.png)
+![Светлая тема интерфейса AllY · Джинни](docs/screenshots/ally-ui-light.png)
 
-![AllY · Джинни — встроенный гид на 16 языках](docs/screenshots/ally-guide-graphite.png)
+![Встроенный 16-язычный гид и свод версий AllY](docs/screenshots/ally-guide-graphite.png)
 
 ---
 

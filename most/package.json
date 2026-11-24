@@ -1,7 +1,7 @@
 {
   "name": "dzhinni-most",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Мост Джинни: окно на ноутбуке <-> сессия Claude Code клиента (канал MCP)",
   "type": "module",
   "engines": {
